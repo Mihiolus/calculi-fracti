@@ -1,3 +1,5 @@
-theme: dinky
+remote_theme: pages-themes/dinky@v0.2.0
 title: 'Calculos Fractos: A Roman fractional calculator'
 description: 'Perform fractional calculations using the system of the ancient Romans'
+plugins:
+- jekyll-remote-theme
