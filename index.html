@@ -45,6 +45,7 @@
         arabicStr = "";
         function store(value) {
             arabicStr += value;
+            convert()
         }
         function convert() {
             if (isNaN(arabicStr))
@@ -58,6 +59,10 @@
             while (i--)
                 roman = (key[+digits.pop() + (i * 10)] || "") + roman;
             document.getElementById("output").value = Array(+digits.join("") + 1).join("M") + roman;
+        }
+        function clr() {
+            document.getElementById("output").value = ""
+            arabicStr = ""
         }
     </script>
 </body>
