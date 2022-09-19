@@ -1,41 +1,65 @@
 <html>
-    <head>
-        <title>Calculos Fractos</title>
-    </head>
-    <body>
-        <h1>Calculos Fractos: A Roman fractional calculator</h1>
-        <a href="https://github.com/Mihiolus/calculos-fractos">Site created and hosted on GitHub</a>
-        <p>You can find out how Romans worked fractions in <a href="https://en.wikipedia.org/wiki/Roman_numerals#Fractions">this Wikipedia article</a>.</p>
 
-        <table id="calc">
-            <tr>
-                <td colspan="3"><input type="text" id="output"></td>
-                <td><input type="button" value="c" /></td>
-            </tr>
-            <tr>
-                <td><input type="button" value=7></td>
-                <td><input type="button" value=8></td>
-                <td><input type="button" value=9></td>
-                <td><input type="button" value=&#247;></td>
-            </tr>
-            <tr>
-                <td><input type="button" value=4></td>
-                <td><input type="button" value=5></td>
-                <td><input type="button" value=6></td>
-                <td><input type="button" value=&#215;></td>
-            </tr>
-            <tr>
-                <td><input type="button" value=1></td>
-                <td><input type="button" value=2></td>
-                <td><input type="button" value=3></td>
-                <td><input type="button" value=&#8722;></td>
-            </tr>
-            <tr>
-                <td><input type="button" value=0></td>
-                <td><input type="button" value=.></td>
-                <td><input type="button" value="="></td>
-                <td><input type="button" value="+"></td>
-            </tr>
-        </table>
-    </body>
+<head>
+    <title>Calculos Fractos</title>
+</head>
+
+<body>
+    <h1>Calculos Fractos: A Roman fractional calculator</h1>
+    <a href="https://github.com/Mihiolus/calculos-fractos">Site created and hosted on GitHub</a>
+    <p>You can find out how Romans worked fractions in <a
+            href="https://en.wikipedia.org/wiki/Roman_numerals#Fractions">this Wikipedia article</a>.</p>
+
+    <table id="calc">
+        <tr>
+            <td colspan="3"><input type="text" id="output"></td>
+            <td><input type="button" value="c" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" value=7 onclick="store('7')"></td>
+            <td><input type="button" value=8 onclick="store('8')"></td>
+            <td><input type="button" value=9 onclick="store('9')"></td>
+            <td><input type="button" value=&#247;></td>
+        </tr>
+        <tr>
+            <td><input type="button" value=4 onclick="store('4')"></td>
+            <td><input type="button" value=5 onclick="store('5')"></td>
+            <td><input type="button" value=6 onclick="store('6')"></td>
+            <td><input type="button" value=&#215;></td>
+        </tr>
+        <tr>
+            <td><input type="button" value=1 onclick="store('1')"></td>
+            <td><input type="button" value=2 onclick="store('2')"></td>
+            <td><input type="button" value=3 onclick="store('3')"></td>
+            <td><input type="button" value=&#8722;></td>
+        </tr>
+        <tr>
+            <td><input type="button" value=0 onclick="store('0')"></td>
+            <td><input type="button" value=.></td>
+            <td><input type="button" value="=" onclick="convert()"></td>
+            <td><input type="button" value="+"></td>
+        </tr>
+    </table>
+
+    <script>
+        arabicStr = "";
+        function store(value) {
+            arabicStr += value;
+        }
+        function convert() {
+            if (isNaN(arabicStr))
+                return NaN;
+            var digits = String(+arabicStr).split(""),
+                key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+                    "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+                    "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+                roman = "",
+                i = 3;
+            while (i--)
+                roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+            document.getElementById("output").value = Array(+digits.join("") + 1).join("M") + roman;
+        }
+    </script>
+</body>
+
 </html>
