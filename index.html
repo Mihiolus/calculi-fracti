@@ -2,6 +2,11 @@
 
 <head>
     <title>Calculi Fracti</title>
+    <style>
+        input[type="button"] {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -10,9 +15,9 @@
     <p>You can find out how Romans worked fractions in <a
             href="https://en.wikipedia.org/wiki/Roman_numerals#Fractions">this Wikipedia article</a>.</p>
 
-    <table id="calc">
+    <table id="calc" style="width:250px;">
         <tr>
-            <td colspan="3" id="output"></td>
+            <td colspan="3" id="output" style="width:100%; text-align:right"></td>
             <td><input type="button" value="c" onclick="clr()"></td>
         </tr>
         <tr>
@@ -41,7 +46,7 @@
         </tr>
     </table>
 
-    <fieldset>
+    <fieldset style="width: 250px;">
         <legend>Style for large numbers:</legend>
 
         <div>
