@@ -41,6 +41,26 @@
         </tr>
     </table>
 
+    <fieldset>
+        <legend>Style for large numbers:</legend>
+
+        <div>
+            <input type="radio" id="apostr" name="large_style" value="apostr">
+            <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
+        </div>
+
+        <div>
+            <input type="radio" id="apostr_tight" name="large_style" value="apostr_tight">
+            <label for="apostr_tight">ↀ ↁ ↂ</label>
+        </div>
+
+        <div>
+            <input type="radio" id="vincul" name="large_style" value="vincul" checked>
+            <label for="vincul" style="position:relative; top: 2px;"><span style="border-top:1px solid;">I</span> <span
+                    style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
+        </div>
+    </fieldset>
+
     <script>
         arabicStr = "";
         function store(value) {
