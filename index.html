@@ -12,7 +12,7 @@
 
     <table id="calc">
         <tr>
-            <td colspan="3"><input type="text" id="output" readonly></td>
+            <td colspan="3" id="output"></td>
             <td><input type="button" value="c" onclick="clr()"></td>
         </tr>
         <tr>
@@ -45,17 +45,17 @@
         <legend>Style for large numbers:</legend>
 
         <div>
-            <input type="radio" id="apostr" name="large_style" value="apostr">
+            <input type="radio" id="apostr" name="large_style" onclick="change_style('apostr')">
             <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
         </div>
 
         <div>
-            <input type="radio" id="apostr_tight" name="large_style" value="apostr_tight">
+            <input type="radio" id="apostr_tight" name="large_style" onclick="change_style('apostr_tight')">
             <label for="apostr_tight">ↀ ↁ ↂ</label>
         </div>
 
         <div>
-            <input type="radio" id="vincul" name="large_style" value="vincul" checked>
+            <input type="radio" id="vincul" name="large_style" onclick="change_style('vincul')" checked>
             <label for="vincul" style="position:relative; top: 2px;"><span style="border-top:1px solid;">I</span> <span
                     style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
         </div>
@@ -63,30 +63,50 @@
 
     <script>
         arabicStr = "";
+        large_lookups = {
+            apostr: {
+                CCIↃↃ: 10000,
+                IↃↃ: 5000,
+                CIↃ: 1000
+            },
+            apostr_tight: {
+                ↂ: 10000,
+                ↁ: 5000,
+                ↀ: 1000
+            },
+            vincul: {
+                '<span style="border-top:1px solid;">X</span>': 10000,
+                '<span style="border-top:1px solid;">V</span>': 5000,
+                '<span style="border-top:1px solid;">I</span>': 1000
+            }
+        }
+        base_lookup = {
+            '\u0110': 500,
+            'C\u0110': 400,
+            C: 100,
+            XC: 90,
+            L: 50,
+            XL: 40,
+            X: 10,
+            IX: 9,
+            V: 5,
+            IV: 4,
+            I: 1,
+            S: 0.5,
+            '\u2059': 5 / 12,
+            '\u00B7': 1 / 12
+        }
+        lookup = { ...large_lookups.vincul, ...base_lookup }
         function store(value) {
             arabicStr += value;
             convert()
         }
+        function change_style(value) {
+            lookup = { ...large_lookups[value], ...base_lookup }
+            convert()
+        }
         function convert() {
-            var lookup = {
-                '\u2180': 1000,
-                'C\u2180': 900,
-                '\u0110': 500,
-                'C\u0110': 400,
-                C: 100,
-                XC: 90,
-                L: 50,
-                XL: 40,
-                X: 10,
-                IX: 9,
-                V: 5,
-                IV: 4,
-                I: 1,
-                S: 0.5,
-                '\u2059': 5 / 12,
-                '\u00B7': 1 / 12
-            },
-                roman = '',
+            var roman = '',
                 i,
                 num = arabicStr;
             for (i in lookup) {
@@ -95,10 +115,10 @@
                     num -= lookup[i];
                 }
             }
-            document.getElementById("output").value = roman;
+            document.getElementById("output").innerHTML = roman;
         }
         function clr() {
-            document.getElementById("output").value = ""
+            document.getElementById("output").innerHTML = ""
             arabicStr = ""
         }
     </script>
