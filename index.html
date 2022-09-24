@@ -6,6 +6,11 @@
         input[type="button"] {
             width: 100%;
         }
+
+        .number_field {
+            width: 100%;
+            text-align: right
+        }
     </style>
     <link rel="icon" href="icon.png">
 </head>
@@ -18,8 +23,22 @@
 
     <table id="calc" style="width:250px;">
         <tr>
-            <td colspan="3" id="output" style="width:100%; text-align:right"></td>
+            <td colspan="4" id="operation_roman" class="number_field"></td>
+        </tr>
+        <tr>
+            <td colspan="4" id="operation_arabic" class="number_field"></td>
+        </tr>
+        <tr>
+            <td colspan="4" id="output_roman" class="number_field"></td>
+        </tr>
+        <tr>
+            <td colspan="4" id="output_arabic" class="number_field"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
             <td><input type="button" value="c" onclick="clr()"></td>
+            <td><input type="button" value="←" onclick="backspace()"></td>
         </tr>
         <tr>
             <td><input type="button" value=7 onclick="store('7')"></td>
@@ -121,11 +140,15 @@
                     num -= lookup[i];
                 }
             }
-            document.getElementById("output").innerHTML = roman;
+            document.getElementById("output_roman").innerHTML = roman;
         }
         function clr() {
-            document.getElementById("output").innerHTML = ""
+            document.getElementById("output_roman").innerHTML = ""
             arabicStr = ""
+        }
+        function backspace() {
+            arabicStr = arabicStr.slice(0, -1);
+            convert()
         }
     </script>
 </body>
