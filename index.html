@@ -145,9 +145,10 @@
             document.getElementById("output_roman").innerHTML = roman;
         }
         function clr() {
-            document.getElementById("output_roman").innerHTML = ""
-            update_arabic_output("")
+            document.getElementById("output_roman").innerHTML = "";
+            update_arabic_output("");
             document.getElementById("expression_arabic").innerHTML = "";
+            document.getElementById("expression_roman").innerHTML = "";
         }
         function backspace() {
             update_arabic_output(arabicOutput.slice(0, -1));
@@ -160,12 +161,17 @@
         function add_operand(value) {
             var expression = document.getElementById("expression_arabic");
             expression.innerHTML += arabicOutput;
+            var roman_expression = document.getElementById("expression_roman");
+            roman_expression.innerHTML += document.getElementById("output_roman").innerHTML;
             expression.innerHTML += value;
+            roman_expression.innerHTML += value;
             update_arabic_output("")
         }
         function solve() {
             var expressionElement = document.getElementById("expression_arabic");
             expressionElement.innerHTML += arabicOutput;
+            var roman_expression = document.getElementById("expression_roman")
+            roman_expression.innerHTML += document.getElementById("output_roman").innerHTML;
             var expression = expressionElement.innerHTML
             expression = expression.replace("−", "-");
             expression = expression.replace("×", "*");
