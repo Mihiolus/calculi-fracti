@@ -45,25 +45,25 @@
             <td><input type="button" value=7 onclick="store('7')"></td>
             <td><input type="button" value=8 onclick="store('8')"></td>
             <td><input type="button" value=9 onclick="store('9')"></td>
-            <td><input type="button" value=&#247;></td>
+            <td><input type="button" value=&#247; onclick="add_operand('/')"></td>
         </tr>
         <tr>
             <td><input type="button" value=4 onclick="store('4')"></td>
             <td><input type="button" value=5 onclick="store('5')"></td>
             <td><input type="button" value=6 onclick="store('6')"></td>
-            <td><input type="button" value=&#215;></td>
+            <td><input type="button" value=&#215; onclick="add_operand('*')"></td>
         </tr>
         <tr>
             <td><input type="button" value=1 onclick="store('1')"></td>
             <td><input type="button" value=2 onclick="store('2')"></td>
             <td><input type="button" value=3 onclick="store('3')"></td>
-            <td><input type="button" value=&#8722;></td>
+            <td><input type="button" value=&#8722; onclick="add_operand('-')"></td>
         </tr>
         <tr>
             <td><input type="button" value=0 onclick="store('0')"></td>
             <td><input type="button" value=. onclick="store('.')"></td>
             <td><input type="button" value="=" onclick="solve()"></td>
-            <td><input type="button" value="+"></td>
+            <td><input type="button" value="+" onclick="add_operand('+')"></td>
         </tr>
     </table>
 
@@ -147,6 +147,7 @@
         function clr() {
             document.getElementById("output_roman").innerHTML = ""
             update_arabic_output("")
+            document.getElementById("expression_arabic").innerHTML = "";
         }
         function backspace() {
             update_arabic_output(arabicOutput.slice(0, -1));
@@ -156,10 +157,17 @@
             arabicOutput = value
             document.getElementById("output_arabic").innerHTML = arabicOutput;
         }
+        function add_operand(value) {
+            var expression = document.getElementById("expression_arabic");
+            expression.innerHTML += arabicOutput;
+            expression.innerHTML += value;
+            update_arabic_output("")
+        }
         function solve() {
             var expression = document.getElementById("expression_arabic");
             expression.innerHTML += arabicOutput;
             update_arabic_output(Function(`'use strict'; return (${expression.innerHTML})`)());
+            convert()
         }
     </script>
 </body>
