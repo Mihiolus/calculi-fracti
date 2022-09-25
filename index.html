@@ -24,10 +24,10 @@
 
     <table id="calc" style="width:250px;">
         <tr>
-            <td colspan="4" id="operation_roman" class="number_field"></td>
+            <td colspan="4" id="expression_roman" class="number_field"></td>
         </tr>
         <tr>
-            <td colspan="4" id="operation_arabic" class="number_field"></td>
+            <td colspan="4" id="expression_arabic" class="number_field"></td>
         </tr>
         <tr>
             <td colspan="4" id="output_roman" class="number_field"></td>
@@ -62,7 +62,7 @@
         <tr>
             <td><input type="button" value=0 onclick="store('0')"></td>
             <td><input type="button" value=. onclick="store('.')"></td>
-            <td><input type="button" value="=" onclick="convert()"></td>
+            <td><input type="button" value="=" onclick="solve()"></td>
             <td><input type="button" value="+"></td>
         </tr>
     </table>
@@ -88,7 +88,7 @@
     </fieldset>
 
     <script>
-        arabicStr = "";
+        arabicOutput = "";
         large_lookups = {
             apostr: {
                 CCIↃↃ: 10000,
@@ -125,7 +125,7 @@
         lookup = { ...large_lookups.vincul, ...base_lookup }
 
         function store(value) {
-            update_arabic_output(arabicStr + value)
+            update_arabic_output(arabicOutput + value)
             convert()
         }
         function change_style(value) {
@@ -135,7 +135,7 @@
         function convert() {
             var roman = '',
                 i,
-                num = arabicStr;
+                num = arabicOutput;
             for (i in lookup) {
                 while (num >= lookup[i]) {
                     roman += i;
@@ -149,12 +149,17 @@
             update_arabic_output("")
         }
         function backspace() {
-            update_arabic_output(arabicStr.slice(0, -1));
+            update_arabic_output(arabicOutput.slice(0, -1));
             convert()
         }
         function update_arabic_output(value) {
-            arabicStr = value
-            document.getElementById("output_arabic").innerHTML = arabicStr;
+            arabicOutput = value
+            document.getElementById("output_arabic").innerHTML = arabicOutput;
+        }
+        function solve() {
+            var expression = document.getElementById("expression_arabic");
+            expression.innerHTML += arabicOutput;
+            update_arabic_output(Function(`'use strict'; return (${expression.innerHTML})`)());
         }
     </script>
 </body>
