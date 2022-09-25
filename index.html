@@ -45,19 +45,19 @@
             <td><input type="button" value=7 onclick="store('7')"></td>
             <td><input type="button" value=8 onclick="store('8')"></td>
             <td><input type="button" value=9 onclick="store('9')"></td>
-            <td><input type="button" value=&#247; onclick="add_operand('/')"></td>
+            <td><input type="button" value=÷ onclick="add_operand('÷')"></td>
         </tr>
         <tr>
             <td><input type="button" value=4 onclick="store('4')"></td>
             <td><input type="button" value=5 onclick="store('5')"></td>
             <td><input type="button" value=6 onclick="store('6')"></td>
-            <td><input type="button" value=&#215; onclick="add_operand('*')"></td>
+            <td><input type="button" value=× onclick="add_operand('×')"></td>
         </tr>
         <tr>
             <td><input type="button" value=1 onclick="store('1')"></td>
             <td><input type="button" value=2 onclick="store('2')"></td>
             <td><input type="button" value=3 onclick="store('3')"></td>
-            <td><input type="button" value=&#8722; onclick="add_operand('-')"></td>
+            <td><input type="button" value=− onclick="add_operand('−')"></td>
         </tr>
         <tr>
             <td><input type="button" value=0 onclick="store('0')"></td>
@@ -164,9 +164,13 @@
             update_arabic_output("")
         }
         function solve() {
-            var expression = document.getElementById("expression_arabic");
-            expression.innerHTML += arabicOutput;
-            update_arabic_output(Function(`'use strict'; return (${expression.innerHTML})`)());
+            var expressionElement = document.getElementById("expression_arabic");
+            expressionElement.innerHTML += arabicOutput;
+            var expression = expressionElement.innerHTML
+            expression = expression.replace("−", "-");
+            expression = expression.replace("×", "*");
+            expression = expression.replace("÷", "/");
+            update_arabic_output(Function(`'use strict'; return (${expression})`)());
             convert()
         }
     </script>
