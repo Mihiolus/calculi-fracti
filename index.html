@@ -168,11 +168,9 @@
             update_arabic_output("")
         }
         function solve() {
-            var expressionElement = document.getElementById("expression_arabic");
-            expressionElement.innerHTML += arabicOutput;
-            var roman_expression = document.getElementById("expression_roman")
-            roman_expression.innerHTML += document.getElementById("output_roman").innerHTML;
-            var expression = expressionElement.innerHTML
+            add_operand('=');
+            var expression = document.getElementById("expression_arabic").innerHTML;
+            expression = expression.slice(0, -1);
             expression = expression.replace("−", "-");
             expression = expression.replace("×", "*");
             expression = expression.replace("÷", "/");
