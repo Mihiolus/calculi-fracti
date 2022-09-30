@@ -5,5 +5,11 @@ input[type="button"] {
 .number_field {
     width: 100%;
     text-align: right;
+    padding: 5px;
+    border: 1px solid;
+    height: 35px;
+}
 
+table{
+    table-layout: fixed;
 }
