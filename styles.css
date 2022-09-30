@@ -1,0 +1,9 @@
+input[type="button"] {
+    width: 100%;
+}
+
+.number_field {
+    width: 100%;
+    text-align: right;
+
+}
