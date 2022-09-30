@@ -89,6 +89,7 @@
 
     <script>
         arabicOutput = "";
+        newInput = false;
         large_lookups = {
             apostr: {
                 CCIↃↃ: 10000,
@@ -125,8 +126,12 @@
         lookup = { ...large_lookups.vincul, ...base_lookup }
 
         function store(value) {
-            update_arabic_output(arabicOutput + value)
-            convert()
+            if (newInput) {
+                clr();
+                newInput = false;
+            }
+            update_arabic_output(arabicOutput + value);
+            convert();
         }
         function change_style(value) {
             lookup = { ...large_lookups[value], ...base_lookup }
@@ -159,6 +164,11 @@
             document.getElementById("output_arabic").innerHTML = arabicOutput;
         }
         function add_operand(value) {
+            if(newInput){
+                var oldOutput = document.getElementById("output_arabic").innerHTML;
+                clr();
+                store(oldOutput);
+            }
             var expression = document.getElementById("expression_arabic");
             expression.innerHTML += arabicOutput;
             var roman_expression = document.getElementById("expression_roman");
@@ -176,6 +186,7 @@
             expression = expression.replace("÷", "/");
             update_arabic_output(Function(`'use strict'; return (${expression})`)());
             convert()
+            newInput = true;
         }
     </script>
 </body>
