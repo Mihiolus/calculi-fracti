@@ -116,6 +116,28 @@
         }
         lookup = { ...large_lookups.vincul, ...base_lookup }
 
+        let calc = document.getElementById("calc");
+        document.addEventListener('keydown', processKey);
+        Array.from(calc.getElementsByTagName("input")).forEach(
+            i => i.addEventListener('keydown', preventEnter)
+        );
+
+        function processKey(event) {
+            if (event.key >= '0' && event.key <= '9' ||
+                event.key == '+' || event.key == '-' ||
+                event.key == '*' || event.key == '/' ||
+                event.key == 'Backspace' || event.key == 'Escape' ||
+                event.key == 'Enter' || event.key == '.') {
+                console.log(event.key);
+            }
+        }
+
+        function preventEnter(event) {
+            if (event.key == "Enter") {
+                event.preventDefault();
+            }
+        }
+
         function store(value) {
             if (newInput) {
                 clr();
@@ -155,7 +177,7 @@
             document.getElementById("output_arabic").innerHTML = arabicOutput;
         }
         function add_operand(value) {
-            if(newInput){
+            if (newInput) {
                 var oldOutput = document.getElementById("output_arabic").innerHTML;
                 clr();
                 store(oldOutput);
