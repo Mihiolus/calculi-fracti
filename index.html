@@ -123,12 +123,18 @@
         );
 
         function processKey(event) {
-            if (event.key >= '0' && event.key <= '9' ||
-                event.key == '+' || event.key == '-' ||
-                event.key == '*' || event.key == '/' ||
-                event.key == 'Backspace' || event.key == 'Escape' ||
-                event.key == 'Enter' || event.key == '.') {
-                console.log(event.key);
+            if (event.key >= '0' && event.key <= '9' || event.key == '.') {
+                store(event.key);
+            } else if (event.key == '+' || event.key == '-' ||
+                event.key == '*' || event.key == '/') {
+                var converted_operand = inverse_convert_operands(event.key);
+                add_operand(converted_operand);
+            } else if (event.key == 'Backspace') {
+                backspace();
+            } else if (event.key == 'Escape') {
+                clr();
+            } else if (event.key == 'Enter') {
+                solve();
             }
         }
 
@@ -194,12 +200,22 @@
             add_operand('=');
             var expression = document.getElementById("expression_arabic").innerHTML;
             expression = expression.slice(0, -1);
-            expression = expression.replace("−", "-");
-            expression = expression.replace("×", "*");
-            expression = expression.replace("÷", "/");
+            expression = convert_operands(expression);
             update_arabic_output(Function(`'use strict'; return (${expression})`)());
             convert()
             newInput = true;
+        }
+        function convert_operands(expression) {
+            expression = expression.replace("−", "-");
+            expression = expression.replace("×", "*");
+            expression = expression.replace("÷", "/");
+            return expression;
+        }
+        function inverse_convert_operands(expression) {
+            expression = expression.replace("-", "−");
+            expression = expression.replace("*", "×");
+            expression = expression.replace("/", "÷");
+            return expression;
         }
     </script>
 </body>
