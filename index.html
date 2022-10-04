@@ -17,13 +17,13 @@
         <tr>
             <td colspan="4" id="expression_roman" class="number_field"></td>
         </tr>
-        <tr>
+        <tr class="arabic_display">
             <td colspan="4" id="expression_arabic" class="number_field"></td>
         </tr>
         <tr>
             <td colspan="4" id="output_roman" class="number_field"></td>
         </tr>
-        <tr>
+        <tr class="arabic_display">
             <td colspan="4" id="output_arabic" class="number_field"></td>
         </tr>
         <tr>
@@ -78,10 +78,14 @@
         </div>
     </fieldset>
 
+    <input type="checkbox" id="show_arabic" onclick="show_arabic()" checked>
+    <label for="show_arabic">Show Arabic fields</label>
+
     <script>
         arabicOutput = "";
         newInput = false;
         hasComma = false;
+        arabicVisible = true;
 
         large_lookups = {
             apostr: {
@@ -232,6 +236,13 @@
             expression = expression.replace("*", "×");
             expression = expression.replace("/", "÷");
             return expression;
+        }
+        function show_arabic() {
+            arabicVisible = !arabicVisible;
+            let arabics = document.getElementsByClassName("arabic_display");
+            for (let i = 0; i < arabics.length; i++) {
+                arabics[i].style.display = arabicVisible ? "" : "none";
+            }
         }
     </script>
 </body>
