@@ -212,9 +212,14 @@
             var expression = document.getElementById("expression_arabic").innerHTML;
             expression = expression.slice(0, -1);
             expression = convert_operands(expression);
-            update_arabic_output(Function(`'use strict'; return (${expression})`)());
+            let result = Function(`'use strict'; return (${expression})`)();
+            result = round(result, 2);
+            update_arabic_output(result);
             convert()
             newInput = true;
+        }
+        function round(number, precision) {
+            return Math.round((number + Number.EPSILON) * Math.pow(10, precision)) / Math.pow(10, precision);
         }
         function convert_operands(expression) {
             expression = expression.replace("−", "-");
