@@ -85,6 +85,7 @@
 
     <script>
         arabicOutput = "";
+        arabicExpression = [];
         newInput = false;
         hasComma = false;
         arabicVisible = true;
@@ -165,23 +166,23 @@
                 }
             }
             update_arabic_output(arabicOutput + value);
-            convert();
+            setRomanOutput(convert(arabicOutput));
         }
         function change_style(value) {
             lookup = { ...large_lookups[value], ...base_lookup }
-            convert()
+            setRomanOutput(convert(arabicOutput));
         }
-        function convert() {
+        function convert(arabic) {
             var roman = '',
                 i,
-                num = arabicOutput;
+                num = arabic;
             for (i in lookup) {
                 while (num >= lookup[i]) {
                     roman += i;
                     num -= lookup[i];
                 }
             }
-            document.getElementById("output_roman").innerHTML = roman;
+            return roman;
         }
         function clr() {
             document.getElementById("output_roman").innerHTML = "";
@@ -192,7 +193,13 @@
         }
         function backspace() {
             update_arabic_output(arabicOutput.slice(0, -1));
-            convert()
+            setRomanOutput(convert(arabicOutput));
+        }
+        function setRomanOutput(value){
+            document.getElementById("output_roman").innerHTML = value;
+        }
+        function setRomanExpression(value){
+            document.getElementById("expression_roman").innerHTML = value;
         }
         function update_arabic_output(value) {
             arabicOutput = value
@@ -221,7 +228,7 @@
             let result = Function(`'use strict'; return (${expression})`)();
             result = round(result, 2);
             update_arabic_output(result);
-            convert()
+            setRomanOutput(convert(arabicOutput));
             newInput = true;
         }
         function round(number, precision) {
