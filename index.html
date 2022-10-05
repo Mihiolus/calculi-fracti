@@ -165,12 +165,32 @@
                     hasComma = true;
                 }
             }
-            update_arabic_output(arabicOutput + value);
+            arabicOutput += value;
+            setArabicOutput(arabicOutput);
             setRomanOutput(convert(arabicOutput));
         }
         function change_style(value) {
             lookup = { ...large_lookups[value], ...base_lookup }
+            updateRomanDisplays();
+        }
+        function updateRomanDisplays() {
             setRomanOutput(convert(arabicOutput));
+            let romanExpression = [];
+            for (var i = 0; i < arabicExpression.length; i++) {
+                if (isNumber(arabicExpression[i])) {
+                    romanExpression.push(convert(arabicExpression[i]));
+                } else {
+                    romanExpression.push(arabicExpression[i]);
+                }
+            }
+            setRomanExpression(romanExpression.join(''));
+        }
+        function updateArabicDisplays() {
+            setArabicOutput(arabicOutput);
+            setArabicExpression(arabicExpression);
+        }
+        function isNumber(string) {
+            return !isNaN(string);
         }
         function convert(arabic) {
             var roman = '',
@@ -185,25 +205,35 @@
             return roman;
         }
         function clr() {
-            document.getElementById("output_roman").innerHTML = "";
-            update_arabic_output("");
+            setRomanOutput("");
+            setRomanExpression("");
+            arabicOutput = "";
+            setArabicOutput("");
             document.getElementById("expression_arabic").innerHTML = "";
-            document.getElementById("expression_roman").innerHTML = "";
             hasComma = false;
+            arabicExpression = [];
         }
         function backspace() {
-            update_arabic_output(arabicOutput.slice(0, -1));
+            arabicOutput = arabicOutput.slice(0, -1);
+            setArabicOutput(arabicOutput);
             setRomanOutput(convert(arabicOutput));
         }
-        function setRomanOutput(value){
+        function setRomanOutput(value) {
             document.getElementById("output_roman").innerHTML = value;
         }
-        function setRomanExpression(value){
+        function setRomanExpression(value) {
             document.getElementById("expression_roman").innerHTML = value;
         }
-        function update_arabic_output(value) {
-            arabicOutput = value
+        function setArabicOutput(value) {
             document.getElementById("output_arabic").innerHTML = arabicOutput;
+        }
+        function setArabicExpression(value) {
+            let expressionElement = document.getElementById("expression_arabic");
+            if (typeof value === "object") {
+                expressionElement.innerHTML = value.join('');
+            } else {
+                expressionElement.innerHTML = value;
+            }
         }
         function add_operand(value) {
             if (newInput) {
@@ -211,23 +241,19 @@
                 clr();
                 store(oldOutput);
             }
-            var expression = document.getElementById("expression_arabic");
-            expression.innerHTML += arabicOutput;
-            var roman_expression = document.getElementById("expression_roman");
-            roman_expression.innerHTML += document.getElementById("output_roman").innerHTML;
-            expression.innerHTML += value;
-            roman_expression.innerHTML += value;
-            update_arabic_output("")
+            arabicExpression.push(arabicOutput);
+            arabicExpression.push(value);
+            arabicOutput = "";
+            updateRomanDisplays();
+            updateArabicDisplays();
             hasComma = false;
         }
         function solve() {
             add_operand('=');
-            var expression = document.getElementById("expression_arabic").innerHTML;
-            expression = expression.slice(0, -1);
-            expression = convert_operands(expression);
-            let result = Function(`'use strict'; return (${expression})`)();
+            let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join('')).slice(0, -1)})`)();
             result = round(result, 2);
-            update_arabic_output(result);
+            arabicOutput = result;
+            setArabicOutput(result);
             setRomanOutput(convert(arabicOutput));
             newInput = true;
         }
