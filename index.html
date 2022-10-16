@@ -154,6 +154,8 @@
         }
         lookup = { ...large_lookups.vincul_with_m, ...base_lookup }
 
+        decimal_places = 6;
+
         let calc = document.getElementById("calc");
         document.addEventListener('keydown', processKey);
         Array.from(calc.getElementsByTagName("input")).forEach(
@@ -391,14 +393,14 @@
         function solve() {
             add_operand('=');
             let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join('')).slice(0, -1)})`)();
-            arabicOutput = round(result, 2);
+            arabicOutput = round(result, decimal_places);
             setArabicOutput(arabicOutput);
             setRomanOutput(convert(result));
             setWordOutput(toWords(result));
             newInput = true;
         }
         function round(number, precision) {
-            return Math.round((number + Number.EPSILON) * Math.pow(10, precision)) / Math.pow(10, precision);
+            return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
         }
         function convert_operands(expression) {
             expression = expression.replace("−", "-");
