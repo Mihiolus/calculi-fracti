@@ -268,6 +268,12 @@
 
         function toWords(arabic) {
             var words = [], i;
+            if (arabic >= 2000) {
+                let thousands = Math.floor(arabic / 1000);
+                words.push(toWords(thousands));
+                words.push("millia");
+                arabic -= thousands * 1000;
+            }
             for (i in word_lookup) {
                 if (arabic >= word_lookup[i]) {
                     words.push(i);
