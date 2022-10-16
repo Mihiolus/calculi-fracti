@@ -17,11 +17,17 @@
         <tr>
             <td colspan="4" id="expression_roman" class="number_field"></td>
         </tr>
+        <tr>
+            <td colspan="4" id="expression_word" class="number_field"></td>
+        </tr>
         <tr class="arabic_display">
             <td colspan="4" id="expression_arabic" class="number_field"></td>
         </tr>
         <tr>
             <td colspan="4" id="output_roman" class="number_field"></td>
+        </tr>
+        <tr>
+            <td colspan="4" id="output_word" class="number_field"></td>
         </tr>
         <tr class="arabic_display">
             <td colspan="4" id="output_arabic" class="number_field"></td>
@@ -177,6 +183,7 @@
             arabicOutput += value;
             setArabicOutput(arabicOutput);
             setRomanOutput(convert(arabicOutput));
+            setWordOutput(toWords(arabicOutput));
         }
         function change_style(value) {
             lookup = { ...large_lookups[value], ...base_lookup }
@@ -213,6 +220,62 @@
             }
             return roman;
         }
+
+        word_lookup = {
+            mille: 1000,
+            nongenta: 900,
+            octingenta: 800,
+            septingenta: 700,
+            sescenta: 600,
+            quingenta: 500,
+            quadringenta: 400,
+            trecenta: 300,
+            ducenta: 200,
+            centum: 100,
+            nonaginta: 90,
+            octoginta: 80,
+            septuaginta: 70,
+            sexaginta: 60,
+            quinquaginta: 50,
+            quadraginta: 40,
+            triginta: 30,
+            viginti: 20,
+            undeviginti: 19,
+            duodeviginti: 18,
+            septendecim: 17,
+            sedecim: 16,
+            quindecim: 15,
+            quattuordecim: 14,
+            tredecim: 13,
+            duodecim: 12,
+            undecim: 11,
+            decem: 10,
+            novem: 9,
+            octo: 8,
+            septem: 7,
+            sex: 6,
+            quinque: 5,
+            quattuor: 4,
+            tria: 3,
+            duo: 2,
+            unum: 1
+        }
+
+        function toWords(arabic) {
+            var words = [], i;
+            for (i in word_lookup) {
+                while (arabic >= word_lookup[i]) {
+                    words.push(i);
+                    arabic -= word_lookup[i];
+                }
+            }
+            return words.join(" ");
+        }
+
+        function setWordOutput(value) {
+            document.getElementById("output_word").innerHTML = value;
+        }
+
         function clr() {
             setRomanOutput("");
             setRomanExpression("");
