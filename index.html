@@ -261,12 +261,24 @@
             unum: 1
         }
 
+        prefixes = {
+            unde: -1,
+            duode: -2
+        }
+
         function toWords(arabic) {
             var words = [], i;
             for (i in word_lookup) {
-                while (arabic >= word_lookup[i]) {
+                if (arabic >= word_lookup[i]) {
                     words.push(i);
                     arabic -= word_lookup[i];
+                } else if (arabic >= 18 && arabic < 98) {
+                    for (j in prefixes) {
+                        if (arabic >= word_lookup[i] + prefixes[j]) {
+                            words.push(j + i);
+                            arabic -= word_lookup[i] + prefixes[j];
+                        }
+                    }
                 }
             }
             return words.join(" ");
