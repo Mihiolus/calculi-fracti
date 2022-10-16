@@ -78,8 +78,14 @@
         </div>
 
         <div>
-            <input type="radio" id="vincul" name="large_style" onclick="change_style('vincul')" checked>
+            <input type="radio" id="vincul" name="large_style" onclick="change_style('vincul')">
             <label for="vincul" style="position:relative; top: 2px;"><span style="border-top:1px solid;">I</span> <span
+                    style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
+        </div>
+
+        <div>
+            <input type="radio" id="vincul_with_m" name="large_style" onclick="change_style('vincul_with_m')" checked>
+            <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
                     style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
         </div>
     </fieldset>
@@ -120,6 +126,14 @@
                 '<span style="border-top:1px solid;">V</span>': 5000,
                 '<span style="border-top:1px solid;">I</span>': 1000,
                 'C<span style="border-top:1px solid;">I</span>': 900
+            },
+            vincul_with_m: {
+                '<span style="border-top:1px solid;">C</span>': 100000,
+                '<span style="border-top:1px solid;">L</span>': 50000,
+                '<span style="border-top:1px solid;">X</span>': 10000,
+                '<span style="border-top:1px solid;">V</span>': 5000,
+                M: 1000,
+                CM: 900
             }
         }
         base_lookup = {
@@ -138,7 +152,7 @@
             '\u2059': 5 / 12,
             '\u00B7': 1 / 12
         }
-        lookup = { ...large_lookups.vincul, ...base_lookup }
+        lookup = { ...large_lookups.vincul_with_m, ...base_lookup }
 
         let calc = document.getElementById("calc");
         document.addEventListener('keydown', processKey);
