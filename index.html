@@ -328,13 +328,13 @@
             for (i in word_lookup_fractions) {
                 if (arabic >= word_lookup_fractions[i]) {
                     fractional.push(i);
-                    arabic -= word_lookup[i];
+                    arabic -= word_lookup_fractions[i];
                 }
             }
 
             if (fractional.length > 0) {
                 if (words.length > 0) {
-                    words.push(" et ");
+                    words.push("et");
                 }
                 words.push(fractional.join(" et "));
             }
