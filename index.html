@@ -17,7 +17,7 @@
         <tr>
             <td colspan="4" id="expression_roman" class="number_field"></td>
         </tr>
-        <tr>
+        <tr class="word_display">
             <td colspan="4" id="expression_word" class="number_field"></td>
         </tr>
         <tr class="arabic_display">
@@ -26,7 +26,7 @@
         <tr>
             <td colspan="4" id="output_roman" class="number_field"></td>
         </tr>
-        <tr>
+        <tr class="word_display">
             <td colspan="4" id="output_word" class="number_field"></td>
         </tr>
         <tr class="arabic_display">
@@ -92,6 +92,8 @@
 
     <input type="checkbox" id="show_arabic" onclick="show_arabic()" checked>
     <label for="show_arabic">Show Arabic fields</label>
+    <input type="checkbox" id="show_word" onclick="show_word()" checked>
+    <label for="show_word">Show word descriptions</label>
 
     <p>N.B.: Only valid Roman numbers are displayed, i.e. greater or equal to 1&frasl;12 or 1 uncia.</p>
 
@@ -101,6 +103,7 @@
         newInput = false;
         hasComma = false;
         arabicVisible = true;
+        wordVisible = true;
 
         large_lookups = {
             apostr: {
@@ -424,6 +427,13 @@
             let arabics = document.getElementsByClassName("arabic_display");
             for (let i = 0; i < arabics.length; i++) {
                 arabics[i].style.display = arabicVisible ? "" : "none";
+            }
+        }
+        function show_word() {
+            wordVisible = !wordVisible;
+            let elements = document.getElementsByClassName("word_display");
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.display = wordVisible ? "" : "none";
             }
         }
     </script>
