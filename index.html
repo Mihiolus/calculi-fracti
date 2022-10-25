@@ -237,6 +237,24 @@
             setArabicOutput(arabicOutput);
             setArabicExpression(arabicExpression);
         }
+        function updateWordDisplays() {
+            setWordOutput(toWords(arabicOutput));
+            if (arabicExpression[1] == "+") {
+                let wordExpression = [];
+                for (var i = 0; i < arabicExpression.length; i++) {
+                    if (isNumber(arabicExpression[i])) {
+                        wordExpression.push(toWords(arabicExpression[i]));
+                    } else {
+                        if (arabicExpression[i] == "+") {
+                            wordExpression.push("et");
+                        } else {
+                            wordExpression.push("sunt");
+                        }
+                    }
+                }
+                setWordExpression(wordExpression.join(" "));
+            }
+        }
         function isNumber(string) {
             return !isNaN(string);
         }
@@ -369,6 +387,7 @@
             setArabicOutput("");
             setArabicExpression("");
             setWordOutput("");
+            setWordExpression("");
             hasComma = false;
             arabicExpression = [];
         }
@@ -394,6 +413,14 @@
                 expressionElement.innerHTML = value;
             }
         }
+        function setWordExpression(value) {
+            let expressionElement = document.getElementById("expression_word");
+            if (typeof value === "object") {
+                expressionElement.innerHTML = value.join('');
+            } else {
+                expressionElement.innerHTML = value;
+            }
+        }
         function add_operand(value) {
             if (newInput) {
                 var oldOutput = document.getElementById("output_arabic").innerHTML;
@@ -405,6 +432,7 @@
             arabicOutput = "";
             updateRomanDisplays();
             updateArabicDisplays();
+            updateWordDisplays();
             hasComma = false;
         }
         function solve() {
