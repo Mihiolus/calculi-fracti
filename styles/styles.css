@@ -12,6 +12,8 @@ input[type="button"] {
 
 table {
     table-layout: fixed;
+    width: 250px;
+    margin: 0 auto;
 }
 
 @font-face {
@@ -21,4 +23,23 @@ table {
 
 body {
     font-family: 'Quivira';
+    width: 650px;
+    margin: auto;
+}
+
+.roman_display {
+    background-color: #f7e2d0;
+}
+
+.arabic_display {
+    background-color:#d0f2d0;
+}
+
+.word_display {
+    background-color: #ded3f5;
+}
+
+h1{
+    margin: 0;
+    padding: 20px;
 }
