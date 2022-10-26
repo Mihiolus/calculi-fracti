@@ -135,7 +135,7 @@ arabicOutput = "";
         }
         function updateWordDisplays() {
             setWordOutput(toWords(arabicOutput));
-            if (arabicExpression[1] == "+") {
+            if (arabicExpression[1] === "+") {
                 let wordExpression = [];
                 for (var i = 0; i < arabicExpression.length; i++) {
                     if (isNumber(arabicExpression[i])) {
