@@ -68,9 +68,9 @@ arabicOutput = "";
 
         decimal_places = 6;
 
-        let calc = document.getElementById("calc");
+        let calc = document.querySelector("#calc");
         document.addEventListener('keydown', processKey);
-        Array.from(calc.getElementsByTagName("input")).forEach(
+        Array.from(calc.querySelectorAll("input")).forEach(
             i => i.addEventListener('keydown', preventEnter)
         );
 
