@@ -5,6 +5,10 @@ hasComma = false;
 arabicVisible = true;
 wordVisible = true;
 
+const minusSign = "−";
+const multiplySign = "×";
+const divideSign = "÷";
+
 large_lookups = {
     apostr: {
         CCCIↃↃↃ: 100000,
@@ -141,31 +145,36 @@ function updateArabicDisplays() {
     setArabicOutput(arabicOutput);
     setArabicExpression(arabicExpression);
 }
+
 function updateWordDisplays() {
     setWordOutput(toWords(arabicOutput));
-    if (arabicExpression[1] === "+") {
-        let wordExpression = [];
-        for (var i = 0; i < arabicExpression.length; i++) {
-            if (isNumber(arabicExpression[i])) {
-                wordExpression.push(toWords(arabicExpression[i]));
-            } else {
-                if (arabicExpression[i] == "+") {
-                    wordExpression.push("et");
-                } else {
-                    wordExpression.push("sunt");
-                }
-            }
-        }
-        setWordExpression(wordExpression.join(" "));
-    }
-}
-function parseMultiplication(arabicExpression) {
+
     let wordExpression = [];
+    switch (arabicExpression[1]) {
+        case "+":
+            parseAddition(wordExpression);
+            break;
+        case minusSign:
+
+            break;
+        case multiplySign:
+            parseMultiplication(wordExpression);
+            break;
+        case divideSign:
+
+            break;
+        default:
+            break;
+    }
+    setWordExpression(wordExpression.join(" "));
+}
+
+function parseAddition(wordExpression) {
     for (var i = 0; i < arabicExpression.length; i++) {
         if (isNumber(arabicExpression[i])) {
             wordExpression.push(toWords(arabicExpression[i]));
         } else {
-            if (arabicExpression[i] == "+") {
+            if (arabicExpression[i] === "+") {
                 wordExpression.push("et");
             } else {
                 wordExpression.push("sunt");
@@ -173,6 +182,21 @@ function parseMultiplication(arabicExpression) {
         }
     }
 }
+
+function parseMultiplication(wordExpression) {
+    for (var i = 0; i < arabicExpression.length; i++) {
+        if (isNumber(arabicExpression[i])) {
+            wordExpression.push(toWords(arabicExpression[i]));
+        } else {
+            if (arabicExpression[i] === multiplySign) {
+                wordExpression.push("multiplicata per");
+            } else {
+                wordExpression.push("fiunt");
+            }
+        }
+    }
+}
+
 function isNumber(string) {
     return !isNaN(string);
 }
