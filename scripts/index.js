@@ -215,14 +215,14 @@ function convert(arabic) {
 
 word_lookup = {
     mille: 1000,
-    nongenta: 900,
-    octingenta: 800,
-    septingenta: 700,
-    sescenta: 600,
-    quingenta: 500,
-    quadringenta: 400,
-    trecenta: 300,
-    ducenta: 200,
+    nongenti: 900,
+    octingenti: 800,
+    septingenti: 700,
+    sescenti: 600,
+    quingenti: 500,
+    quadringenti: 400,
+    trecenti: 300,
+    ducenti: 200,
     centum: 100,
     nonaginta: 90,
     octoginta: 80,
@@ -248,9 +248,9 @@ word_lookup = {
     sex: 6,
     quinque: 5,
     quattuor: 4,
-    tria: 3,
+    tres: 3,
     duo: 2,
-    unum: 1
+    unus: 1
 }
 
 prefixes = {
