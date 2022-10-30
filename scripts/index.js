@@ -1,15 +1,17 @@
-arabicOutput = "";
-arabicExpression = [];
-newInput = false;
-hasComma = false;
-arabicVisible = true;
-wordVisible = true;
+import * as wordLookups from "./word-lookups.js";
+
+var arabicOutput = "";
+var arabicExpression = [];
+var newInput = false;
+var hasComma = false;
+var arabicVisible = true;
+var wordVisible = true;
 
 const minusSign = "−";
 const multiplySign = "×";
 const divideSign = "÷";
 
-large_lookups = {
+var large_lookups = {
     apostr: {
         CCCIↃↃↃ: 100000,
         IↃↃↃ: 50000,
@@ -43,7 +45,7 @@ large_lookups = {
         CM: 900
     }
 }
-base_lookup = {
+var base_lookup = {
     '\u0110': 500,
     'C\u0110': 400,
     C: 100,
@@ -68,7 +70,7 @@ base_lookup = {
     '\u{10194}': 1 / 144,
     Э: 1 / 288
 }
-lookup = { ...large_lookups.vincul_with_m, ...base_lookup }
+var lookup = { ...large_lookups.vincul_with_m, ...base_lookup }
 
 if (localStorage.getItem("large-style")) {
     document.querySelector("#vincul_with_m").checked = false;
@@ -77,7 +79,7 @@ if (localStorage.getItem("large-style")) {
     document.querySelector(`#${storedStyle}`).checked = true;
 }
 
-decimal_places = 6;
+const decimal_places = 6;
 
 let calc = document.querySelector("#calc");
 document.addEventListener('keydown', processKey);
@@ -213,52 +215,12 @@ function convert(arabic) {
     return roman;
 }
 
-word_lookup = {
-    mille: 1000,
-    nongenti: 900,
-    octingenti: 800,
-    septingenti: 700,
-    sescenti: 600,
-    quingenti: 500,
-    quadringenti: 400,
-    trecenti: 300,
-    ducenti: 200,
-    centum: 100,
-    nonaginta: 90,
-    octoginta: 80,
-    septuaginta: 70,
-    sexaginta: 60,
-    quinquaginta: 50,
-    quadraginta: 40,
-    triginta: 30,
-    viginti: 20,
-    undeviginti: 19,
-    duodeviginti: 18,
-    septendecim: 17,
-    sedecim: 16,
-    quindecim: 15,
-    quattuordecim: 14,
-    tredecim: 13,
-    duodecim: 12,
-    undecim: 11,
-    decem: 10,
-    novem: 9,
-    octo: 8,
-    septem: 7,
-    sex: 6,
-    quinque: 5,
-    quattuor: 4,
-    tres: 3,
-    duo: 2,
-    unus: 1
-}
-
-prefixes = {
+var prefixes = {
     unde: -1,
     duode: -2
 }
 
-word_lookup_fractions = {
+var word_lookup_fractions = {
     deunx: 11 / 12,
     dextans: 5 / 6,
     dodrans: 3 / 4,
@@ -280,7 +242,7 @@ word_lookup_fractions = {
     scripulum: 1 / 288
 }
 
-word_lookup_adverbial = {
+var word_lookup_adverbial = {
     millies: 1000,
     centies: 100,
     nonagies: 90,
@@ -314,15 +276,15 @@ function toWords(arabic) {
         words.push("millia");
         arabic -= thousands * 1000;
     }
-    for (i in word_lookup) {
-        if (arabic >= word_lookup[i]) {
+    for (i in wordLookups.integersNominative) {
+        if (arabic >= wordLookups.integersNominative[i]) {
             words.push(i);
-            arabic -= word_lookup[i];
+            arabic -= wordLookups.integersNominative[i];
         } else if (arabic >= 18 && arabic < 98) {
             for (j in prefixes) {
-                if (arabic >= word_lookup[i] + prefixes[j]) {
+                if (arabic >= wordLookups.integersNominative[i] + prefixes[j]) {
                     words.push(j + i);
-                    arabic -= word_lookup[i] + prefixes[j];
+                    arabic -= wordLookups.integersNominative[i] + prefixes[j];
                 }
             }
         }
