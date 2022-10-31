@@ -21,11 +21,28 @@ if (localStorage.getItem("large-style")) {
 
 const decimal_places = 6;
 
-let calc = document.querySelector("#calc");
 document.addEventListener('keydown', processKey);
-Array.from(calc.querySelectorAll("input")).forEach(
+Array.from(document.querySelectorAll("table > input")).forEach(
     i => i.addEventListener('keydown', preventEnter)
 );
+for (let num = 0; num < 10; num++) {
+    document.querySelector(`[id='${num}']`).addEventListener('click', () => store(num));
+}
+document.querySelector("#clr").addEventListener('click', () => clr());
+document.querySelector("#bksp").addEventListener('click', () => backspace());
+document.querySelector(`[id='${divideSign}']`).addEventListener('click', () => add_operand(divideSign));
+document.querySelector(`[id='${multiplySign}']`).addEventListener('click', () => add_operand(multiplySign));
+document.querySelector(`[id='${minusSign}']`).addEventListener('click', () => add_operand(minusSign));
+document.querySelector(`[id='+']`).addEventListener('click', () => add_operand("+"));
+document.querySelector(`[id='.']`).addEventListener('click', () => store("."));
+document.querySelector("#solve").addEventListener('click', () => solve());
+
+Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
+    elem => elem.addEventListener('click', (ev) => change_style(this.id))
+)
+
+document.querySelector("#show_arabic").addEventListener('click', show_arabic);
+document.querySelector("#show_word").addEventListener('click', show_word);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -147,7 +164,7 @@ function convert(arabic) {
         i,
         num = arabic;
     for (i in romanLookups.current) {
-        while (num >= lookup[i]) {
+        while (num >= romanLookups.current[i]) {
             roman += i;
             num -= romanLookups.current[i];
         }

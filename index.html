@@ -16,7 +16,7 @@
     <p>You can find out how Romans worked fractions in <a
             href="https://en.wikipedia.org/wiki/Roman_numerals#Fractions">this Wikipedia article</a>.</p>
 
-    <table id="calc">
+    <table>
         <tr class="roman_display">
             <td colspan="4" id="expression_roman" class="number_field"></td>
         </tr>
@@ -38,32 +38,32 @@
         <tr>
             <td></td>
             <td></td>
-            <td><input type="button" value="c" onclick="clr()"></td>
-            <td><input type="button" value="←" onclick="backspace()"></td>
+            <td><input type="button" value="c" id="clr"></td>
+            <td><input type="button" value="←" id="bksp"></td>
         </tr>
         <tr>
-            <td><input type="button" value=7 onclick="store('7')"></td>
-            <td><input type="button" value=8 onclick="store('8')"></td>
-            <td><input type="button" value=9 onclick="store('9')"></td>
-            <td><input type="button" value=÷ onclick="add_operand('÷')"></td>
+            <td><input type="button" value=7 id="7"></td>
+            <td><input type="button" value=8 id="8"></td>
+            <td><input type="button" value=9 id="9"></td>
+            <td><input type="button" value=÷ id="÷"></td>
         </tr>
         <tr>
-            <td><input type="button" value=4 onclick="store('4')"></td>
-            <td><input type="button" value=5 onclick="store('5')"></td>
-            <td><input type="button" value=6 onclick="store('6')"></td>
-            <td><input type="button" value=× onclick="add_operand('×')"></td>
+            <td><input type="button" value=4 id="4"></td>
+            <td><input type="button" value=5 id="5"></td>
+            <td><input type="button" value=6 id="6"></td>
+            <td><input type="button" value=× id="×"></td>
         </tr>
         <tr>
-            <td><input type="button" value=1 onclick="store('1')"></td>
-            <td><input type="button" value=2 onclick="store('2')"></td>
-            <td><input type="button" value=3 onclick="store('3')"></td>
-            <td><input type="button" value=− onclick="add_operand('−')"></td>
+            <td><input type="button" value=1 id="1"></td>
+            <td><input type="button" value=2 id="2"></td>
+            <td><input type="button" value=3 id="3"></td>
+            <td><input type="button" value=− id="−"></td>
         </tr>
         <tr>
-            <td><input type="button" value=0 onclick="store('0')"></td>
-            <td><input type="button" value=. onclick="store('.')"></td>
-            <td><input type="button" value="=" onclick="solve()"></td>
-            <td><input type="button" value="+" onclick="add_operand('+')"></td>
+            <td><input type="button" value=0 id="0"></td>
+            <td><input type="button" value=. id="."></td>
+            <td><input type="button" value="=" id="solve"></td>
+            <td><input type="button" value="+" id="+"></td>
         </tr>
     </table>
 
@@ -71,34 +71,34 @@
         <legend>Style for large numbers:</legend>
 
         <div>
-            <input type="radio" id="apostr" name="large_style" onclick="change_style('apostr')">
+            <input type="radio" id="apostr" name="large_style">
             <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
         </div>
 
         <div>
-            <input type="radio" id="apostr_tight" name="large_style" onclick="change_style('apostr_tight')">
+            <input type="radio" id="apostr_tight" name="large_style">
             <label for="apostr_tight">ↀ ↁ ↂ</label>
         </div>
 
         <div>
-            <input type="radio" id="vincul" name="large_style" onclick="change_style('vincul')">
+            <input type="radio" id="vincul" name="large_style">
             <label for="vincul" style="position:relative; top: 2px;"><span style="border-top:1px solid;">I</span> <span
                     style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
         </div>
 
         <div>
-            <input type="radio" id="vincul_with_m" name="large_style" onclick="change_style('vincul_with_m')" checked>
+            <input type="radio" id="vincul_with_m" name="large_style" checked>
             <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
                     style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
         </div>
     </fieldset>
 
     <p>
-        <input type="checkbox" id="show_arabic" onclick="show_arabic()" checked>
+        <input type="checkbox" id="show_arabic" checked>
         <label for="show_arabic">Show Arabic fields</label>
     </p>
     <p>
-        <input type="checkbox" id="show_word" onclick="show_word()" checked>
+        <input type="checkbox" id="show_word" checked>
         <label for="show_word">Show word descriptions</label>
     </p>
 
