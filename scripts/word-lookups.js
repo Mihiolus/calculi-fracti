@@ -90,3 +90,56 @@ export var adverbial = {
     bis: 2,
     semel: 1
 }
+
+export var prefixes = {
+    unde: -1,
+    duode: -2
+}
+
+export var word_lookup_fractions = {
+    deunx: 11 / 12,
+    dextans: 5 / 6,
+    dodrans: 3 / 4,
+    bes: 2 / 3,
+    septunx: 7 / 12,
+    semis: 0.5,
+    quincunx: 5 / 12,
+    triens: 1 / 3,
+    quadrans: 1 / 4,
+    sextans: 1 / 6,
+    sescuncia: 1 / 8,
+    uncia: 1 / 12,
+    semuncia: 1 / 24,
+    "binae et dimidia sextula": 5 / 144,
+    "binae sextulae": 1 / 36,
+    sicilicus: 1 / 48,
+    sextula: 1 / 72,
+    "dimidia sextula": 1 / 144,
+    scripulum: 1 / 288
+}
+
+export var word_lookup_adverbial = {
+    millies: 1000,
+    centies: 100,
+    nonagies: 90,
+    octogies: 80,
+    sepuagies: 70,
+    sexagies: 60,
+    quinquagies: 50,
+    quadragies: 40,
+    tricies: 30,
+    vicies: 20,
+    terdecies: 13,
+    duodecies: 12,
+    undecies: 11,
+    decies: 10,
+    novies: 9,
+    octies: 8,
+    septies: 7,
+    sexies: 6,
+    quinquies: 5,
+    quater: 4,
+    ter: 3,
+    bis: 2,
+    semel: 1
+}
