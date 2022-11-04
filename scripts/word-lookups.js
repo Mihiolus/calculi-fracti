@@ -17,8 +17,6 @@ export var integersNominative = {
     quadraginta: 40,
     triginta: 30,
     viginti: 20,
-    undeviginti: 19,
-    duodeviginti: 18,
     septendecim: 17,
     sedecim: 16,
     quindecim: 15,
@@ -36,6 +34,19 @@ export var integersNominative = {
     tres: 3,
     duo: 2,
     unus: 1
+}
+
+export var integersAccusative = {
+    nongenti: "nongentos",
+    octingenti: "octingentos",
+    septingenti: "septingentos",
+    sescenti: "sescentos",
+    quingenti: "quingentos",
+    quadringenti: "quadringentos",
+    trecenti: "trecentos",
+    ducenti: "ducentos",
+    duo: "duos",
+    unus: "unum"
 }
 
 export var prefixes = {
@@ -63,6 +74,27 @@ export var fractionsNominative = {
     sextula: 1 / 72,
     "dimidia sextula": 1 / 144,
     scripulum: 1 / 288
+}
+
+export var fractionsAccusative = {
+    deunx: "deuncem",
+    dextans: "dextantem",
+    dodrans: "dodrantem",
+    bes: "bessem",
+    septunx: "septuncem",
+    semis: "semissem",
+    quincunx: "quincuncem",
+    triens: "trientem",
+    quadrans: "quadrantem",
+    sextans: "sextantem",
+    sescuncia: "sescunciam",
+    uncia: "unciam",
+    semuncia: "semunciam",
+    "binae et dimidia sextula": "binas et dimidiam sextulam",
+    "binae sextulae": "binas sextulas",
+    sicilicus: "sicilicum",
+    sextula: "sextulam",
+    "dimidia sextula": "dimidiam sextulam",
 }
 
 export var adverbial = {

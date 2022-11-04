@@ -82,7 +82,7 @@ function store(value) {
     arabicOutput += value;
     setArabicOutput(arabicOutput);
     setRomanOutput(convert(arabicOutput));
-    setWordOutput(toWords(arabicOutput));
+    setWordOutput(toWords(arabicOutput).join(" "));
 }
 function change_style(value) {
     romanLookups.setLargeStyle(value);
@@ -107,7 +107,7 @@ function updateArabicDisplays() {
 }
 
 function updateWordDisplays() {
-    setWordOutput(toWords(arabicOutput));
+    setWordOutput(toWords(arabicOutput).join(" "));
 
     let wordExpression = [];
     switch (arabicExpression[1]) {
@@ -132,7 +132,7 @@ function updateWordDisplays() {
 function parseAddition(wordExpression) {
     for (let i = 0; i < arabicExpression.length; i++) {
         if (isNumber(arabicExpression[i])) {
-            wordExpression.push(toWords(arabicExpression[i]));
+            wordExpression.push(...toWords(arabicExpression[i]));
         } else {
             if (arabicExpression[i] === "+") {
                 wordExpression.push("et");
@@ -144,15 +144,28 @@ function parseAddition(wordExpression) {
 }
 
 function parseMultiplication(wordExpression) {
-    for (let i = 0; i < arabicExpression.length; i++) {
-        if (isNumber(arabicExpression[i])) {
-            wordExpression.push(toWords(arabicExpression[i]));
-        } else {
-            if (arabicExpression[i] === multiplySign) {
-                wordExpression.push("multiplicati per");
-            } else {
-                wordExpression.push("fiunt");
-            }
+    if (isNaN(arabicExpression[0])) {
+        return;
+    }
+    wordExpression.push(...toWords(arabicExpression[0]));
+    wordExpression.push("multiplicati per");
+    if (arabicExpression.length < 3) {
+        return;
+    }
+    const secondNumber = toWords(arabicExpression[2]);
+    toAccusative(secondNumber);
+    wordExpression.push(...secondNumber);
+    wordExpression.push("fiunt");
+}
+
+function toAccusative(nominative) {
+    for (let i = 0; i < nominative.length; i++) {
+        const w = nominative[i];
+        if (wordLookups.integersAccusative[w]) {
+            nominative[i] = wordLookups.integersAccusative[w];
+        }
+        if (wordLookups.fractionsAccusative[w]) {
+            nominative[i] = wordLookups.fractionsAccusative[w];
         }
     }
 }
@@ -177,7 +190,7 @@ function toWords(arabic) {
     var words = [], i;
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
-        words.push(toWords(thousands));
+        words.push(...toWords(thousands));
         words.push("millia");
         arabic -= thousands * 1000;
     }
@@ -206,13 +219,24 @@ function toWords(arabic) {
         if (words.length > 0) {
             words.push("et");
         }
-        words.push(fractional.join(" et "));
+        for (let i = 0; i < fractional.length; i++) {
+            words.push(fractional[i]);
+            if (i === fractional.length - 1) {
+                break;
+            }
+            words.push("et");
+        }
     }
-    return words.join(" ");
+    return words;
 }
 
 function setWordOutput(value) {
-    document.getElementById("output_word").innerHTML = value;
+    var expressionElement = document.getElementById("output_word");
+    if (typeof value === "object") {
+        expressionElement.innerHTML = value.join('');
+    } else {
+        expressionElement.innerHTML = value;
+    }
 }
 
 function clr() {
@@ -299,7 +323,7 @@ function solve() {
     arabicOutput = round(result, decimal_places);
     setArabicOutput(arabicOutput);
     setRomanOutput(convert(result));
-    setWordOutput(toWords(result));
+    setWordOutput(toWords(result).join(" "));
 }
 function round(number, precision) {
     return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
