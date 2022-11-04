@@ -91,7 +91,7 @@ function change_style(value) {
 function updateRomanDisplays() {
     setRomanOutput(convert(arabicOutput));
     let romanExpression = [];
-    for (var i = 0; i < arabicExpression.length; i++) {
+    for (let i = 0; i < arabicExpression.length; i++) {
         if (isNumber(arabicExpression[i])) {
             romanExpression.push(convert(arabicExpression[i]));
         } else {
@@ -129,7 +129,7 @@ function updateWordDisplays() {
 }
 
 function parseAddition(wordExpression) {
-    for (var i = 0; i < arabicExpression.length; i++) {
+    for (let i = 0; i < arabicExpression.length; i++) {
         if (isNumber(arabicExpression[i])) {
             wordExpression.push(toWords(arabicExpression[i]));
         } else {
@@ -143,7 +143,7 @@ function parseAddition(wordExpression) {
 }
 
 function parseMultiplication(wordExpression) {
-    for (var i = 0; i < arabicExpression.length; i++) {
+    for (let i = 0; i < arabicExpression.length; i++) {
         if (isNumber(arabicExpression[i])) {
             wordExpression.push(toWords(arabicExpression[i]));
         } else {
@@ -163,7 +163,7 @@ function convert(arabic) {
     var roman = '',
         i,
         num = arabic;
-    for (i in romanLookups.current) {
+    for (let i in romanLookups.current) {
         while (num >= romanLookups.current[i]) {
             roman += i;
             num -= romanLookups.current[i];
@@ -180,24 +180,24 @@ function toWords(arabic) {
         words.push("millia");
         arabic -= thousands * 1000;
     }
-    for (i in wordLookups.integersNominative) {
+    for (let i in wordLookups.integersNominative) {
         if (arabic >= wordLookups.integersNominative[i]) {
             words.push(i);
             arabic -= wordLookups.integersNominative[i];
         } else if (arabic >= 18 && arabic < 98) {
-            for (j in prefixes) {
-                if (arabic >= wordLookups.integersNominative[i] + prefixes[j]) {
+            for (let j in wordLookups.prefixes) {
+                if (arabic >= wordLookups.integersNominative[i] + wordLookups.prefixes[j]) {
                     words.push(j + i);
-                    arabic -= wordLookups.integersNominative[i] + prefixes[j];
+                    arabic -= wordLookups.integersNominative[i] + wordLookups.prefixes[j];
                 }
             }
         }
     }
     var fractional = [];
-    for (i in word_lookup_fractions) {
-        if (arabic >= word_lookup_fractions[i]) {
+    for (let i in wordLookups.fractionsNominative) {
+        if (arabic >= wordLookups.fractionsNominative[i]) {
             fractional.push(i);
-            arabic -= word_lookup_fractions[i];
+            arabic -= wordLookups.fractionsNominative[i];
         }
     }
 
