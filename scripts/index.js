@@ -7,6 +7,7 @@ var newInput = false;
 var hasComma = false;
 var arabicVisible = true;
 var wordVisible = true;
+var hasOperand = false;
 
 const minusSign = "−";
 const multiplySign = "×";
@@ -35,7 +36,7 @@ document.querySelector(`[id='${multiplySign}']`).addEventListener('click', () =>
 document.querySelector(`[id='${minusSign}']`).addEventListener('click', () => add_operand(minusSign));
 document.querySelector(`[id='+']`).addEventListener('click', () => add_operand("+"));
 document.querySelector(`[id='.']`).addEventListener('click', () => store("."));
-document.querySelector("#solve").addEventListener('click', () => solve());
+document.querySelector("[id='=']").addEventListener('click', () => add_operand("="));
 
 Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
     elem => elem.addEventListener('click', (ev) => change_style(elem.id))
@@ -56,7 +57,7 @@ function processKey(event) {
     } else if (event.key == 'Escape') {
         clr();
     } else if (event.key == 'Enter') {
-        solve();
+        add_operand("=");
     }
 }
 
@@ -257,27 +258,48 @@ function setWordExpression(value) {
     }
 }
 function add_operand(value) {
-    if (newInput) {
-        var oldOutput = document.getElementById("output_arabic").innerHTML;
-        clr();
-        store(oldOutput);
+    if (value === "=") {
+        if (arabicExpression.length > 0 && arabicOutput !== "") {
+            arabicExpression.push(arabicOutput);
+            solve();
+            newInput = true;
+            hasOperand = false;
+            arabicExpression.push(value);
+        }
+    } else if (hasOperand) { //start a new operation immediately after a previous one
+        if (arabicOutput === "") {
+            arabicExpression.pop();
+            arabicExpression.push(value);
+        } else {
+            arabicExpression.push(arabicOutput);
+            solve();
+            var oldOutput = arabicOutput;
+            clr();
+            arabicExpression.push(oldOutput, value);
+        }
     }
-    arabicExpression.push(arabicOutput);
-    arabicExpression.push(value);
-    arabicOutput = "";
+    else if (newInput) { //start a new operation from the output of a previous one
+        var oldOutput = arabicOutput;
+        clr();
+        arabicExpression.push(oldOutput, value);
+        hasOperand = true;
+    } else {
+        arabicExpression.push(arabicOutput);
+        arabicExpression.push(value);
+        hasOperand = true;
+        arabicOutput = "";
+    }
     updateRomanDisplays();
     updateArabicDisplays();
     updateWordDisplays();
     hasComma = false;
 }
 function solve() {
-    add_operand('=');
-    let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join('')).slice(0, -1)})`)();
+    let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join(''))})`)();
     arabicOutput = round(result, decimal_places);
     setArabicOutput(arabicOutput);
     setRomanOutput(convert(result));
     setWordOutput(toWords(result));
-    newInput = true;
 }
 function round(number, precision) {
     return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
