@@ -38,7 +38,7 @@ document.querySelector(`[id='.']`).addEventListener('click', () => store("."));
 document.querySelector("#solve").addEventListener('click', () => solve());
 
 Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
-    elem => elem.addEventListener('click', (ev) => change_style(this.id))
+    elem => elem.addEventListener('click', (ev) => change_style(elem.id))
 )
 
 document.querySelector("#show_arabic").addEventListener('click', show_arabic);
