@@ -229,6 +229,7 @@ function backspace() {
     arabicOutput = arabicOutput.slice(0, -1);
     setArabicOutput(arabicOutput);
     setRomanOutput(convert(arabicOutput));
+    setWordOutput(toWords(arabicOutput));
 }
 function setRomanOutput(value) {
     document.getElementById("output_roman").innerHTML = value;
