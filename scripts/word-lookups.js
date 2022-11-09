@@ -49,6 +49,18 @@ export var integersAccusative = {
     unus: "unum"
 }
 
+export var integersNeuter = {
+    nongenti: "nongenta",
+    octingenti: "octingenta",
+    septingenti: "septingenta",
+    sescenti: "sescenta",
+    quingenti: "quingenta",
+    quadringenti: "quadringenta",
+    trecenti: "trecenta",
+    ducenti: "ducenta",
+    unus: "unum"
+}
+
 export var prefixes = {
     unde: -1,
     duode: -2

@@ -160,12 +160,21 @@ function parseMultiplication(wordExpression) {
 
 function toAccusative(nominative) {
     for (let i = 0; i < nominative.length; i++) {
-        const w = nominative[i];
+        let w = nominative[i];
         if (wordLookups.integersAccusative[w]) {
             nominative[i] = wordLookups.integersAccusative[w];
         }
         if (wordLookups.fractionsAccusative[w]) {
             nominative[i] = wordLookups.fractionsAccusative[w];
+        }
+    }
+}
+
+function toNeuter(wordArray) {
+    for (let i = 0; i < wordArray.length; i++) {
+        let w = wordArray[i];
+        if (wordLookups.integersNeuter[w]) {
+            wordArray[i] = wordLookups.integersNeuter[w];
         }
     }
 }
@@ -191,6 +200,7 @@ function toWords(arabic) {
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
         words.push(...toWords(thousands));
+        toNeuter(words);
         words.push("millia");
         arabic -= thousands * 1000;
     }
