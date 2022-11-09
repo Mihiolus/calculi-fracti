@@ -114,7 +114,7 @@ export var adverbial = {
     centies: 100,
     nonagies: 90,
     octogies: 80,
-    sepuagies: 70,
+    septuagies: 70,
     sexagies: 60,
     quinquagies: 50,
     quadragies: 40,
