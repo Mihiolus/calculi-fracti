@@ -179,6 +179,10 @@ function toNeuter(wordArray) {
     }
 }
 
+function toAdverbial(wordArray) {
+
+}
+
 function isNumber(string) {
     return !isNaN(string);
 }
@@ -197,11 +201,19 @@ function convert(arabic) {
 
 function toWords(arabic) {
     var words = [], i;
+    if (arabic >= 1000000) {
+        let millions = Mathf.floor(arabic / 1000000);
+
+    }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
         words.push(...toWords(thousands));
         toNeuter(words);
-        words.push("millia");
+        if (words[words.length - 1] === "unum") {
+            words.push("mille");
+        } else {
+            words.push("millia");
+        }
         arabic -= thousands * 1000;
     }
     for (let i in wordLookups.integersNominative) {
