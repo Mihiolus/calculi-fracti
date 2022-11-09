@@ -179,8 +179,26 @@ function toNeuter(wordArray) {
     }
 }
 
-function toAdverbial(wordArray) {
-
+function toAdverbial(arabic) {
+    var words = [];
+    for (let i in wordLookups.adverbial) {
+        if (arabic >= wordLookups.adverbial[i]) {
+            if (wordLookups.adverbial[i] < 10) {
+                words.splice(words.length - 2, 0, i, "et");
+            } else {
+                words.push(i);
+            }
+            arabic -= wordLookups.adverbial[i];
+        } else if (arabic >= 18 && arabic < 98) {
+            for (let j in wordLookups.prefixes) {
+                if (arabic >= wordLookups.adverbial[i] + wordLookups.prefixes[j]) {
+                    words.push(j + i);
+                    arabic -= wordLookups.adverbial[i] + wordLookups.prefixes[j];
+                }
+            }
+        }
+    }
+    return words;
 }
 
 function isNumber(string) {
@@ -202,8 +220,15 @@ function convert(arabic) {
 function toWords(arabic) {
     var words = [], i;
     if (arabic >= 1000000) {
-        let millions = Mathf.floor(arabic / 1000000);
-
+        let hundredsThousands = Math.floor(arabic / 100000);
+        words.push(...toAdverbial(hundredsThousands));
+        words.push("centum");
+        arabic -= hundredsThousands * 100000;
+        if (arabic < 1000) {
+            words.push("millia");
+        } else if (arabic < 2000) {
+            words.push("et", "unum");
+        }
     }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
