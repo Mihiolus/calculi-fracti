@@ -36,6 +36,20 @@ export var integersNominative = {
     unus: 1
 }
 
+export var integersAblative = {
+    nongenti: "nongentis",
+    octingenti: "octingentis",
+    septingenti: "septingentis",
+    sescenti: "sescentis",
+    quingenti: "quingentis",
+    quadringenti: "quadringentis",
+    trecenti: "trecentis",
+    ducenti: "ducentis",
+    tres: "tribus",
+    duo: "duobus",
+    unus: "uno"
+}
+
 export var integersAccusative = {
     nongenti: "nongentos",
     octingenti: "octingentos",
@@ -107,6 +121,23 @@ export var fractionsAccusative = {
     sicilicus: "sicilicum",
     sextula: "sextulam",
     "dimidia sextula": "dimidiam sextulam",
+}
+
+export var fractionsAblative = {
+    deunx: "deunce",
+    dextans: "dextante",
+    dodrans: "dodrante",
+    bes: "besse",
+    septunx: "septunce",
+    semis: "semisse",
+    quincunx: "quincunce",
+    triens: "triente",
+    quadrans: "quadrante",
+    sextans: "sextante",
+    "binae et dimidia sextula": "binis et dimidia sextula",
+    "binae sextulae": "binis sextulis",
+    sicilicus: "sicilico",
+    scripulum: "scripulo"
 }
 
 export var adverbial = {
