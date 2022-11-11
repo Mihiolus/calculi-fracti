@@ -37,6 +37,7 @@ export var integersNominative = {
 }
 
 export var integersAblative = {
+    millia: "millibus",
     nongenti: "nongentis",
     octingenti: "octingentis",
     septingenti: "septingentis",

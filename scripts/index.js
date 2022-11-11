@@ -109,19 +109,22 @@ function updateArabicDisplays() {
 function updateWordDisplays() {
     setWordOutput(toWords(arabicOutput).join(" "));
 
+    if (isNaN(arabicExpression[0])) {
+        return;
+    }
+
     let wordExpression = [];
     switch (arabicExpression[1]) {
         case "+":
             parseAddition(wordExpression);
             break;
         case minusSign:
-
+            parseSubtraction(wordExpression);
             break;
         case multiplySign:
             parseMultiplication(wordExpression);
             break;
         case divideSign:
-
             break;
         default:
             break;
@@ -144,9 +147,6 @@ function parseAddition(wordExpression) {
 }
 
 function parseMultiplication(wordExpression) {
-    if (isNaN(arabicExpression[0])) {
-        return;
-    }
     wordExpression.push(...toWords(arabicExpression[0]));
     wordExpression.push("multiplicati per");
     if (arabicExpression.length < 3) {
@@ -158,6 +158,19 @@ function parseMultiplication(wordExpression) {
     wordExpression.push("fiunt");
 }
 
+function parseSubtraction(wordExpression) {
+    wordExpression.push("de");
+    let first = toWords(arabicExpression[0]);
+    convertCase(first, wordLookups.integersAblative, wordLookups.fractionsAblative);
+    wordExpression.push(...first);
+    wordExpression.push("deducti");
+    if (arabicExpression.length < 3) {
+        return;
+    }
+    wordExpression.push(...toWords(arabicExpression[2]));
+    wordExpression.push("fiunt");
+}
+
 function toAccusative(nominative) {
     for (let i = 0; i < nominative.length; i++) {
         let w = nominative[i];
@@ -166,6 +179,18 @@ function toAccusative(nominative) {
         }
         if (wordLookups.fractionsAccusative[w]) {
             nominative[i] = wordLookups.fractionsAccusative[w];
+        }
+    }
+}
+
+function convertCase(nominative, integerLookup, fractionalLookup) {
+    for (let i = 0; i < nominative.length; i++) {
+        let w = nominative[i];
+        if (integerLookup[w]) {
+            nominative[i] = integerLookup[w];
+        }
+        if (fractionalLookup[w]) {
+            nominative[i] = fractionalLookup[w];
         }
     }
 }
