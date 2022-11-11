@@ -1,5 +1,5 @@
-import * as wordLookups from "./word-lookups.js";
 import * as romanLookups from "./roman-lookups.js";
+import * as converter from "./converter.js";
 
 var arabicOutput = "";
 var arabicExpression = [];
@@ -81,20 +81,21 @@ function store(value) {
     }
     arabicOutput += value;
     setArabicOutput(arabicOutput);
-    setRomanOutput(convert(arabicOutput));
-    setWordOutput(toWords(arabicOutput).join(" "));
+    setRomanOutput(converter.toRoman(arabicOutput));
+    setWordOutput(converter.toWords(arabicOutput).join(" "));
 }
+
 function change_style(value) {
     romanLookups.setLargeStyle(value);
     updateRomanDisplays();
     localStorage.setItem("large-style", value);
 }
 function updateRomanDisplays() {
-    setRomanOutput(convert(arabicOutput));
+    setRomanOutput(converter.toRoman(arabicOutput));
     let romanExpression = [];
     for (let i = 0; i < arabicExpression.length; i++) {
-        if (isNumber(arabicExpression[i])) {
-            romanExpression.push(convert(arabicExpression[i]));
+        if (!isNaN(arabicExpression[i])) {
+            romanExpression.push(converter.toRoman(arabicExpression[i]));
         } else {
             romanExpression.push(arabicExpression[i]);
         }
@@ -107,7 +108,7 @@ function updateArabicDisplays() {
 }
 
 function updateWordDisplays() {
-    setWordOutput(toWords(arabicOutput).join(" "));
+    setWordOutput(converter.toWords(arabicOutput).join(" "));
 
     if (isNaN(arabicExpression[0])) {
         return;
@@ -134,8 +135,8 @@ function updateWordDisplays() {
 
 function parseAddition(wordExpression) {
     for (let i = 0; i < arabicExpression.length; i++) {
-        if (isNumber(arabicExpression[i])) {
-            wordExpression.push(...toWords(arabicExpression[i]));
+        if (!isNaN(arabicExpression[i])) {
+            wordExpression.push(...converter.toWords(arabicExpression[i]));
         } else {
             if (arabicExpression[i] === "+") {
                 wordExpression.push("et");
@@ -147,159 +148,28 @@ function parseAddition(wordExpression) {
 }
 
 function parseMultiplication(wordExpression) {
-    wordExpression.push(...toWords(arabicExpression[0]));
+    wordExpression.push(...converter.toWords(arabicExpression[0]));
     wordExpression.push("multiplicati per");
     if (arabicExpression.length < 3) {
         return;
     }
-    const secondNumber = toWords(arabicExpression[2]);
-    toAccusative(secondNumber);
+    const secondNumber = converter.toWords(arabicExpression[2]);
+    converter.toAccusative(secondNumber);
     wordExpression.push(...secondNumber);
     wordExpression.push("fiunt");
 }
 
 function parseSubtraction(wordExpression) {
     wordExpression.push("de");
-    let first = toWords(arabicExpression[0]);
-    convertCase(first, wordLookups.integersAblative, wordLookups.fractionsAblative);
+    let first = converter.toWords(arabicExpression[0]);
+    converter.toAblative(first);
     wordExpression.push(...first);
     wordExpression.push("deducti");
     if (arabicExpression.length < 3) {
         return;
     }
-    wordExpression.push(...toWords(arabicExpression[2]));
+    wordExpression.push(...converter.toWords(arabicExpression[2]));
     wordExpression.push("fiunt");
-}
-
-function toAccusative(nominative) {
-    for (let i = 0; i < nominative.length; i++) {
-        let w = nominative[i];
-        if (wordLookups.integersAccusative[w]) {
-            nominative[i] = wordLookups.integersAccusative[w];
-        }
-        if (wordLookups.fractionsAccusative[w]) {
-            nominative[i] = wordLookups.fractionsAccusative[w];
-        }
-    }
-}
-
-function convertCase(nominative, integerLookup, fractionalLookup) {
-    for (let i = 0; i < nominative.length; i++) {
-        let w = nominative[i];
-        if (integerLookup[w]) {
-            nominative[i] = integerLookup[w];
-        }
-        if (fractionalLookup[w]) {
-            nominative[i] = fractionalLookup[w];
-        }
-    }
-}
-
-function toNeuter(wordArray) {
-    for (let i = 0; i < wordArray.length; i++) {
-        let w = wordArray[i];
-        if (wordLookups.integersNeuter[w]) {
-            wordArray[i] = wordLookups.integersNeuter[w];
-        }
-    }
-}
-
-function toAdverbial(arabic) {
-    var words = [];
-    for (let i in wordLookups.adverbial) {
-        if (arabic >= wordLookups.adverbial[i]) {
-            if (wordLookups.adverbial[i] < 10) {
-                words.splice(words.length - 2, 0, i, "et");
-            } else {
-                words.push(i);
-            }
-            arabic -= wordLookups.adverbial[i];
-        } else if (arabic >= 18 && arabic < 98) {
-            for (let j in wordLookups.prefixes) {
-                if (arabic >= wordLookups.adverbial[i] + wordLookups.prefixes[j]) {
-                    words.push(j + i);
-                    arabic -= wordLookups.adverbial[i] + wordLookups.prefixes[j];
-                }
-            }
-        }
-    }
-    return words;
-}
-
-function isNumber(string) {
-    return !isNaN(string);
-}
-function convert(arabic) {
-    var roman = '',
-        i,
-        num = arabic;
-    for (let i in romanLookups.current) {
-        while (num >= romanLookups.current[i]) {
-            roman += i;
-            num -= romanLookups.current[i];
-        }
-    }
-    return roman;
-}
-
-function toWords(arabic) {
-    var words = [], i;
-    if (arabic >= 1000000) {
-        let hundredsThousands = Math.floor(arabic / 100000);
-        words.push(...toAdverbial(hundredsThousands));
-        words.push("centum");
-        arabic -= hundredsThousands * 100000;
-        if (arabic < 1000) {
-            words.push("millia");
-        } else if (arabic < 2000) {
-            words.push("et", "unum");
-        }
-    }
-    if (arabic >= 2000) {
-        let thousands = Math.floor(arabic / 1000);
-        words.push(...toWords(thousands));
-        toNeuter(words);
-        if (words[words.length - 1] === "unum") {
-            words.push("mille");
-        } else {
-            words.push("millia");
-        }
-        arabic -= thousands * 1000;
-    }
-    for (let i in wordLookups.integersNominative) {
-        if (arabic >= wordLookups.integersNominative[i]) {
-            words.push(i);
-            arabic -= wordLookups.integersNominative[i];
-        } else if (arabic >= 18 && arabic < 98) {
-            for (let j in wordLookups.prefixes) {
-                if (arabic >= wordLookups.integersNominative[i] + wordLookups.prefixes[j]) {
-                    words.push(j + i);
-                    arabic -= wordLookups.integersNominative[i] + wordLookups.prefixes[j];
-                }
-            }
-        }
-    }
-    var fractional = [];
-    for (let i in wordLookups.fractionsNominative) {
-        if (arabic >= wordLookups.fractionsNominative[i]) {
-            fractional.push(i);
-            arabic -= wordLookups.fractionsNominative[i];
-        }
-    }
-
-    if (fractional.length > 0) {
-        if (words.length > 0) {
-            words.push("et");
-        }
-        for (let i = 0; i < fractional.length; i++) {
-            words.push(fractional[i]);
-            if (i === fractional.length - 1) {
-                break;
-            }
-            words.push("et");
-        }
-    }
-    return words;
 }
 
 function setWordOutput(value) {
@@ -325,8 +195,8 @@ function clr() {
 function backspace() {
     arabicOutput = arabicOutput.slice(0, -1);
     setArabicOutput(arabicOutput);
-    setRomanOutput(convert(arabicOutput));
-    setWordOutput(toWords(arabicOutput));
+    setRomanOutput(converter.toRoman(arabicOutput));
+    setWordOutput(converter.toWords(arabicOutput));
 }
 function setRomanOutput(value) {
     document.getElementById("output_roman").innerHTML = value;
@@ -394,8 +264,8 @@ function solve() {
     let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join(''))})`)();
     arabicOutput = round(result, decimal_places);
     setArabicOutput(arabicOutput);
-    setRomanOutput(convert(result));
-    setWordOutput(toWords(result).join(" "));
+    setRomanOutput(converter.toRoman(result));
+    setWordOutput(converter.toWords(result).join(" "));
 }
 function round(number, precision) {
     return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
