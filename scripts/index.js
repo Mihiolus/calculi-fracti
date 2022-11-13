@@ -126,6 +126,7 @@ function updateWordDisplays() {
             parseMultiplication(wordExpression);
             break;
         case divideSign:
+            parseDivision(wordExpression);
             break;
         default:
             break;
@@ -169,6 +170,18 @@ function parseSubtraction(wordExpression) {
         return;
     }
     wordExpression.push(...converter.toWords(arabicExpression[2]));
+    wordExpression.push("fiunt");
+}
+
+function parseDivision(wordExpression) {
+    wordExpression.push(...converter.toWords(arabicExpression[0]));
+    wordExpression.push("divisi", "in");
+    if (arabicExpression.length < 3) {
+        return;
+    }
+    let second = converter.toWords(arabicExpression[2]);
+    converter.toAccusative(second);
+    wordExpression.push(...second);
     wordExpression.push("fiunt");
 }
 
