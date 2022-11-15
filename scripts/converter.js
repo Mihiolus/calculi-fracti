@@ -15,29 +15,39 @@ export function toRoman(arabic) {
 }
 
 export function toWords(arabic) {
-    var words = [], i;
+    var words = [], i, centumMilia = [], millia = [];
     if (arabic >= 1000000) {
         let hundredsThousands = Math.floor(arabic / 100000);
-        words.push(...toAdverbial(hundredsThousands));
-        words.push("centum");
+        centumMilia.push(...toAdverbial(hundredsThousands));
+        centumMilia.push("centum", "millia");
         arabic -= hundredsThousands * 100000;
-        if (arabic < 1000) {
-            words.push("millia");
-        } else if (arabic < 2000) {
-            words.push("et", "unum");
-        }
     }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
-        words.push(...toWords(thousands));
-        toNeuter(words);
-        if (words[words.length - 1] === "unum") {
-            words.push("mille");
-        } else {
-            words.push("millia");
+        if (thousands % 10 === 1) {
+            thousands -= 1;
         }
+        millia.push(...toWords(thousands));
+        toNeuter(millia);
+        millia.push("millia");
         arabic -= thousands * 1000;
     }
+    if (arabic / 1000 >= 1) {
+        words.push("mille");
+        arabic -= 1000;
+        if (centumMilia.length > 0 || millia.length > 0) {
+            words.push("et");
+        }
+    }
+    words.push(...millia);
+    if (millia.length > 0 && centumMilia.length > 0) {
+        words.push("et");
+    }
+    words.push(...centumMilia);
+    if (centumMilia.length > 0 && arabic > 0) {
+        words.push("et");
+    }
+
     for (let i in wordLookups.integersNominative) {
         if (arabic >= wordLookups.integersNominative[i]) {
             words.push(i);
