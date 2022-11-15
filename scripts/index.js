@@ -8,6 +8,7 @@ var hasComma = false;
 var arabicVisible = true;
 var wordVisible = true;
 var hasOperand = false;
+var romanVisible = true;
 
 const minusSign = "−";
 const multiplySign = "×";
@@ -44,6 +45,7 @@ Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
 
 document.querySelector("#show_arabic").addEventListener('click', show_arabic);
 document.querySelector("#show_word").addEventListener('click', show_word);
+document.querySelector("#show_roman").addEventListener('click', show_roman);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -308,4 +310,14 @@ function show_word() {
     for (let i = 0; i < elements.length; i++) {
         elements[i].style.display = wordVisible ? "" : "none";
     }
+    document.querySelector("#show_roman").disabled = !wordVisible;
+}
+
+function show_roman() {
+    romanVisible = !romanVisible;
+    let elements = document.getElementsByClassName("roman_display");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.display = romanVisible ? "" : "none";
+    }
+    document.querySelector("#show_word").disabled = !romanVisible;
 }
