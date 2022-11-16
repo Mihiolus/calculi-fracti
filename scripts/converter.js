@@ -22,24 +22,27 @@ export function toWords(arabic) {
         centumMilia.push("centum", "millia");
         arabic -= hundredsThousands * 100000;
     }
+    if (arabic >= 100000) {
+        let hundredsThousands = Math.floor(arabic / 100000) * 100;
+        millia.push(...toWords(hundredsThousands));
+        toNeuter(millia);
+        arabic -= hundredsThousands * 1000;
+    }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
-        if (thousands % 100 >= 21 && thousands % 10 === 1) {
+        if (thousands >= 21 && thousands % 10 === 1) {
+            millia.push("unum", "et");
             thousands -= 1;
+            arabic -= 1000;
         }
         millia.push(...toWords(thousands));
         toNeuter(millia);
         millia.push("millia");
         arabic -= thousands * 1000;
     }
-    if (arabic / 1000 >= 1) {
-        if (millia.length > 0) {
-            words.push("unum", "et");
-            arabic -= 1000;
-        } else if (centumMilia.length > 0) {
-            words.push("mille", "et");
-            arabic -= 1000;
-        }
+    if (arabic / 1000 >= 1 && centumMilia.length > 0) {
+        words.push("mille", "et");
+        arabic -= 1000;
     }
     words.push(...millia);
     if (millia.length > 0 && centumMilia.length > 0) {
@@ -119,8 +122,11 @@ function toAdverbial(arabic) {
     var words = [];
     for (let i in wordLookups.adverbial) {
         if (arabic >= wordLookups.adverbial[i]) {
-            if (wordLookups.adverbial[i] < 10) {
+            if (wordLookups.adverbial[i] === 1) {
                 words.splice(words.length - 2, 0, i, "et");
+            }
+            else if (wordLookups.adverbial[i] < 10) {
+                words.splice(words.length - 2, 0, i);
             } else {
                 words.push(i);
             }
