@@ -24,7 +24,7 @@ export function toWords(arabic) {
     }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
-        if (thousands % 10 === 1) {
+        if (thousands % 100 >= 21 && thousands % 10 === 1) {
             thousands -= 1;
         }
         millia.push(...toWords(thousands));
@@ -33,10 +33,12 @@ export function toWords(arabic) {
         arabic -= thousands * 1000;
     }
     if (arabic / 1000 >= 1) {
-        words.push("mille");
-        arabic -= 1000;
-        if (centumMilia.length > 0 || millia.length > 0) {
-            words.push("et");
+        if (millia.length > 0) {
+            words.push("unum", "et");
+            arabic -= 1000;
+        } else if (centumMilia.length > 0) {
+            words.push("mille", "et");
+            arabic -= 1000;
         }
     }
     words.push(...millia);
