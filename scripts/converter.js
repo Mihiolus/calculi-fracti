@@ -1,7 +1,14 @@
 import * as wordLookups from "./word-lookups.js";
 import * as romanLookups from "./roman-lookups.js";
 
+const maxRomanNumeral = 500000;
+const undefined = "ND";
+const maxWordNumber = 9999999;
+
 export function toRoman(arabic) {
+    if (arabic <= 0 || arabic > maxRomanNumeral) {
+        return undefined;
+    }
     var roman = '',
         i,
         num = arabic;
@@ -15,6 +22,9 @@ export function toRoman(arabic) {
 }
 
 export function toWords(arabic) {
+    if (arabic <= 0 || arabic > maxWordNumber) {
+        return [undefined];
+    }
     var words = [], i, centumMilia = [], millia = [];
     if (arabic >= 1000000) {
         let hundredsThousands = Math.floor(arabic / 100000);
