@@ -60,7 +60,6 @@ export var integersAccusative = {
     quadringenti: "quadringentos",
     trecenti: "trecentos",
     ducenti: "ducentos",
-    duo: "duos",
     unus: "unum"
 }
 
