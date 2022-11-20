@@ -39,16 +39,26 @@ export var integersNominative = {
 export var integersAblative = {
     milia: "milibus",
     nongenti: "nongentis",
+    nongenta: "nongentis",
     octingenti: "octingentis",
+    octingenta: "octingentis",
     septingenti: "septingentis",
+    septingenta: "septingentis",
     sescenti: "sescentis",
+    sescenta: "sescentis",
     quingenti: "quingentis",
+    quingenta: "quingentis",
     quadringenti: "quadringentis",
+    quadringenta: "quadrigentis",
     trecenti: "trecentis",
+    trecenta: "trecentis",
     ducenti: "ducentis",
+    ducenta: "ducentis",
     tres: "tribus",
+    tria: "tribus",
     duo: "duobus",
-    unus: "uno"
+    unus: "uno",
+    unum: "uno"
 }
 
 export var integersAccusative = {
