@@ -34,18 +34,24 @@ export function toWords(arabic) {
     if (arabic <= 0 || arabic > maxWordNumber) {
         return [undefined];
     }
-    var words = [], i, centumMilia = [], milia = [];
+    var words = [], i, milia = [];
     if (arabic >= 1000000) {
         let hundredsThousands = Math.floor(arabic / 100000);
-        centumMilia.push(...toAdverbial(hundredsThousands));
-        centumMilia.push("centum", "milia");
+        words.push(...toAdverbial(hundredsThousands));
+        words.push("centum", "milia");
         arabic -= hundredsThousands * 100000;
+        if (arabic > 0) {
+            words.push("et");
+        }
     }
     if (arabic >= 100000) {
         let hundredsThousands = Math.floor(arabic / 100000) * 100;
         milia.push(...toWords(hundredsThousands));
         toNeuter(milia);
         arabic -= hundredsThousands * 1000;
+        if (arabic < 2000) {
+            milia.push("milia");
+        }
     }
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
@@ -59,16 +65,12 @@ export function toWords(arabic) {
         milia.push("milia");
         arabic -= thousands * 1000;
     }
-    if (arabic / 1000 >= 1 && centumMilia.length > 0) {
+    if (arabic / 1000 >= 1) {
         words.push("mille", "et");
         arabic -= 1000;
     }
     words.push(...milia);
-    if (milia.length > 0 && centumMilia.length > 0) {
-        words.push("et");
-    }
-    words.push(...centumMilia);
-    if (centumMilia.length > 0 && arabic > 0) {
+    if (milia.length > 0) {
         words.push("et");
     }
 
