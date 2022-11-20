@@ -2,7 +2,7 @@ import * as wordLookups from "./word-lookups.js";
 import * as romanLookups from "./roman-lookups.js";
 
 const maxRomanNumeral = 500000;
-const undefined = "ND";
+const undefined = "<abbr title = 'Non Numerabile'>NN</abbr>";
 const maxWordNumber = 9999999;
 
 export function toRoman(arabic) {
