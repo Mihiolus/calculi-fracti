@@ -188,12 +188,35 @@ function parseSubtraction(wordExpression) {
     let first = converter.toWords(arabicExpression[0]);
     converter.toAblative(first);
     wordExpression.push(...first);
-    wordExpression.push("deducti");
     if (arabicExpression.length < 3) {
+        wordExpression.push("deducti");
         return;
     }
-    wordExpression.push(...converter.toWords(arabicExpression[2]));
-    wordExpression.push("fiunt");
+    let second = converter.toWords(arabicExpression[2]);
+
+    let isSingularMasc = false, isSingularNeut = false;
+    if (second[second.length - 1] === "unus") {
+        isSingularMasc = true;
+    }
+    else if (second[second.length - 1] === "mille") {
+        isSingularNeut = true;
+    }
+
+    if (second[second.length - 1] === "milia") {
+        wordExpression.push("deducta", ...second);
+    } else if (isSingularMasc) {
+        wordExpression.push("deductus", ...second);
+    } else if (isSingularNeut) {
+        wordExpression.push("deductum", ...second);
+    } else {
+        wordExpression.push("deducti", ...second);
+    }
+
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
 }
 
 function parseDivision(wordExpression) {
