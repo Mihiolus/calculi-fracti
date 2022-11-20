@@ -239,6 +239,9 @@ function setWordExpression(value) {
     }
 }
 function add_operand(value) {
+    if (arabicExpression.length == 0 && arabicOutput === "") {
+        return;
+    }
     if (value === "=") {
         if (arabicExpression.length > 0 && arabicOutput !== "") {
             arabicExpression.push(arabicOutput);
