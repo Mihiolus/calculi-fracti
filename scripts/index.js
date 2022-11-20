@@ -152,14 +152,35 @@ function parseAddition(wordExpression) {
 
 function parseMultiplication(wordExpression) {
     wordExpression.push(...converter.toWords(arabicExpression[0]));
-    wordExpression.push("multiplicati per");
+
+    let isSingularMasc = false, isSingularNeut = false;
+    if (wordExpression[wordExpression.length - 1] === "unus") {
+        isSingularMasc = true;
+    }
+    else if (wordExpression[wordExpression.length - 1] === "mille") {
+        isSingularNeut = true;
+    }
+
+    if (wordExpression[wordExpression.length - 1] === "milia") {
+        wordExpression.push("multiplicata", "per");
+    } else if (isSingularMasc) {
+        wordExpression.push("multiplicatus", "per");
+    } else if (isSingularNeut) {
+        wordExpression.push("multiplicatum", "per");
+    } else {
+        wordExpression.push("multiplicati", "per");
+    }
     if (arabicExpression.length < 3) {
         return;
     }
     const secondNumber = converter.toWords(arabicExpression[2]);
     converter.toAccusative(secondNumber);
     wordExpression.push(...secondNumber);
-    wordExpression.push("fiunt");
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
 }
 
 function parseSubtraction(wordExpression) {
