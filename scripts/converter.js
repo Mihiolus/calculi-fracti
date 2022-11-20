@@ -21,6 +21,9 @@ export function toRoman(arabic) {
             num -= romanLookups.current[i];
         }
     }
+    if (roman === "") {
+        return undefined;
+    }
     return roman;
 }
 
@@ -101,6 +104,9 @@ export function toWords(arabic) {
             }
             words.push("et");
         }
+    }
+    if (words.length === 0) {
+        return [undefined];
     }
     return words;
 }
