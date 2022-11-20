@@ -72,6 +72,7 @@ export var integersNeuter = {
     quadringenti: "quadringenta",
     trecenti: "trecenta",
     ducenti: "ducenta",
+    tres: "tria",
     unus: "unum"
 }
 
