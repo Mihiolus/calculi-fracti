@@ -267,6 +267,7 @@ function add_operand(value) {
         clr();
         arabicExpression.push(oldOutput, value);
         hasOperand = true;
+        newInput = false;
     } else {
         arabicExpression.push(arabicOutput);
         arabicExpression.push(value);
