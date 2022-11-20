@@ -56,6 +56,9 @@ export function toWords(arabic) {
     if (arabic >= 2000) {
         let thousands = Math.floor(arabic / 1000);
         if (thousands >= 21 && thousands % 10 === 1) {
+            if (milia.length > 0) {
+                milia.push("et");
+            }
             milia.push("unum", "et");
             thousands -= 1;
             arabic -= 1000;
