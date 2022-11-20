@@ -6,6 +6,9 @@ const undefined = "ND";
 const maxWordNumber = 9999999;
 
 export function toRoman(arabic) {
+    if (arabic === "") {
+        return arabic;
+    }
     if (arabic <= 0 || arabic > maxRomanNumeral) {
         return undefined;
     }
@@ -22,6 +25,9 @@ export function toRoman(arabic) {
 }
 
 export function toWords(arabic) {
+    if (arabic === "") {
+        return [arabic];
+    }
     if (arabic <= 0 || arabic > maxWordNumber) {
         return [undefined];
     }
