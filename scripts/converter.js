@@ -69,13 +69,13 @@ export function toWords(arabic) {
         arabic -= thousands * 1000;
     }
     if (arabic / 1000 >= 1) {
-        words.push("mille", "et");
+        words.push("mille");
         arabic -= 1000;
+        if (milia.length > 0) {
+            words.push("et");
+        }
     }
     words.push(...milia);
-    if (milia.length > 0) {
-        words.push("et");
-    }
 
     for (let i in wordLookups.integersNominative) {
         if (arabic >= wordLookups.integersNominative[i]) {
