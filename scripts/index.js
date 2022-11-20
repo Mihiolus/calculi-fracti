@@ -153,23 +153,11 @@ function parseAddition(wordExpression) {
 function parseMultiplication(wordExpression) {
     wordExpression.push(...converter.toWords(arabicExpression[0]));
 
-    let isSingularMasc = false, isSingularNeut = false;
-    if (wordExpression[wordExpression.length - 1] === "unus") {
-        isSingularMasc = true;
-    }
-    else if (wordExpression[wordExpression.length - 1] === "mille") {
-        isSingularNeut = true;
-    }
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
 
-    if (wordExpression[wordExpression.length - 1] === "milia") {
-        wordExpression.push("multiplicata", "per");
-    } else if (isSingularMasc) {
-        wordExpression.push("multiplicatus", "per");
-    } else if (isSingularNeut) {
-        wordExpression.push("multiplicatum", "per");
-    } else {
-        wordExpression.push("multiplicati", "per");
-    }
+    pushInflected(wordExpression, wordExpression, "multiplicatus", "multiplicatum", "multiplicata", "multiplicati");
+    wordExpression.push("per");
+
     if (arabicExpression.length < 3) {
         return;
     }
@@ -180,6 +168,33 @@ function parseMultiplication(wordExpression) {
         wordExpression.push("fit");
     } else {
         wordExpression.push("fiunt");
+    }
+}
+
+function getEndingDeclension(wordArray) {
+    let isSingularMasc = false, isSingularNeut = false, isPluralNeut = false;
+    if (wordArray[wordArray.length - 1] === "unus") {
+        isSingularMasc = true;
+    }
+    else if (wordArray[wordArray.length - 1] === "mille") {
+        isSingularNeut = true;
+    } else if (wordArray[wordArray.length - 1] === "milia") {
+        isPluralNeut = true;
+    }
+    return { isSingularMasc, isSingularNeut, isPluralNeut };
+}
+
+function pushInflected(expression, inflectionSource, singMasc, singNeut, plurNeut, plurMasc) {
+    let { isSingularMasc, isSingularNeut, isPluralNeut } = getEndingDeclension(inflectionSource);
+
+    if (isPluralNeut) {
+        expression.push(plurNeut);
+    } else if (isSingularMasc) {
+        expression.push(singMasc);
+    } else if (isSingularNeut) {
+        expression.push(singNeut);
+    } else {
+        expression.push(plurMasc);
     }
 }
 
@@ -194,23 +209,10 @@ function parseSubtraction(wordExpression) {
     }
     let second = converter.toWords(arabicExpression[2]);
 
-    let isSingularMasc = false, isSingularNeut = false;
-    if (second[second.length - 1] === "unus") {
-        isSingularMasc = true;
-    }
-    else if (second[second.length - 1] === "mille") {
-        isSingularNeut = true;
-    }
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(second);
 
-    if (second[second.length - 1] === "milia") {
-        wordExpression.push("deducta", ...second);
-    } else if (isSingularMasc) {
-        wordExpression.push("deductus", ...second);
-    } else if (isSingularNeut) {
-        wordExpression.push("deductum", ...second);
-    } else {
-        wordExpression.push("deducti", ...second);
-    }
+    pushInflected(wordExpression, second, "deductus", "deductum", "deducta", "deducti");
+    wordExpression.push(...second);
 
     if (isSingularMasc || isSingularNeut) {
         wordExpression.push("fit");
@@ -221,14 +223,25 @@ function parseSubtraction(wordExpression) {
 
 function parseDivision(wordExpression) {
     wordExpression.push(...converter.toWords(arabicExpression[0]));
-    wordExpression.push("divisi", "in");
+
     if (arabicExpression.length < 3) {
+        wordExpression.push("divisi", "in");
         return;
     }
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
+
+    pushInflected(wordExpression, wordExpression, "divisus", "divisum", "divisa", "divisi");
+    wordExpression.push("in");
+
     let second = converter.toWords(arabicExpression[2]);
     converter.toAccusative(second);
     wordExpression.push(...second);
-    wordExpression.push("fiunt");
+
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
 }
 
 function setWordOutput(value) {
