@@ -126,7 +126,7 @@ function updateRomanDisplays() {
             romanExpression.push(arabicExpression[i]);
         }
     }
-    setRomanExpression(romanExpression.join(''));
+    setRomanExpression(romanExpression);
 }
 function updateArabicDisplays() {
     setArabicOutput(arabicOutput);
@@ -298,15 +298,34 @@ function setRomanOutput(value) {
     document.getElementById("output_roman").innerHTML = value;
 }
 function setRomanExpression(value) {
-    document.getElementById("expression_roman").innerHTML = value;
+    let expressionElement = document.getElementById("expression_roman");
+    if (typeof value === "object") {
+        expressionElement.innerHTML = addWordBreaks(value).join('');
+    } else {
+        expressionElement.innerHTML = value;
+    }
 }
+
+function addWordBreaks(expression) {
+    let newExpression = [...expression];
+    switch (expression[1]) {
+        case "+":
+        case minusSign:
+        case multiplySign:
+        case divideSign:
+            newExpression[1] += "<wbr>";
+            break;
+    }
+    return newExpression;
+}
+
 function setArabicOutput(value) {
     document.getElementById("output_arabic").innerHTML = arabicOutput;
 }
 function setArabicExpression(value) {
     let expressionElement = document.getElementById("expression_arabic");
     if (typeof value === "object") {
-        expressionElement.innerHTML = value.join('');
+        expressionElement.innerHTML = addWordBreaks(value).join('');
     } else {
         expressionElement.innerHTML = value;
     }
