@@ -12,7 +12,7 @@ input[type="button"] {
 
 table {
     table-layout: fixed;
-    width: 250px;
+    width: 300px;
     margin: 0 auto;
 }
 
@@ -32,14 +32,14 @@ body {
 }
 
 .arabic_display {
-    background-color:#d0f2d0;
+    background-color: #d0f2d0;
 }
 
 .word_display {
     background-color: #ded3f5;
 }
 
-h1{
+h1 {
     margin: 0;
     padding: 20px;
 }

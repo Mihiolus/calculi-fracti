@@ -312,7 +312,9 @@ function addNobreaks(expression) {
     }
     let newExpression = [...expression];
     for (let i = 0; i < newExpression.length; i++) {
-        newExpression[i] = `<nobr>${newExpression[i]}</nobr>`;
+        if (newExpression[i].length > 1) {
+            newExpression[i] = `<nobr>${newExpression[i]}</nobr>`;
+        }
     }
     return newExpression;
 }
