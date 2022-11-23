@@ -21,6 +21,30 @@ if (localStorage.getItem("large-style")) {
     document.querySelector(`#${storedStyle}`).checked = true;
 }
 
+if (localStorage.getItem("show-roman")) {
+    let storedRoman = localStorage.getItem("show-roman");
+    if (storedRoman == 0) {
+        show_roman();
+    }
+    document.querySelector("#show_roman").checked = storedRoman == 1;
+}
+
+if (localStorage.getItem("show-word")) {
+    let storedWord = localStorage.getItem("show-word");
+    if (storedWord == 0) {
+        show_word();
+    }
+    document.querySelector("#show_word").checked = storedWord == 1;
+}
+
+if (localStorage.getItem("show-arabic")) {
+    let storedArabic = localStorage.getItem("show-arabic");
+    if (storedArabic == 0) {
+        show_arabic();
+    }
+    document.querySelector("#show_arabic").checked = storedArabic == 1;
+}
+
 const decimal_places = 6;
 
 document.addEventListener('keydown', processKey);
@@ -364,6 +388,7 @@ function show_arabic() {
     for (let i = 0; i < arabics.length; i++) {
         arabics[i].style.display = arabicVisible ? "" : "none";
     }
+    localStorage.setItem("show-arabic", arabicVisible ? 1 : 0);
 }
 function show_word() {
     wordVisible = !wordVisible;
@@ -372,6 +397,7 @@ function show_word() {
         elements[i].style.display = wordVisible ? "" : "none";
     }
     document.querySelector("#show_roman").disabled = !wordVisible;
+    localStorage.setItem("show-word", wordVisible ? 1 : 0);
 }
 
 function show_roman() {
@@ -381,4 +407,5 @@ function show_roman() {
         elements[i].style.display = romanVisible ? "" : "none";
     }
     document.querySelector("#show_word").disabled = !romanVisible;
+    localStorage.setItem("show-roman", romanVisible ? 1 : 0);
 }
