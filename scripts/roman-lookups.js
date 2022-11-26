@@ -7,36 +7,36 @@ export const LargeStyle = {
 
 var largeLookups = {
     apostr: {
-        CCCIↃↃↃ: 100000,
-        IↃↃↃ: 50000,
-        CCIↃↃ: 10000,
-        IↃↃ: 5000,
-        CIↃ: 1000,
-        CCIↃ: 900
+        "CCCIↃↃↃ<wbr>": 100000,
+        "IↃↃↃ<wbr>": 50000,
+        "CCIↃↃ<wbr>": 10000,
+        "IↃↃ<wbr>": 5000,
+        "CIↃ<wbr>": 1000,
+        "CCIↃ<wbr>": 900
     },
     apostr_tight: {
-        ↈ: 100000,
-        ↇ: 50000,
-        ↂ: 10000,
-        ↁ: 5000,
-        ↀ: 1000,
-        Cↀ: 900
+        "ↈ<wbr>": 100000,
+        "ↇ<wbr>": 50000,
+        "ↂ<wbr>": 10000,
+        "ↁ<wbr>": 5000,
+        "ↀ<wbr>": 1000,
+        "Cↀ<wbr>": 900
     },
     vincul: {
-        '<span style="border-top:1px solid;">C</span>': 100000,
-        '<span style="border-top:1px solid;">L</span>': 50000,
-        '<span style="border-top:1px solid;">X</span>': 10000,
-        '<span style="border-top:1px solid;">V</span>': 5000,
-        '<span style="border-top:1px solid;">I</span>': 1000,
-        'C<span style="border-top:1px solid;">I</span>': 900
+        '<span style="border-top:1px solid;">C</span><wbr>': 100000,
+        '<span style="border-top:1px solid;">L</span><wbr>': 50000,
+        '<span style="border-top:1px solid;">X</span><wbr>': 10000,
+        '<span style="border-top:1px solid;">V</span><wbr>': 5000,
+        '<span style="border-top:1px solid;">I</span><wbr>': 1000,
+        'C<span style="border-top:1px solid;">I</span><wbr>': 900
     },
     vincul_with_m: {
-        '<span style="border-top:1px solid;">C</span>': 100000,
-        '<span style="border-top:1px solid;">L</span>': 50000,
-        '<span style="border-top:1px solid;">X</span>': 10000,
-        '<span style="border-top:1px solid;">V</span>': 5000,
-        M: 1000,
-        CM: 900
+        '<span style="border-top:1px solid;">C</span><wbr>': 100000,
+        '<span style="border-top:1px solid;">L</span><wbr>': 50000,
+        '<span style="border-top:1px solid;">X</span><wbr>': 10000,
+        '<span style="border-top:1px solid;">V</span><wbr>': 5000,
+        'M<wbr>': 1000,
+        'CM<wbr>': 900
     }
 }
 var baseLookup = {
