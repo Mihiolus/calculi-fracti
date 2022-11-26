@@ -66,6 +66,17 @@ var baseLookup = {
 }
 export var current = { ...largeLookups.vincul_with_m, ...baseLookup }
 
+export var numeralSeparator = '<wbr>', magnitudeSeparator = '\u2006';
+var apostrNumeralSeparator = '\u2005', regularNumeralSeparator = '<wbr>';
+var apostrMagnitudeSeparator = '\u2002', regularMagnitudeSeparator = '\u2006';
+
 export function setLargeStyle(style) {
     current = { ...largeLookups[style], ...baseLookup };
+    if (style === 'apostr') {
+        numeralSeparator = apostrNumeralSeparator;
+        magnitudeSeparator = apostrMagnitudeSeparator;
+    } else {
+        numeralSeparator = regularNumeralSeparator;
+        magnitudeSeparator = regularMagnitudeSeparator;
+    }
 }

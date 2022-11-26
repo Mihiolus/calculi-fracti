@@ -295,28 +295,15 @@ function backspace() {
     setWordOutput(converter.toWords(arabicOutput).join(" "));
 }
 function setRomanOutput(value) {
-    document.getElementById("output_roman").innerHTML = addNobreaks(value);
+    document.getElementById("output_roman").innerHTML = value;
 }
 function setRomanExpression(value) {
     let expressionElement = document.getElementById("expression_roman");
     if (typeof value === "object") {
-        expressionElement.innerHTML = addWordBreaks(addNobreaks(value)).join('');
+        expressionElement.innerHTML = addWordBreaks(value).join('');
     } else {
         expressionElement.innerHTML = value;
     }
-}
-
-function addNobreaks(expression) {
-    if (typeof expression === "string") {
-        return `<nobr>${expression}</nobr>`;
-    }
-    let newExpression = [...expression];
-    for (let i = 0; i < newExpression.length; i++) {
-        if (newExpression[i].length > 1) {
-            newExpression[i] = `<nobr>${newExpression[i]}</nobr>`;
-        }
-    }
-    return newExpression;
 }
 
 function addWordBreaks(expression) {

@@ -4,7 +4,6 @@ import * as romanLookups from "./roman-lookups.js";
 const maxRomanNumeral = 500000;
 const undefined = "(<abbr title = 'Non Numerabile'>NN</abbr>)";
 const maxWordNumber = 9999999;
-const interpunct = "·";
 
 export function toRoman(arabic) {
     if (arabic === "") {
@@ -21,8 +20,10 @@ export function toRoman(arabic) {
             roman += i;
             let oldNum = num;
             num -= romanLookups.current[i];
-            if (!isMagnitudeSame(oldNum, num) && getMagnitude(num) > 0) {
-                roman += interpunct;
+            if (!isMagnitudeSame(oldNum, num) && getMagnitude(num) >= -1) {
+                roman += romanLookups.magnitudeSeparator;
+            } else if (num > 0) {
+                roman += romanLookups.numeralSeparator;
             }
         }
     }
