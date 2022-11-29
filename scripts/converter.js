@@ -4,6 +4,7 @@ import * as romanLookups from "./roman-lookups.js";
 const maxRomanNumeral = 500000;
 const undefined = "(<abbr title = 'Non Numerabile'>NN</abbr>)";
 const maxWordNumber = 9999999;
+const tolerance = 0.000001;
 
 export function toRoman(arabic) {
     if (arabic === "") {
@@ -16,7 +17,7 @@ export function toRoman(arabic) {
         i,
         num = arabic;
     for (let i in romanLookups.current) {
-        while (num >= romanLookups.current[i]) {
+        while (num + tolerance >= romanLookups.current[i]) {
             roman += i;
             let oldNum = num;
             num -= romanLookups.current[i];
@@ -106,7 +107,7 @@ export function toWords(arabic) {
     }
     var fractional = [];
     for (let i in wordLookups.fractionsNominative) {
-        if (arabic >= wordLookups.fractionsNominative[i]) {
+        if (arabic + tolerance >= wordLookups.fractionsNominative[i]) {
             fractional.push(i);
             arabic -= wordLookups.fractionsNominative[i];
         }
