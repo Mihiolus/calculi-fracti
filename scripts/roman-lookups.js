@@ -51,18 +51,18 @@ var baseLookup = {
     V: 5,
     IV: 4,
     I: 1,
-    S: 0.5,
-    '⁙': 5 / 12,
-    '∷': 1 / 3,
-    '∴': 1 / 4,
-    ':': 1 / 6,
-    '·': 1 / 12,
-    'Є': 1 / 24,
-    '\u{10193}\u{10193}': 1 / 36,
-    Ͻ: 1 / 48,
-    '\u{10193}': 1 / 72,
-    '\u{10194}': 1 / 144,
-    Э: 1 / 288
+    '<abbr title="6&frasl;12">S</abbr>': 0.5,
+    '<abbr title="5&frasl;12">⁙</abbr>': 5 / 12,
+    '<abbr title="4&frasl;12">∷</abbr>': 1 / 3,
+    '<abbr title="3&frasl;12">∴</abbr>': 1 / 4,
+    '<abbr title="2&frasl;12">:</abbr>': 1 / 6,
+    '<abbr title="1&frasl;12">·</abbr>': 1 / 12,
+    '<abbr title="1&frasl;24">Є</abbr>': 1 / 24,
+    '<abbr title="1&frasl;36">\u{10193}\u{10193}</abbr>': 1 / 36,
+    '<abbr title="1&frasl;48">Ͻ</abbr>': 1 / 48,
+    '<abbr title="1&frasl;72">\u{10193}</abbr>': 1 / 72,
+    '<abbr title="1&frasl;144">\u{10194}</abbr>': 1 / 144,
+    '<abbr title="1&frasl;288">Э</abbr>': 1 / 288
 }
 export var current = { ...largeLookups.vincul_with_m, ...baseLookup }
 
