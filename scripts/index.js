@@ -248,14 +248,14 @@ function parseSubtraction(wordExpression) {
 function parseDivision(wordExpression) {
     wordExpression.push(...converter.toWords(arabicExpression[0]));
 
-    if (arabicExpression.length < 3) {
-        wordExpression.push("divisi", "in");
-        return;
-    }
     let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
 
     pushInflected(wordExpression, wordExpression, "divisus", "divisum", "divisa", "divisi");
     wordExpression.push("in");
+
+    if (arabicExpression.length < 3) {
+        return;
+    }
 
     let second = converter.toWords(arabicExpression[2]);
     converter.toAccusative(second);
