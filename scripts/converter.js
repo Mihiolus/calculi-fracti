@@ -15,7 +15,7 @@ export function toRoman(arabic) {
     }
     var roman = '',
         i,
-        num = arabic;
+        num = Number(arabic);
     for (let i in romanLookups.current) {
         while (num + tolerance >= romanLookups.current[i]) {
             roman += i;
@@ -49,6 +49,7 @@ export function toWords(arabic) {
     if (arabic <= 0 || arabic > maxWordNumber) {
         return [undefined];
     }
+    arabic = Number(arabic);
     var words = [], i, milia = [];
     if (arabic >= 1000000) {
         let hundredsThousands = Math.floor(arabic / 100000);
