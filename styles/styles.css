@@ -47,3 +47,19 @@ h1 {
 details>summary:hover {
     cursor: pointer;
 }
+
+.frac {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 80%;
+}
+
+.frac>sup {
+    display: block;
+    border-bottom: 1px solid;
+}
+
+.frac>sub {
+    display: block;
+}
