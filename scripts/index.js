@@ -289,6 +289,9 @@ function clr() {
     arabicExpression = [];
 }
 function backspace() {
+    if (newInput) {
+        return;
+    }
     arabicOutput = arabicOutput.slice(0, -1);
     setArabicOutput(arabicOutput);
     setRomanOutput(converter.toRoman(arabicOutput));
@@ -379,15 +382,10 @@ function add_operand(value) {
     updateWordDisplays();
     hasComma = false;
 }
+
 function solve() {
     let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join(''))})`)();
-    arabicOutput = round(result, decimal_places);
-    setArabicOutput(arabicOutput);
-    setRomanOutput(converter.toRoman(result));
-    setWordOutput(converter.toWords(result).join(" "));
-}
-function round(number, precision) {
-    return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
+    arabicOutput = String(result);
 }
 function convert_operands(expression) {
     expression = expression.replace("−", "-");
