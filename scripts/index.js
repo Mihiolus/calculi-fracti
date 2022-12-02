@@ -129,7 +129,7 @@ function updateRomanDisplays() {
     setRomanExpression(romanExpression);
 }
 function updateArabicDisplays() {
-    setArabicOutput(arabicOutput);
+    setArabicOutput(converter.toFraction(arabicOutput));
     setArabicExpression(arabicExpression);
 }
 
@@ -323,12 +323,36 @@ function addWordBreaks(expression) {
 }
 
 function setArabicOutput(value) {
-    document.getElementById("output_arabic").innerHTML = arabicOutput;
+    const field = document.getElementById("output_arabic");
+    field.innerHTML = prettifyFraction(value);
 }
+
+function prettifyFraction(string) {
+    var slashPos = string.indexOf('/');
+    if (slashPos < 0) {
+        return string;
+    }
+    var numerator, denominator;
+    [numerator, denominator] = string.split('/');
+    var whole = Math.floor(numerator / denominator);
+    numerator -= whole * denominator;
+    var result = "";
+    if (whole > 0) {
+        result += `${whole}&hairsp;`;
+    }
+    return `${result}<span class="frac"><sup>${numerator}</sup><sub>${denominator}</sub></span>`;
+}
+
 function setArabicExpression(value) {
     let expressionElement = document.getElementById("expression_arabic");
     if (typeof value === "object") {
-        expressionElement.innerHTML = addWordBreaks(value).join('');
+        var prettyExpr = [...value];
+        for (let i = 0; i < prettyExpr.length; i++) {
+            const element = prettyExpr[i];
+            if (element.length < 2) continue;
+            prettyExpr[i] = prettifyFraction(element);
+        }
+        expressionElement.innerHTML = addWordBreaks(prettyExpr).join('');
     } else {
         expressionElement.innerHTML = value;
     }
@@ -347,7 +371,7 @@ function add_operand(value) {
     }
     if (value === "=") {
         if (arabicExpression.length > 0 && arabicOutput !== "") {
-            arabicExpression.push(arabicOutput);
+            arabicExpression.push(converter.toFraction(arabicOutput));
             solve();
             newInput = true;
             hasOperand = false;
@@ -358,21 +382,21 @@ function add_operand(value) {
             arabicExpression.pop();
             arabicExpression.push(value);
         } else {
-            arabicExpression.push(arabicOutput);
+            arabicExpression.push(converter.toFraction(arabicOutput));
             solve();
-            var oldOutput = arabicOutput;
+            var oldOutput = converter.toFraction(arabicOutput);
             clr();
             arabicExpression.push(oldOutput, value);
         }
     }
     else if (newInput) { //start a new operation from the output of a previous one
-        var oldOutput = arabicOutput;
+        var oldOutput = converter.toFraction(arabicOutput);
         clr();
         arabicExpression.push(oldOutput, value);
         hasOperand = true;
         newInput = false;
     } else {
-        arabicExpression.push(arabicOutput);
+        arabicExpression.push(converter.toFraction(arabicOutput));
         arabicExpression.push(value);
         hasOperand = true;
         arabicOutput = "";

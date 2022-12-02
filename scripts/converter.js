@@ -34,6 +34,30 @@ export function toRoman(arabic) {
     return roman;
 }
 
+export function toFraction(string) {
+    if (isInteger(string)) {
+        return string;
+    }
+    var n = Number(string);
+    var numerator = Math.floor(n * 288);
+    var denominator = 288;
+    [numerator, denominator] = reduce(numerator, denominator);
+    return `${numerator}/${denominator}`;
+}
+
+function isInteger(string) {
+    var n = Math.floor(Number(string));
+    return n !== Infinity && String(n) === string;
+}
+
+function reduce(numerator, denominator) {
+    var gcd = function gcd(a, b) {
+        return b ? gcd(b, a % b) : a;
+    };
+    gcd = gcd(numerator, denominator);
+    return [numerator / gcd, denominator / gcd];
+}
+
 function isMagnitudeSame(first, second) {
     return getMagnitude(first) === getMagnitude(second);
 }
