@@ -21,9 +21,9 @@ export function toRoman(arabic) {
             roman += i;
             let oldNum = num;
             num -= romanLookups.current[i];
-            if (!isMagnitudeSame(oldNum, num) && getMagnitude(num) >= -1) {
+            if (!isMagnitudeSame(oldNum, num) && !(getMagnitude(oldNum) === 1 && getMagnitude(num) === 0) && getMagnitude(num) >= -1) {
                 roman += romanLookups.magnitudeSeparator;
-            } else if (num > 0) {
+            } else if (num > 10) {
                 roman += romanLookups.numeralSeparator;
             }
         }
