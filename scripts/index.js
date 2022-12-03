@@ -137,136 +137,40 @@ function updateArabicDisplays() {
 function updateWordDisplays() {
     setWordOutput(converter.toWords(arabicOutput).join(" "));
 
-    if (isNaN(arabicExpression[0])) {
+    let decimalExpression = [];
+
+    for (let i = 0; i < arabicExpression.length; i++) {
+        const element = arabicExpression[i];
+        let decimal = converter.toDecimal(element);
+        if (isNaN(decimal)) {
+            decimalExpression.push(element);
+        } else {
+            decimalExpression.push(decimal);
+        }
+    }
+
+    if (isNaN(decimalExpression[0])) {
         return;
     }
 
     let wordExpression = [];
     switch (arabicExpression[1]) {
         case "+":
-            parseAddition(wordExpression);
+            wordExpression = converter.additionToWords(decimalExpression);
             break;
         case minusSign:
-            parseSubtraction(wordExpression);
+            wordExpression = converter.subtractionToWords(decimalExpression);
             break;
         case multiplySign:
-            parseMultiplication(wordExpression);
+            wordExpression = converter.multiplicationToWords(decimalExpression);
             break;
         case divideSign:
-            parseDivision(wordExpression);
+            wordExpression = converter.divisionToWords(decimalExpression);
             break;
         default:
             break;
     }
     setWordExpression(wordExpression.join(" "));
-}
-
-function parseAddition(wordExpression) {
-    for (let i = 0; i < arabicExpression.length; i++) {
-        if (!isNaN(arabicExpression[i])) {
-            wordExpression.push(...converter.toWords(arabicExpression[i]));
-        } else {
-            if (arabicExpression[i] === "+") {
-                wordExpression.push("et");
-            } else {
-                wordExpression.push("sunt");
-            }
-        }
-    }
-}
-
-function parseMultiplication(wordExpression) {
-    wordExpression.push(...converter.toWords(arabicExpression[0]));
-
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
-
-    pushInflected(wordExpression, wordExpression, "multiplicatus", "multiplicatum", "multiplicata", "multiplicati");
-    wordExpression.push("per");
-
-    if (arabicExpression.length < 3) {
-        return;
-    }
-    const secondNumber = converter.toWords(arabicExpression[2]);
-    converter.toAccusative(secondNumber);
-    wordExpression.push(...secondNumber);
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
-        wordExpression.push("fiunt");
-    }
-}
-
-function getEndingDeclension(wordArray) {
-    let isSingularMasc = false, isSingularNeut = false, isPluralNeut = false;
-    if (wordArray[wordArray.length - 1] === "unus") {
-        isSingularMasc = true;
-    }
-    else if (wordArray[wordArray.length - 1] === "mille") {
-        isSingularNeut = true;
-    } else if (wordArray[wordArray.length - 1] === "milia") {
-        isPluralNeut = true;
-    }
-    return { isSingularMasc, isSingularNeut, isPluralNeut };
-}
-
-function pushInflected(expression, inflectionSource, singMasc, singNeut, plurNeut, plurMasc) {
-    let { isSingularMasc, isSingularNeut, isPluralNeut } = getEndingDeclension(inflectionSource);
-
-    if (isPluralNeut) {
-        expression.push(plurNeut);
-    } else if (isSingularMasc) {
-        expression.push(singMasc);
-    } else if (isSingularNeut) {
-        expression.push(singNeut);
-    } else {
-        expression.push(plurMasc);
-    }
-}
-
-function parseSubtraction(wordExpression) {
-    wordExpression.push("de");
-    let first = converter.toWords(arabicExpression[0]);
-    converter.toAblative(first);
-    wordExpression.push(...first);
-    if (arabicExpression.length < 3) {
-        wordExpression.push("deducti");
-        return;
-    }
-    let second = converter.toWords(arabicExpression[2]);
-
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(second);
-
-    pushInflected(wordExpression, second, "deductus", "deductum", "deducta", "deducti");
-    wordExpression.push(...second);
-
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
-        wordExpression.push("fiunt");
-    }
-}
-
-function parseDivision(wordExpression) {
-    wordExpression.push(...converter.toWords(arabicExpression[0]));
-
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
-
-    pushInflected(wordExpression, wordExpression, "divisus", "divisum", "divisa", "divisi");
-    wordExpression.push("in");
-
-    if (arabicExpression.length < 3) {
-        return;
-    }
-
-    let second = converter.toWords(arabicExpression[2]);
-    converter.toAccusative(second);
-    wordExpression.push(...second);
-
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
-        wordExpression.push("fiunt");
-    }
 }
 
 function setWordOutput(value) {

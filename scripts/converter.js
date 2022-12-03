@@ -165,11 +165,11 @@ export function toWords(arabic) {
     return words;
 }
 
-export function toAccusative(nominative) {
+function toAccusative(nominative) {
     convertCase(nominative, wordLookups.integersAccusative, wordLookups.fractionsAccusative);
 }
 
-export function toAblative(nominative) {
+function toAblative(nominative) {
     convertCase(nominative, wordLookups.integersAblative, wordLookups.fractionsAblative);
 }
 
@@ -217,4 +217,126 @@ function toAdverbial(arabic) {
         }
     }
     return words;
+}
+
+export function additionToWords(arabicExpression) {
+    var wordExpression = [];
+    for (let i = 0; i < arabicExpression.length; i++) {
+        if (!isNaN(arabicExpression[i])) {
+            wordExpression.push(...toWords(arabicExpression[i]));
+        } else {
+            if (arabicExpression[i] === "+") {
+                wordExpression.push("et");
+            } else {
+                wordExpression.push("sunt");
+            }
+        }
+    }
+    return wordExpression;
+}
+
+function getEndingDeclension(wordArray) {
+    let isSingularMasc = false, isSingularNeut = false, isPluralNeut = false;
+    if (wordArray[wordArray.length - 1] === "unus") {
+        isSingularMasc = true;
+    }
+    else if (wordArray[wordArray.length - 1] === "mille") {
+        isSingularNeut = true;
+    } else if (wordArray[wordArray.length - 1] === "milia") {
+        isPluralNeut = true;
+    }
+    return { isSingularMasc, isSingularNeut, isPluralNeut };
+}
+
+function pushInflected(expression, inflectionSource, singMasc, singNeut, plurNeut, plurMasc) {
+    let { isSingularMasc, isSingularNeut, isPluralNeut } = getEndingDeclension(inflectionSource);
+
+    if (isPluralNeut) {
+        expression.push(plurNeut);
+    } else if (isSingularMasc) {
+        expression.push(singMasc);
+    } else if (isSingularNeut) {
+        expression.push(singNeut);
+    } else {
+        expression.push(plurMasc);
+    }
+}
+
+export function subtractionToWords(arabicExpression) {
+    var wordExpression = [];
+
+    wordExpression.push("de");
+    let first = toWords(arabicExpression[0]);
+    toAblative(first);
+    wordExpression.push(...first);
+    if (arabicExpression.length < 3) {
+        wordExpression.push("deducti");
+        return wordExpression;
+    }
+    let second = toWords(arabicExpression[2]);
+
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(second);
+
+    pushInflected(wordExpression, second, "deductus", "deductum", "deducta", "deducti");
+    wordExpression.push(...second);
+
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
+
+    return wordExpression;
+}
+
+export function multiplicationToWords(arabicExpression) {
+    var wordExpression = [];
+
+    wordExpression.push(...toWords(arabicExpression[0]));
+
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
+
+    pushInflected(wordExpression, wordExpression, "multiplicatus", "multiplicatum", "multiplicata", "multiplicati");
+    wordExpression.push("per");
+
+    if (arabicExpression.length < 3) {
+        return wordExpression;
+    }
+    const secondNumber = toWords(arabicExpression[2]);
+    toAccusative(secondNumber);
+    wordExpression.push(...secondNumber);
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
+
+    return wordExpression;
+}
+
+export function divisionToWords(arabicExpression) {
+    var wordExpression = [];
+
+    wordExpression.push(...toWords(arabicExpression[0]));
+
+    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
+
+    pushInflected(wordExpression, wordExpression, "divisus", "divisum", "divisa", "divisi");
+    wordExpression.push("in");
+
+    if (arabicExpression.length < 3) {
+        return wordExpression;
+    }
+
+    let second = toWords(arabicExpression[2]);
+    toAccusative(second);
+    wordExpression.push(...second);
+
+    if (isSingularMasc || isSingularNeut) {
+        wordExpression.push("fit");
+    } else {
+        wordExpression.push("fiunt");
+    }
+
+    return wordExpression;
 }
