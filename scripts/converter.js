@@ -45,6 +45,15 @@ export function toFraction(string) {
     return `${numerator}/${denominator}`;
 }
 
+export function toDecimal(fraction) {
+    let slashPos = fraction.indexOf('/');
+    if (slashPos < 0) {
+        return NaN;
+    }
+    let split = fraction.split('/');
+    return split[0] / split[1];
+}
+
 function isInteger(string) {
     var n = Math.floor(Number(string));
     return n !== Infinity && String(n) === string;

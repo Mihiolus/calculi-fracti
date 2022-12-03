@@ -120,8 +120,9 @@ function updateRomanDisplays() {
     setRomanOutput(converter.toRoman(arabicOutput));
     let romanExpression = [];
     for (let i = 0; i < arabicExpression.length; i++) {
-        if (!isNaN(arabicExpression[i])) {
-            romanExpression.push(converter.toRoman(arabicExpression[i]));
+        let numberValue = converter.toDecimal(arabicExpression[i]);
+        if (!isNaN(numberValue)) {
+            romanExpression.push(converter.toRoman(numberValue));
         } else {
             romanExpression.push(arabicExpression[i]);
         }
