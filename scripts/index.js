@@ -408,7 +408,14 @@ function add_operand(value) {
 }
 
 function solve() {
-    let result = Function(`'use strict'; return (${convert_operands(arabicExpression.join(''))})`)();
+    let adjustedExpr = [...arabicExpression];
+    for (let i = 0; i < adjustedExpr.length; i++) {
+        const element = adjustedExpr[i];
+        if (element.length > 1) {
+            adjustedExpr[i] = `(${adjustedExpr[i]})`;
+        }
+    }
+    let result = Function(`'use strict'; return (${convert_operands(adjustedExpr.join(''))})`)();
     arabicOutput = String(result);
 }
 function convert_operands(expression) {
