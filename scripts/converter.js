@@ -46,6 +46,9 @@ export function toFraction(string) {
 }
 
 export function toDecimal(fraction) {
+    if (!isNaN(fraction)) {
+        return fraction;
+    }
     let slashPos = fraction.indexOf('/');
     if (slashPos < 0) {
         return NaN;
