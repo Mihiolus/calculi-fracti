@@ -38,6 +38,19 @@ export function isDecimal(string) {
     return !isNaN(string) && string % 1 !== 0;
 }
 
+export function isFraction(string) {
+    if (typeof string !== "string") {
+        return false;
+    }
+    if (isDecimal(string)) {
+        return false;
+    }
+    if (string.indexOf('/') < 0) {
+        return false;
+    }
+    return true;
+}
+
 export function toFraction(string) {
     if (!isDecimal(string)) {
         return string;
