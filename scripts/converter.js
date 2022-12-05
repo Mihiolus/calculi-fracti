@@ -34,8 +34,12 @@ export function toRoman(arabic) {
     return roman;
 }
 
+export function isDecimal(string) {
+    return !isNaN(string) && string % 1 !== 0;
+}
+
 export function toFraction(string) {
-    if (isInteger(string)) {
+    if (!isDecimal(string)) {
         return string;
     }
     var n = Number(string);
@@ -55,11 +59,6 @@ export function toDecimal(fraction) {
     }
     let split = fraction.split('/');
     return split[0] / split[1];
-}
-
-function isInteger(string) {
-    var n = Math.floor(Number(string));
-    return n !== Infinity && String(n) === string;
 }
 
 function reduce(numerator, denominator) {
