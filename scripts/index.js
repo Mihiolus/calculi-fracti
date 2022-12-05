@@ -45,8 +45,6 @@ if (localStorage.getItem("show-arabic")) {
     document.querySelector("#show_arabic").checked = storedArabic == 1;
 }
 
-const decimal_places = 6;
-
 document.addEventListener('keydown', processKey);
 Array.from(document.querySelectorAll("table > input")).forEach(
     i => i.addEventListener('keydown', preventEnter)
