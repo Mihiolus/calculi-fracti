@@ -7,7 +7,6 @@ var newInput = false;
 var hasComma = false;
 var arabicVisible = true;
 var wordVisible = true;
-var hasOperand = false;
 var romanVisible = true;
 
 const minusSign = "−";
@@ -287,10 +286,9 @@ function add_operand(value) {
             arabicExpression.push(converter.toFraction(arabicOutput));
             solve();
             newInput = true;
-            hasOperand = false;
             arabicExpression.push(value);
         }
-    } else if (hasOperand) { //start a new operation immediately after a previous one
+    } else if (arabicExpression[1]) { //start a new operation immediately after a previous one
         if (arabicOutput === "") {
             arabicExpression.pop();
             arabicExpression.push(value);
@@ -306,12 +304,10 @@ function add_operand(value) {
         var oldOutput = converter.toFraction(arabicOutput);
         clr();
         arabicExpression.push(oldOutput, value);
-        hasOperand = true;
         newInput = false;
     } else {
         arabicExpression.push(converter.toFraction(arabicOutput));
         arabicExpression.push(value);
-        hasOperand = true;
         arabicOutput = "";
     }
     updateRomanDisplays();
