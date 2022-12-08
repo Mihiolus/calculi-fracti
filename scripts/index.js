@@ -56,6 +56,7 @@ if (localStorage.getItem("fractions-decimal")) {
 if (localStorage.getItem("decimal-places")) {
     let storedDigits = localStorage.getItem("decimal-places");
     document.querySelector("#arabic_digits").value = storedDigits;
+    document.querySelector("label[for='decimal_frac']").innerHTML = `Decimal: ${converter.toDecimal('1/3', storedDigits)}`;
 }
 
 document.addEventListener('keydown', processKey);
