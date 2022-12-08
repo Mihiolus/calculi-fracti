@@ -122,9 +122,11 @@ function setFractionStyle(value) {
     switch (value) {
         case "simple_frac":
             areFractionsDecimal = false;
+            document.querySelector("#arabic_digits").disabled = true;
             break;
         case "decimal_frac":
             areFractionsDecimal = true;
+            document.querySelector("#arabic_digits").disabled = false;
             break;
         default:
             break;
