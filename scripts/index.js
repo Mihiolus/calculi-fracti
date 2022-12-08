@@ -6,6 +6,7 @@ var arabicExpression = [];
 var arabicVisible = true;
 var wordVisible = true;
 var romanVisible = true;
+var areFractionsDecimal = false;
 
 const minusSign = "−";
 const multiplySign = "×";
@@ -42,6 +43,15 @@ if (localStorage.getItem("show-arabic")) {
     document.querySelector("#show_arabic").checked = storedArabic == 1;
 }
 
+if (localStorage.getItem("fractions-decimal")) {
+    let storedFractions = localStorage.getItem("fractions-decimal");
+    if (storedFractions == 1) {
+        document.querySelector("#simple_frac").checked = false;
+        document.querySelector("#decimal_frac").checked = true;
+        areFractionsDecimal = true;
+    }
+}
+
 document.addEventListener('keydown', processKey);
 Array.from(document.querySelectorAll("table > input")).forEach(
     i => i.addEventListener('keydown', preventEnter)
@@ -59,7 +69,11 @@ document.querySelector(`[id='.']`).addEventListener('click', () => store("."));
 document.querySelector("[id='=']").addEventListener('click', () => add_operand("="));
 
 Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
-    elem => elem.addEventListener('click', (ev) => change_style(elem.id))
+    elem => elem.addEventListener('click', () => setRomanStyle(elem.id))
+)
+
+Array.from(document.getElementsByName("arabic_style")).forEach(
+    elem => elem.addEventListener('click', () => setFractionStyle(elem.id))
 )
 
 document.querySelector("#show_arabic").addEventListener('click', show_arabic);
@@ -103,7 +117,21 @@ function store(value) {
     setWordOutput(converter.toWords(arabicOutput).join(" "));
 }
 
-function change_style(value) {
+function setFractionStyle(value) {
+    switch (value) {
+        case "simple_frac":
+            areFractionsDecimal = false;
+            break;
+        case "decimal_frac":
+            areFractionsDecimal = true;
+            break;
+        default:
+            break;
+    }
+    updateArabicDisplays();
+}
+
+function setRomanStyle(value) {
     romanLookups.setLargeStyle(value);
     updateRomanDisplays();
     localStorage.setItem("large-style", value);
@@ -127,7 +155,14 @@ function updateRomanDisplays() {
     setRomanExpression(romanExpression);
 }
 function updateArabicDisplays() {
-    setArabicOutput(arabicOutput);
+    var processedOutput;
+    if (arabicExpression.length > 2 && areFractionsDecimal) {
+        var precision = document.querySelector("#arabic_digits").value;
+        processedOutput = converter.toDecimal(arabicOutput, precision);
+    } else {
+        processedOutput = arabicOutput;
+    }
+    setArabicOutput(processedOutput);
     setArabicExpression(arabicExpression);
 }
 

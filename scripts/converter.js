@@ -62,7 +62,7 @@ export function toFraction(string) {
     return `${numerator}/${denominator}`;
 }
 
-export function toDecimal(fraction) {
+export function toDecimal(fraction, decimalPlaces = 15) {
     if (!isNaN(fraction)) {
         return fraction;
     }
@@ -71,7 +71,7 @@ export function toDecimal(fraction) {
         return NaN;
     }
     let split = fraction.split('/');
-    return split[0] / split[1];
+    return String(Number(split[0] / split[1]).toFixed(decimalPlaces));
 }
 
 function reduce(numerator, denominator) {
