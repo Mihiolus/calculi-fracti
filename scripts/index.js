@@ -79,6 +79,7 @@ Array.from(document.getElementsByName("arabic_style")).forEach(
 document.querySelector("#show_arabic").addEventListener('click', show_arabic);
 document.querySelector("#show_word").addEventListener('click', show_word);
 document.querySelector("#show_roman").addEventListener('click', show_roman);
+document.querySelector("#arabic_digits").addEventListener('change', updateArabicDisplays);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
