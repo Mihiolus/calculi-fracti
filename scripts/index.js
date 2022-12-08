@@ -52,6 +52,11 @@ if (localStorage.getItem("fractions-decimal")) {
     }
 }
 
+if (localStorage.getItem("decimal-places")) {
+    let storedDigits = localStorage.getItem("decimal-places");
+    document.querySelector("#arabic_digits").value = storedDigits;
+}
+
 document.addEventListener('keydown', processKey);
 Array.from(document.querySelectorAll("table > input")).forEach(
     i => i.addEventListener('keydown', preventEnter)
@@ -188,6 +193,7 @@ function changeDecimalPlaces() {
     updateArabicDisplays();
     var d = document.querySelector("#arabic_digits").value;
     document.querySelector("label[for='decimal_frac']").innerHTML = `Decimal: ${converter.toDecimal('1/3', d)}`;
+    localStorage.setItem("decimal-places", d);
 }
 
 function updateWordDisplays() {
