@@ -115,7 +115,12 @@ function change_style(value) {
     localStorage.setItem("large-style", value);
 }
 function updateRomanDisplays() {
-    setRomanOutput(converter.toRoman(arabicOutput));
+    if (converter.isFraction(arabicOutput)) {
+        let numberValue = converter.toDecimal(arabicOutput);
+        setRomanOutput(converter.toRoman(numberValue));
+    } else {
+        setRomanOutput(converter.toRoman(arabicOutput));
+    }
     let romanExpression = [];
     for (let i = 0; i < arabicExpression.length; i++) {
         let numberValue = converter.toDecimal(arabicExpression[i]);
@@ -133,7 +138,12 @@ function updateArabicDisplays() {
 }
 
 function updateWordDisplays() {
-    setWordOutput(converter.toWords(arabicOutput).join(" "));
+    if (converter.isFraction(arabicOutput)) {
+        let numberValue = converter.toDecimal(arabicOutput);
+        setWordOutput(converter.toWords(numberValue).join(" "));
+    } else {
+        setWordOutput(converter.toWords(arabicOutput).join(" "));
+    }
 
     let decimalExpression = [];
 
