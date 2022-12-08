@@ -79,7 +79,7 @@ Array.from(document.getElementsByName("arabic_style")).forEach(
 document.querySelector("#show_arabic").addEventListener('click', show_arabic);
 document.querySelector("#show_word").addEventListener('click', show_word);
 document.querySelector("#show_roman").addEventListener('click', show_roman);
-document.querySelector("#arabic_digits").addEventListener('change', updateArabicDisplays);
+document.querySelector("#arabic_digits").addEventListener('change', changeDecimalPlaces);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -179,6 +179,12 @@ function updateArabicDisplays() {
         processedExpression = arabicExpression;
     }
     setArabicExpression(processedExpression);
+}
+
+function changeDecimalPlaces() {
+    updateArabicDisplays();
+    var d = document.querySelector("#arabic_digits").value;
+    document.querySelector("label[for='decimal_frac']").innerHTML = `Decimal: ${converter.toDecimal('1/3', d)}`;
 }
 
 function updateWordDisplays() {
