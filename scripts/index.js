@@ -311,21 +311,25 @@ function add_operand(value) {
 }
 
 function solve() {
-    let adjustedExpr = [...arabicExpression];
-    for (let i = 0; i < adjustedExpr.length; i++) {
-        const element = adjustedExpr[i];
-        if (element.length > 1) {
-            adjustedExpr[i] = `(${adjustedExpr[i]})`;
-        }
+    var arg0 = Fraction(arabicExpression[0]), arg1 = Fraction(arabicExpression[2]);
+    var result;
+    switch (arabicExpression[1]) {
+        case "+":
+            result = arg0.add(arg1);
+            break;
+        case minusSign:
+            result = arg0.sub(arg1);
+            break;
+        case multiplySign:
+            result = arg0.mul(arg1);
+            break;
+        case divideSign:
+            result = arg0.div(arg1);
+            break;
+        default:
+            break;
     }
-    let result = Function(`'use strict'; return (${convert_operands(adjustedExpr.join(''))})`)();
-    arabicOutput = String(result);
-}
-function convert_operands(expression) {
-    expression = expression.replace("−", "-");
-    expression = expression.replace("×", "*");
-    expression = expression.replace("÷", "/");
-    return expression;
+    arabicOutput = result.toFraction();
 }
 function inverse_convert_operands(expression) {
     expression = expression.replace("-", "−");
