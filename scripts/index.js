@@ -132,6 +132,7 @@ function setFractionStyle(value) {
             break;
     }
     updateArabicDisplays();
+    localStorage.setItem("fractions-decimal", areFractionsDecimal ? 1 : 0);
 }
 
 function setRomanStyle(value) {
