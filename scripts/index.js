@@ -3,7 +3,6 @@ import * as converter from "./converter.js";
 
 var arabicOutput = "";
 var arabicExpression = [];
-var hasComma = false;
 var arabicVisible = true;
 var wordVisible = true;
 var romanVisible = true;
@@ -94,10 +93,8 @@ function store(value) {
         clr();
     }
     if (value == '.') {
-        if (hasComma) {
+        if (arabicOutput.includes('.')) {
             return;
-        } else {
-            hasComma = true;
         }
     }
     arabicOutput += value;
@@ -130,7 +127,7 @@ function updateRomanDisplays() {
     setRomanExpression(romanExpression);
 }
 function updateArabicDisplays() {
-    setArabicOutput(converter.toFraction(arabicOutput));
+    setArabicOutput(arabicOutput);
     setArabicExpression(arabicExpression);
 }
 
@@ -195,7 +192,6 @@ function clr() {
     setArabicExpression("");
     setWordOutput("");
     setWordExpression("");
-    hasComma = false;
     arabicExpression = [];
 }
 function backspace() {
@@ -301,7 +297,6 @@ function add_operand(value) {
         var oldOutput = converter.toFraction(arabicOutput);
         clr();
         arabicExpression.push(oldOutput, value);
-        newInput = false;
     } else {
         arabicExpression.push(converter.toFraction(arabicOutput));
         arabicExpression.push(value);
@@ -310,7 +305,6 @@ function add_operand(value) {
     updateRomanDisplays();
     updateArabicDisplays();
     updateWordDisplays();
-    hasComma = false;
 }
 
 function solve() {
