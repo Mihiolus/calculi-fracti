@@ -71,7 +71,23 @@ export function toDecimal(fraction, decimalPlaces = 15) {
         return NaN;
     }
     let split = fraction.split('/');
-    return String(Number(split[0] / split[1]).toFixed(decimalPlaces));
+    return String(bankersRound(split[0] / split[1], decimalPlaces));
+}
+
+function bankersRound(number, decimalPlaces) {
+    number *= Math.pow(10, decimalPlaces);
+    const floor = Math.floor(number);
+    var diff = number - floor;
+    if (diff > 0.5 + Number.EPSILON || diff < 0.5 - Number.EPSILON) {
+        number = Math.round(number);
+    } else {
+        if (floor % 2 === 0) {
+            number = floor;
+        } else {
+            number = floor + 1;
+        }
+    }
+    return number / Math.pow(10, decimalPlaces);
 }
 
 function reduce(numerator, denominator) {

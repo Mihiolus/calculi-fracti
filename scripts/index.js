@@ -155,15 +155,29 @@ function updateRomanDisplays() {
     setRomanExpression(romanExpression);
 }
 function updateArabicDisplays() {
+    var precision = document.querySelector("#arabic_digits").value;
     var processedOutput;
     if (arabicExpression.length > 2 && areFractionsDecimal) {
-        var precision = document.querySelector("#arabic_digits").value;
         processedOutput = converter.toDecimal(arabicOutput, precision);
     } else {
         processedOutput = arabicOutput;
     }
     setArabicOutput(processedOutput);
-    setArabicExpression(arabicExpression);
+    var processedExpression;
+    if (areFractionsDecimal) {
+        processedExpression = [];
+        for (let i = 0; i < arabicExpression.length; i++) {
+            const e = arabicExpression[i];
+            if (converter.isFraction(e)) {
+                processedExpression.push(converter.toDecimal(e, precision));
+            } else {
+                processedExpression.push(e);
+            }
+        }
+    } else {
+        processedExpression = arabicExpression;
+    }
+    setArabicExpression(processedExpression);
 }
 
 function updateWordDisplays() {
