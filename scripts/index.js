@@ -48,6 +48,7 @@ if (localStorage.getItem("fractions-decimal")) {
     if (storedFractions == 1) {
         document.querySelector("#simple_frac").checked = false;
         document.querySelector("#decimal_frac").checked = true;
+        document.querySelector("#arabic_digits").disabled = false;
         areFractionsDecimal = true;
     }
 }
