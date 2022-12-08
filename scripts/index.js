@@ -3,7 +3,6 @@ import * as converter from "./converter.js";
 
 var arabicOutput = "";
 var arabicExpression = [];
-var newInput = false;
 var hasComma = false;
 var arabicVisible = true;
 var wordVisible = true;
@@ -91,9 +90,8 @@ function preventEnter(event) {
 }
 
 function store(value) {
-    if (newInput) {
+    if (arabicExpression.length > 2) {
         clr();
-        newInput = false;
     }
     if (value == '.') {
         if (hasComma) {
@@ -201,7 +199,7 @@ function clr() {
     arabicExpression = [];
 }
 function backspace() {
-    if (newInput) {
+    if (arabicExpression.length > 2) {
         return;
     }
     arabicOutput = arabicOutput.slice(0, -1);
@@ -285,7 +283,6 @@ function add_operand(value) {
         if (arabicExpression.length > 0 && arabicOutput !== "") {
             arabicExpression.push(converter.toFraction(arabicOutput));
             solve();
-            newInput = true;
             arabicExpression.push(value);
         }
     } else if (arabicExpression[1]) { //start a new operation immediately after a previous one
@@ -300,7 +297,7 @@ function add_operand(value) {
             arabicExpression.push(oldOutput, value);
         }
     }
-    else if (newInput) { //start a new operation from the output of a previous one
+    else if (arabicExpression.length > 2) { //start a new operation from the output of a previous one
         var oldOutput = converter.toFraction(arabicOutput);
         clr();
         arabicExpression.push(oldOutput, value);
