@@ -393,7 +393,7 @@ function solve() {
         default:
             break;
     }
-    arabicOutput = result.toFraction();
+    arabicOutput = converter.toFraction(result.valueOf());
 }
 function inverse_convert_operands(expression) {
     expression = expression.replace("-", "−");
