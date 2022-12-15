@@ -398,8 +398,12 @@ function solve() {
         arabicOutput = "invalid operation";
         return;
     }
+    result = result.valueOf();
+    if (converter.isDecimal(result)) {
+        arabicOutput = converter.toFraction(result);
+    } else {
+        arabicOutput = result.toString();
     }
-    arabicOutput = converter.toFraction(result.valueOf());
 }
 function inverse_convert_operands(expression) {
     expression = expression.replace("-", "−");
