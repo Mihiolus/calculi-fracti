@@ -377,21 +377,27 @@ function add_operand(value) {
 function solve() {
     var arg0 = Fraction(arabicExpression[0]), arg1 = Fraction(arabicExpression[2]);
     var result;
-    switch (arabicExpression[1]) {
-        case "+":
-            result = arg0.add(arg1);
-            break;
-        case minusSign:
-            result = arg0.sub(arg1);
-            break;
-        case multiplySign:
-            result = arg0.mul(arg1);
-            break;
-        case divideSign:
-            result = arg0.div(arg1);
-            break;
-        default:
-            break;
+    try {
+        switch (arabicExpression[1]) {
+            case "+":
+                result = arg0.add(arg1);
+                break;
+            case minusSign:
+                result = arg0.sub(arg1);
+                break;
+            case multiplySign:
+                result = arg0.mul(arg1);
+                break;
+            case divideSign:
+                result = arg0.div(arg1);
+                break;
+            default:
+                break;
+        }
+    } catch (e) {
+        arabicOutput = "invalid operation";
+        return;
+    }
     }
     arabicOutput = converter.toFraction(result.valueOf());
 }
