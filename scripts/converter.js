@@ -268,10 +268,8 @@ export function additionToWords(arabicExpression) {
 
 function isEndingPlural(wordArray) {
     var result = true;
-    console.log(wordArray);
     for (let i in wordLookups.genders) {
         if (i === wordArray[wordArray.length - 1]) {
-            console.log(`${wordArray[wordArray.length - 1]}, ${i}, ${wordLookups.genders[i]}`);
             if (!wordLookups.genders[i].includes('pl')) {
                 result = false;
             }
