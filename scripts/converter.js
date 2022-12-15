@@ -279,17 +279,17 @@ function getEndingDeclension(wordArray) {
     return { isSingularMasc, isSingularNeut, isPluralNeut };
 }
 
-function pushInflected(expression, inflectionSource, singMasc, singNeut, plurNeut, plurMasc) {
+function pushInflected(expression, inflectionSource, wordStart) {
     let { isSingularMasc, isSingularNeut, isPluralNeut } = getEndingDeclension(inflectionSource);
 
     if (isPluralNeut) {
-        expression.push(plurNeut);
+        expression.push(wordStart + wordLookups.participleEndings.npl);
     } else if (isSingularMasc) {
-        expression.push(singMasc);
+        expression.push(wordStart + wordLookups.participleEndings.m);
     } else if (isSingularNeut) {
-        expression.push(singNeut);
+        expression.push(wordStart + wordLookups.participleEndings.n);
     } else {
-        expression.push(plurMasc);
+        expression.push(wordStart + wordLookups.participleEndings.mpl);
     }
 }
 
@@ -308,7 +308,7 @@ export function subtractionToWords(arabicExpression) {
 
     let { isSingularMasc, isSingularNeut } = getEndingDeclension(second);
 
-    pushInflected(wordExpression, second, "deductus", "deductum", "deducta", "deducti");
+    pushInflected(wordExpression, second, "deduct");
     wordExpression.push(...second);
 
     if (isSingularMasc || isSingularNeut) {
@@ -327,7 +327,7 @@ export function multiplicationToWords(arabicExpression) {
 
     let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
 
-    pushInflected(wordExpression, wordExpression, "multiplicatus", "multiplicatum", "multiplicata", "multiplicati");
+    pushInflected(wordExpression, wordExpression, "multiplicat");
     wordExpression.push("per");
 
     if (arabicExpression.length < 3) {
@@ -352,7 +352,7 @@ export function divisionToWords(arabicExpression) {
 
     let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
 
-    pushInflected(wordExpression, wordExpression, "divisus", "divisum", "divisa", "divisi");
+    pushInflected(wordExpression, wordExpression, "divis");
     wordExpression.push("in");
 
     if (arabicExpression.length < 3) {

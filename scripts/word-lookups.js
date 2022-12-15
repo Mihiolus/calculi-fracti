@@ -91,6 +91,8 @@ export var prefixes = {
     duode: -2
 }
 
+export const m = 0, f = 1, n = 2, fpl = 3;
+
 export var fractionsNominative = {
     deunx: 11 / 12,
     dextans: 5 / 6,
@@ -111,6 +113,37 @@ export var fractionsNominative = {
     sextula: 1 / 72,
     "dimidia sextula": 1 / 144,
     scripulum: 1 / 288
+}
+
+export var fractionGenders = {
+    deunx: m,
+    dextans: m,
+    dodrans: m,
+    bes: m,
+    septunx: m,
+    semis: m,
+    quincunx: m,
+    triens: m,
+    quadrans: m,
+    sextans: m,
+    sescuncia: f,
+    uncia: f,
+    semuncia: f,
+    "binae et dimidia sextula": f,
+    "binae sextulae": fpl,
+    sicilicus: m,
+    sextula: f,
+    "dimidia sextula": f,
+    scripulum: n
+}
+
+export var participleEndings = {
+    m: "us",
+    f: "a",
+    n: "um",
+    mpl: "i",
+    fpl: "ae",
+    npl: "a"
 }
 
 export var fractionsAccusative = {
