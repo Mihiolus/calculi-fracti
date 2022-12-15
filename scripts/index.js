@@ -339,6 +339,9 @@ function setWordExpression(value) {
     }
 }
 function add_operand(value) {
+    if (arabicOutput === invalidString) {
+        return;
+    }
     if (arabicExpression.length == 0 && arabicOutput === "") {
         return;
     }
@@ -355,9 +358,13 @@ function add_operand(value) {
         } else {
             arabicExpression.push(converter.toFraction(arabicOutput));
             solve();
-            var oldOutput = converter.toFraction(arabicOutput);
-            clr();
-            arabicExpression.push(oldOutput, value);
+            if (arabicOutput === invalidString) {
+                arabicExpression.push("=");
+            } else {
+                var oldOutput = converter.toFraction(arabicOutput);
+                clr();
+                arabicExpression.push(oldOutput, value);
+            }
         }
     }
     else if (arabicExpression.length > 2) { //start a new operation from the output of a previous one
@@ -374,6 +381,7 @@ function add_operand(value) {
     updateWordDisplays();
 }
 
+const invalidString = "invalid operation";
 function solve() {
     var arg0 = Fraction(arabicExpression[0]), arg1 = Fraction(arabicExpression[2]);
     var result;
@@ -395,7 +403,7 @@ function solve() {
                 break;
         }
     } catch (e) {
-        arabicOutput = "invalid operation";
+        arabicOutput = invalidString;
         return;
     }
     result = result.valueOf();
