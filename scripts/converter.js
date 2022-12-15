@@ -280,17 +280,13 @@ function getEndingDeclension(wordArray) {
 }
 
 function pushInflected(expression, inflectionSource, wordStart) {
-    let { isSingularMasc, isSingularNeut, isPluralNeut } = getEndingDeclension(inflectionSource);
-
-    if (isPluralNeut) {
-        expression.push(wordStart + wordLookups.participleEndings.npl);
-    } else if (isSingularMasc) {
-        expression.push(wordStart + wordLookups.participleEndings.m);
-    } else if (isSingularNeut) {
-        expression.push(wordStart + wordLookups.participleEndings.n);
-    } else {
-        expression.push(wordStart + wordLookups.participleEndings.mpl);
+    var gender = "mpl";
+    for (let i in wordLookups.genders) {
+        if (i === inflectionSource[inflectionSource.length - 1]) {
+            gender = wordLookups.genders[i];
+        }
     }
+    expression.push(wordStart + wordLookups.participleEndings[gender]);
 }
 
 export function subtractionToWords(arabicExpression) {
