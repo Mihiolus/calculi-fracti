@@ -266,17 +266,19 @@ export function additionToWords(arabicExpression) {
     return wordExpression;
 }
 
-function getEndingDeclension(wordArray) {
-    let isSingularMasc = false, isSingularNeut = false, isPluralNeut = false;
-    if (wordArray[wordArray.length - 1] === "unus") {
-        isSingularMasc = true;
+function isEndingPlural(wordArray) {
+    var result = true;
+    console.log(wordArray);
+    for (let i in wordLookups.genders) {
+        if (i === wordArray[wordArray.length - 1]) {
+            console.log(`${wordArray[wordArray.length - 1]}, ${i}, ${wordLookups.genders[i]}`);
+            if (!wordLookups.genders[i].includes('pl')) {
+                result = false;
+            }
+            break;
+        }
     }
-    else if (wordArray[wordArray.length - 1] === "mille") {
-        isSingularNeut = true;
-    } else if (wordArray[wordArray.length - 1] === "milia") {
-        isPluralNeut = true;
-    }
-    return { isSingularMasc, isSingularNeut, isPluralNeut };
+    return result;
 }
 
 function pushInflected(expression, inflectionSource, wordStart) {
@@ -302,15 +304,13 @@ export function subtractionToWords(arabicExpression) {
     }
     let second = toWords(arabicExpression[2]);
 
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(second);
-
     pushInflected(wordExpression, second, "deduct");
     wordExpression.push(...second);
 
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
+    if (isEndingPlural(second)) {
         wordExpression.push("fiunt");
+    } else {
+        wordExpression.push("fit");
     }
 
     return wordExpression;
@@ -321,7 +321,7 @@ export function multiplicationToWords(arabicExpression) {
 
     wordExpression.push(...toWords(arabicExpression[0]));
 
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
+    var endingPlural = isEndingPlural(wordExpression);
 
     pushInflected(wordExpression, wordExpression, "multiplicat");
     wordExpression.push("per");
@@ -332,10 +332,10 @@ export function multiplicationToWords(arabicExpression) {
     const secondNumber = toWords(arabicExpression[2]);
     toAccusative(secondNumber);
     wordExpression.push(...secondNumber);
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
+    if (endingPlural) {
         wordExpression.push("fiunt");
+    } else {
+        wordExpression.push("fit");
     }
 
     return wordExpression;
@@ -346,7 +346,7 @@ export function divisionToWords(arabicExpression) {
 
     wordExpression.push(...toWords(arabicExpression[0]));
 
-    let { isSingularMasc, isSingularNeut } = getEndingDeclension(wordExpression);
+    var endingPlural = isEndingPlural(wordExpression);
 
     pushInflected(wordExpression, wordExpression, "divis");
     wordExpression.push("in");
@@ -359,10 +359,10 @@ export function divisionToWords(arabicExpression) {
     toAccusative(second);
     wordExpression.push(...second);
 
-    if (isSingularMasc || isSingularNeut) {
-        wordExpression.push("fit");
-    } else {
+    if (endingPlural) {
         wordExpression.push("fiunt");
+    } else {
+        wordExpression.push("fit");
     }
 
     return wordExpression;
