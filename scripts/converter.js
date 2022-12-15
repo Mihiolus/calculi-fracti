@@ -289,29 +289,33 @@ function pushInflected(expression, inflectionSource, wordStart) {
     expression.push(wordStart + wordLookups.participleEndings[gender]);
 }
 
+/*The function reverses the order of numbers for the complete expression */
 export function subtractionToWords(arabicExpression) {
-    var wordExpression = [];
+    var ending = [];
 
-    wordExpression.push("de");
+    ending.push("de");
     let first = toWords(arabicExpression[0]);
     toAblative(first);
-    wordExpression.push(...first);
+    ending.push(...first);
     if (arabicExpression.length < 3) {
-        wordExpression.push("deducti");
-        return wordExpression;
+        ending.push("deducti");
+        return ending;
     }
     let second = toWords(arabicExpression[2]);
 
-    pushInflected(wordExpression, second, "deduct");
-    wordExpression.push(...second);
+    let beginning = [];
+    beginning.push(...second);
+    pushInflected(beginning, second, "deduct");
+
+    beginning.push(...ending);
 
     if (isEndingPlural(second)) {
-        wordExpression.push("fiunt");
+        beginning.push("fiunt");
     } else {
-        wordExpression.push("fit");
+        beginning.push("fit");
     }
 
-    return wordExpression;
+    return beginning;
 }
 
 export function multiplicationToWords(arabicExpression) {
