@@ -12,6 +12,8 @@ const minusSign = "−";
 const multiplySign = "×";
 const divideSign = "÷";
 
+const invalidString = "invalid operation";
+
 if (localStorage.getItem("large-style")) {
     document.querySelector("#vincul_with_m").checked = false;
     let storedStyle = localStorage.getItem("large-style");
@@ -88,6 +90,8 @@ document.querySelector("#show_word").addEventListener('click', show_word);
 document.querySelector("#show_roman").addEventListener('click', show_roman);
 document.querySelector("#arabic_digits").addEventListener('change', changeDecimalPlaces);
 
+updateButtonStatus();
+
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
         store(event.key);
@@ -123,6 +127,7 @@ function store(value) {
     setArabicOutput(arabicOutput);
     setRomanOutput(converter.toRoman(arabicOutput));
     setWordOutput(converter.toWords(arabicOutput).join(" "));
+    updateButtonStatus();
 }
 
 function setFractionStyle(value) {
@@ -260,6 +265,7 @@ function clr() {
     setWordOutput("");
     setWordExpression("");
     arabicExpression = [];
+    updateButtonStatus();
 }
 function backspace() {
     if (arabicExpression.length > 2) {
@@ -269,6 +275,7 @@ function backspace() {
     setArabicOutput(arabicOutput);
     setRomanOutput(converter.toRoman(arabicOutput));
     setWordOutput(converter.toWords(arabicOutput).join(" "));
+    updateButtonStatus();
 }
 function setRomanOutput(value) {
     document.getElementById("output_roman").innerHTML = value;
@@ -338,6 +345,34 @@ function setWordExpression(value) {
         expressionElement.innerHTML = value;
     }
 }
+function updateButtonStatus() {
+    var operandButtons = [];
+    operandButtons.push(document.querySelector("[id='+']"));
+    operandButtons.push(document.querySelector(`[id='${minusSign}']`));
+    operandButtons.push(document.querySelector(`[id='${multiplySign}']`));
+    operandButtons.push(document.querySelector(`[id='${divideSign}']`));
+
+    var equalsButton = document.querySelector("[id='=']");
+
+    var bkspButton = document.querySelector("#bksp");
+
+    var periodButton = document.querySelector("[id='.']");
+
+    let toDisable = false;
+    if (arabicOutput === invalidString ||
+        arabicExpression.length == 0 && arabicOutput === "") {
+        toDisable = true;
+    }
+    for (let i = 0; i < operandButtons.length; i++) {
+        const b = operandButtons[i];
+        b.disabled = toDisable;
+    }
+    equalsButton.disabled = toDisable || arabicOutput === "" && arabicExpression.length < 3;
+
+    periodButton.disabled = arabicOutput.includes('.');
+
+    bkspButton.disabled = arabicExpression.length > 2 || arabicOutput === "";
+}
 function add_operand(value) {
     if (arabicOutput === invalidString) {
         return;
@@ -379,9 +414,9 @@ function add_operand(value) {
     updateRomanDisplays();
     updateArabicDisplays();
     updateWordDisplays();
+    updateButtonStatus();
 }
 
-const invalidString = "invalid operation";
 function solve() {
     var arg0 = Fraction(arabicExpression[0]), arg1 = Fraction(arabicExpression[2]);
     var result;
