@@ -1,19 +1,24 @@
 input[type="button"] {
     width: 100%;
+    border: 3px outset;
+    border-radius: 2px;
+}
+
+input[type="button"]:hover{
+    cursor: pointer;
+}
+
+input[type="button"]:disabled{
+    cursor:auto;
 }
 
 .number_field {
     width: 100%;
     text-align: right;
     padding: 5px;
-    border: 1px solid;
+    border: 4px inset #7d6222;
     height: 35px;
-}
-
-table {
-    table-layout: fixed;
-    width: 300px;
-    margin: 0 auto;
+    border-radius: 5px;
 }
 
 @font-face {
@@ -23,7 +28,6 @@ table {
 
 body {
     font-family: 'Quivira';
-    width: 650px;
     margin: auto;
 }
 
@@ -40,8 +44,10 @@ body {
 }
 
 h1 {
-    margin: 0;
+    margin: 0px 0px 20px;
     padding: 20px;
+    background-color: #7d6222;
+    text-align: center;
 }
 
 details>summary:hover {
@@ -62,4 +68,14 @@ details>summary:hover {
 
 .frac>sub {
     display: block;
+}
+
+#calc {
+    background-color: #7d6222;
+    border-radius: 10px;
+    padding: 10px;
+    table-layout: fixed;
+    width: 300px;
+    margin: 0 auto;
+    border: 8px outset #7d6222;
 }
