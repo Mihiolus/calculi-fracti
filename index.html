@@ -13,141 +13,151 @@
 <body>
     <h1>Calculi Fracti: A Roman fractional calculator</h1>
 
-    <table id="calc">
-        <tr class="roman_display">
-            <td colspan="4" id="expression_roman" class="number_field"></td>
-        </tr>
-        <tr class="word_display">
-            <td colspan="4" id="expression_word" class="number_field"></td>
-        </tr>
-        <tr class="arabic_display">
-            <td colspan="4" id="expression_arabic" class="number_field"></td>
-        </tr>
-        <tr class="roman_display">
-            <td colspan="4" id="output_roman" class="number_field"></td>
-        </tr>
-        <tr class="word_display">
-            <td colspan="4" id="output_word" class="number_field"></td>
-        </tr>
-        <tr class="arabic_display">
-            <td colspan="4" id="output_arabic" class="number_field"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td><input type="button" value="c" id="clr"></td>
-            <td><input type="button" value="←" id="bksp"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value=7 id="7"></td>
-            <td><input type="button" value=8 id="8"></td>
-            <td><input type="button" value=9 id="9"></td>
-            <td><input type="button" value=÷ id="÷"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value=4 id="4"></td>
-            <td><input type="button" value=5 id="5"></td>
-            <td><input type="button" value=6 id="6"></td>
-            <td><input type="button" value=× id="×"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value=1 id="1"></td>
-            <td><input type="button" value=2 id="2"></td>
-            <td><input type="button" value=3 id="3"></td>
-            <td><input type="button" value=− id="−"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value=0 id="0"></td>
-            <td><input type="button" value=. id="."></td>
-            <td><input type="button" value="=" id="="></td>
-            <td><input type="button" value="+" id="+"></td>
-        </tr>
-    </table>
-
-    <fieldset style="width: 250px; display: inline-block;">
-        <legend>Style for large numbers</legend>
-
-        <div>
-            <input type="radio" id="apostr" name="large_style">
-            <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
+    <div id="content">
+        <div id="calc-container">
+            <table id="calc">
+                <tr class="roman_display">
+                    <td colspan="4" id="expression_roman" class="number_field"></td>
+                </tr>
+                <tr class="word_display">
+                    <td colspan="4" id="expression_word" class="number_field"></td>
+                </tr>
+                <tr class="arabic_display">
+                    <td colspan="4" id="expression_arabic" class="number_field"></td>
+                </tr>
+                <tr class="roman_display">
+                    <td colspan="4" id="output_roman" class="number_field"></td>
+                </tr>
+                <tr class="word_display">
+                    <td colspan="4" id="output_word" class="number_field"></td>
+                </tr>
+                <tr class="arabic_display">
+                    <td colspan="4" id="output_arabic" class="number_field"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><input type="button" value="c" id="clr"></td>
+                    <td><input type="button" value="←" id="bksp"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value=7 id="7"></td>
+                    <td><input type="button" value=8 id="8"></td>
+                    <td><input type="button" value=9 id="9"></td>
+                    <td><input type="button" value=÷ id="÷"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value=4 id="4"></td>
+                    <td><input type="button" value=5 id="5"></td>
+                    <td><input type="button" value=6 id="6"></td>
+                    <td><input type="button" value=× id="×"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value=1 id="1"></td>
+                    <td><input type="button" value=2 id="2"></td>
+                    <td><input type="button" value=3 id="3"></td>
+                    <td><input type="button" value=− id="−"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value=0 id="0"></td>
+                    <td><input type="button" value=. id="."></td>
+                    <td><input type="button" value="=" id="="></td>
+                    <td><input type="button" value="+" id="+"></td>
+                </tr>
+            </table>
         </div>
 
-        <div>
-            <input type="radio" id="apostr_tight" name="large_style">
-            <label for="apostr_tight">ↀ ↁ ↂ</label>
+        <div id="settings">
+            <fieldset style="width: 250px;">
+                <legend>Style for large numbers</legend>
+
+                <div>
+                    <input type="radio" id="apostr" name="large_style">
+                    <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="apostr_tight" name="large_style">
+                    <label for="apostr_tight">ↀ ↁ ↂ</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="vincul" name="large_style">
+                    <label for="vincul" style="position:relative; top: 2px;"><span
+                            style="border-top:1px solid;">I</span>
+                        <span style="border-top:1px solid;">V</span> <span
+                            style="border-top:1px solid;">X</span></label>
+                </div>
+
+                <div>
+                    <input type="radio" id="vincul_with_m" name="large_style" checked>
+                    <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
+                            style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
+                </div>
+            </fieldset>
+
+            <fieldset style="width:250px;">
+                <legend>Display of Arabic fractions</legend>
+
+                <div>
+                    <input type="radio" id="simple_frac" name="arabic_style" checked>
+                    <label for="simple_frac">Simple: <span class="frac"><sup>1</sup><sub>3</sub></span></label>
+                </div>
+
+                <div>
+                    <input type="radio" name="arabic_style" id="decimal_frac">
+                    <label for="decimal_frac">Decimal: 0.3333</label>
+                    <div style="margin-left: 10%;">
+                        <label for="arabic_digits">Digits:</label>
+                        <input type="number" name="arabic_digits" id="arabic_digits" min="1" max="6" value="4" disabled>
+                    </div>
+                </div>
+            </fieldset>
+
+            <p>
+                <input type="checkbox" id="show_roman" checked>
+                <label for="show_roman">Show Roman numbers</label>
+            </p>
+
+            <p>
+                <input type="checkbox" id="show_arabic" checked>
+                <label for="show_arabic">Show Arabic numbers</label>
+            </p>
+            <p>
+                <input type="checkbox" id="show_word" checked>
+                <label for="show_word">Show word descriptions</label>
+            </p>
         </div>
+    </div>
 
-        <div>
-            <input type="radio" id="vincul" name="large_style">
-            <label for="vincul" style="position:relative; top: 2px;"><span style="border-top:1px solid;">I</span> <span
-                    style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
-        </div>
+    <div id="footer">
+        <p>N.B.: Only valid Roman numbers are displayed, i.e. greater or equal to <span
+                class="frac"><sup>1</sup><sub>12</sub></span> or 1 uncia, and less than
+            500,000 for Roman numerals and 10,000,000 for word expressions.</p>
 
-        <div>
-            <input type="radio" id="vincul_with_m" name="large_style" checked>
-            <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
-                    style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
-        </div>
-    </fieldset>
+        <details>
+            <summary>Legend for fractions</summary>
+            <ul>
+                <li>S = <span class="frac"><sup>6</sup><sub>12</sub></span> or <span
+                        class="frac"><sup>1</sup><sub>2</sub></span></li>
+                <li>⁙ = <span class="frac"><sup>5</sup><sub>12</sub></span></li>
+                <li>∷ = <span class="frac"><sup>4</sup><sub>12</sub></span> or <span
+                        class="frac"><sup>1</sup><sub>3</sub></span></li>
+                <li>∴ = <span class="frac"><sup>3</sup><sub>12</sub></span> or <span
+                        class="frac"><sup>1</sup><sub>4</sub></span></li>
+                <li>: = <span class="frac"><sup>2</sup><sub>12</sub></span> or <span
+                        class="frac"><sup>1</sup><sub>6</sub></span></li>
+                <li>· = <span class="frac"><sup>1</sup><sub>12</sub></span></li>
+                <li>Є = <span class="frac"><sup>1</sup><sub>24</sub></span></li>
+                <li>Ͻ = <span class="frac"><sup>1</sup><sub>48</sub></span></li>
+                <li>&#65939; = <span class="frac"><sup>1</sup><sub>72</sub></span></li>
+                <li>&#65940; = <span class="frac"><sup>1</sup><sub>144</sub></span></li>
+                <li>Э = <span class="frac"><sup>1</sup><sub>288</sub></span></li>
+            </ul>
+        </details>
 
-    <fieldset style="width:250px; display: inline-block;">
-        <legend>Display of Arabic fractions</legend>
-
-        <div>
-            <input type="radio" id="simple_frac" name="arabic_style" checked>
-            <label for="simple_frac">Simple: <span class="frac"><sup>1</sup><sub>3</sub></span></label>
-        </div>
-
-        <div>
-            <input type="radio" name="arabic_style" id="decimal_frac">
-            <label for="decimal_frac">Decimal: 0.3333</label>
-            <div style="margin-left: 10%;">
-                <label for="arabic_digits">Digits:</label>
-                <input type="number" name="arabic_digits" id="arabic_digits" min="1" max="6" value="4" disabled>
-            </div>
-        </div>
-    </fieldset>
-
-    <p>
-        <input type="checkbox" id="show_roman" checked>
-        <label for="show_roman">Show Roman numbers</label>
-    </p>
-
-    <p>
-        <input type="checkbox" id="show_arabic" checked>
-        <label for="show_arabic">Show Arabic numbers</label>
-    </p>
-    <p>
-        <input type="checkbox" id="show_word" checked>
-        <label for="show_word">Show word descriptions</label>
-    </p>
-
-    <p>N.B.: Only valid Roman numbers are displayed, i.e. greater or equal to <span
-            class="frac"><sup>1</sup><sub>12</sub></span> or 1 uncia, and less than
-        500,000 for Roman numerals and 10,000,000 for word expressions.</p>
-
-    <details>
-        <summary>Legend for fractions</summary>
-        <ul>
-            <li>S = <span class="frac"><sup>6</sup><sub>12</sub></span> or <span
-                    class="frac"><sup>1</sup><sub>2</sub></span></li>
-            <li>⁙ = <span class="frac"><sup>5</sup><sub>12</sub></span></li>
-            <li>∷ = <span class="frac"><sup>4</sup><sub>12</sub></span> or <span
-                    class="frac"><sup>1</sup><sub>3</sub></span></li>
-            <li>∴ = <span class="frac"><sup>3</sup><sub>12</sub></span> or <span
-                    class="frac"><sup>1</sup><sub>4</sub></span></li>
-            <li>: = <span class="frac"><sup>2</sup><sub>12</sub></span> or <span
-                    class="frac"><sup>1</sup><sub>6</sub></span></li>
-            <li>· = <span class="frac"><sup>1</sup><sub>12</sub></span></li>
-            <li>Є = <span class="frac"><sup>1</sup><sub>24</sub></span></li>
-            <li>Ͻ = <span class="frac"><sup>1</sup><sub>48</sub></span></li>
-            <li>&#65939; = <span class="frac"><sup>1</sup><sub>72</sub></span></li>
-            <li>&#65940; = <span class="frac"><sup>1</sup><sub>144</sub></span></li>
-            <li>Э = <span class="frac"><sup>1</sup><sub>288</sub></span></li>
-        </ul>
-    </details>
-
-    <p><a href="https://github.com/Mihiolus/calculi-fracti">Site created and hosted on GitHub</a></p>
+        <p><a href="https://github.com/Mihiolus/calculi-fracti">Site created and hosted on GitHub</a></p>
+    </div>
 
     <script type="module" src="scripts/index.js"></script>
     <script src="scripts/fraction.min.js"></script>

@@ -4,12 +4,12 @@ input[type="button"] {
     border-radius: 2px;
 }
 
-input[type="button"]:hover{
+input[type="button"]:hover {
     cursor: pointer;
 }
 
-input[type="button"]:disabled{
-    cursor:auto;
+input[type="button"]:disabled {
+    cursor: auto;
 }
 
 .number_field {
@@ -78,4 +78,23 @@ details>summary:hover {
     width: 300px;
     margin: 0 auto;
     border: 8px outset #7d6222;
+}
+
+#calc-container {
+    display: inline-block;
+    margin: 0px 30px 0px 0px;
+}
+
+#content {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#settings {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#footer {
+    margin: 0px 20px;
 }
