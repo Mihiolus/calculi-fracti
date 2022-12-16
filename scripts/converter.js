@@ -56,10 +56,10 @@ export function toFraction(string) {
         return string;
     }
     var n = Number(string);
-    var numerator = Math.floor(n * 288);
+    var sign = Math.sign(n);
+    var numerator = Math.floor(Math.abs(n) * 288);
     var denominator = 288;
-    [numerator, denominator] = reduce(numerator, denominator);
-    return `${numerator}/${denominator}`;
+    return new Fraction(sign * numerator, denominator).toFraction();
 }
 
 export function toDecimal(fraction, decimalPlaces = 15) {
@@ -88,14 +88,6 @@ function bankersRound(number, decimalPlaces) {
         }
     }
     return number / Math.pow(10, decimalPlaces);
-}
-
-function reduce(numerator, denominator) {
-    var gcd = function gcd(a, b) {
-        return b ? gcd(b, a % b) : a;
-    };
-    gcd = gcd(numerator, denominator);
-    return [numerator / gcd, denominator / gcd];
 }
 
 function isMagnitudeSame(first, second) {

@@ -312,15 +312,17 @@ function prettifyFraction(string) {
     if (slashPos < 0) {
         return string;
     }
-    var numerator, denominator;
-    [numerator, denominator] = string.split('/');
-    var whole = Math.floor(numerator / denominator);
-    numerator -= whole * denominator;
+    var fraction = new Fraction(string);
+    var whole = Math.floor(fraction.n / fraction.d);
+    var numerator = fraction.n - whole * fraction.d;
     var result = "";
+    if (fraction.s < 0) {
+        result += minusSign;
+    }
     if (whole > 0) {
         result += `${whole}&hairsp;`;
     }
-    return `${result}<span class="frac"><sup>${numerator}</sup><sub>${denominator}</sub></span>`;
+    return `${result}<span class="frac"><sup>${numerator}</sup><sub>${fraction.d}</sub></span>`;
 }
 
 function setArabicExpression(value) {
