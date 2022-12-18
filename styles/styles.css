@@ -37,7 +37,9 @@ input[type="checkbox"]:disabled+label {
     padding: 5px;
     border: 4px inset #7d6222;
     height: 35px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 9px #66635c,
+        inset -5px -5px 9px #ffffff;
 }
 
 @font-face {
@@ -97,6 +99,8 @@ details>summary:hover {
     width: 300px;
     margin: 0 auto;
     border: 8px outset #7d6222;
+    box-shadow: 5px 5px 9px #66635c,
+        -5px -5px 9px #ffffff;
 }
 
 #calc-container {
