@@ -6,10 +6,14 @@ input[type="button"] {
 
 input[type="button"]:hover {
     cursor: pointer;
+    font-weight: bold;
 }
 
 input[type="button"]:disabled {
     cursor: auto;
+    font-weight: inherit;
+}
+
 }
 
 .number_field {
