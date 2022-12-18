@@ -14,6 +14,10 @@ const divideSign = "÷";
 
 const invalidString = "invalid operation";
 
+var settingsVisible = true;
+
+toggleSettings();
+
 if (localStorage.getItem("large-style")) {
     document.querySelector("#vincul_with_m").checked = false;
     let storedStyle = localStorage.getItem("large-style");
@@ -91,6 +95,8 @@ document.querySelector("#show_roman").addEventListener('click', show_roman);
 document.querySelector("#arabic_digits").addEventListener('change', changeDecimalPlaces);
 
 updateButtonStatus();
+
+document.querySelector("#trigger").addEventListener('click', toggleSettings);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -482,4 +488,10 @@ function show_roman() {
     }
     document.querySelector("#show_word").disabled = !romanVisible;
     localStorage.setItem("show-roman", romanVisible ? 1 : 0);
+}
+
+function toggleSettings() {
+    settingsVisible = !settingsVisible;
+    var sliderWidth = document.querySelector("#slider").offsetWidth;
+    document.querySelector("#settings").style.left = settingsVisible ? "0px" : `-${sliderWidth}px`;
 }

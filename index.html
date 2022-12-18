@@ -12,63 +12,10 @@
 
 <body>
     <h1>Calculi Fracti: A Roman fractional calculator</h1>
-
-    <div id="content">
-        <div id="calc-container">
-            <table id="calc">
-                <tr class="roman_display">
-                    <td colspan="4" id="expression_roman" class="number_field"></td>
-                </tr>
-                <tr class="word_display">
-                    <td colspan="4" id="expression_word" class="number_field"></td>
-                </tr>
-                <tr class="arabic_display">
-                    <td colspan="4" id="expression_arabic" class="number_field"></td>
-                </tr>
-                <tr class="roman_display">
-                    <td colspan="4" id="output_roman" class="number_field"></td>
-                </tr>
-                <tr class="word_display">
-                    <td colspan="4" id="output_word" class="number_field"></td>
-                </tr>
-                <tr class="arabic_display">
-                    <td colspan="4" id="output_arabic" class="number_field"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="button" value="c" id="clr"></td>
-                    <td><input type="button" value="←" id="bksp"></td>
-                </tr>
-                <tr>
-                    <td><input type="button" value=7 id="7"></td>
-                    <td><input type="button" value=8 id="8"></td>
-                    <td><input type="button" value=9 id="9"></td>
-                    <td><input type="button" value=÷ id="÷"></td>
-                </tr>
-                <tr>
-                    <td><input type="button" value=4 id="4"></td>
-                    <td><input type="button" value=5 id="5"></td>
-                    <td><input type="button" value=6 id="6"></td>
-                    <td><input type="button" value=× id="×"></td>
-                </tr>
-                <tr>
-                    <td><input type="button" value=1 id="1"></td>
-                    <td><input type="button" value=2 id="2"></td>
-                    <td><input type="button" value=3 id="3"></td>
-                    <td><input type="button" value=− id="−"></td>
-                </tr>
-                <tr>
-                    <td><input type="button" value=0 id="0"></td>
-                    <td><input type="button" value=. id="."></td>
-                    <td><input type="button" value="=" id="="></td>
-                    <td><input type="button" value="+" id="+"></td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="settings">
-            <fieldset style="width: 250px;">
+    
+    <div id="settings">
+        <div id="slider">
+            <fieldset>
                 <legend>Style for large numbers</legend>
 
                 <div>
@@ -96,7 +43,7 @@
                 </div>
             </fieldset>
 
-            <fieldset style="width:250px;">
+            <fieldset>
                 <legend>Display of Arabic fractions</legend>
 
                 <div>
@@ -128,11 +75,70 @@
                 <label for="show_word">Show word descriptions</label>
             </p>
         </div>
+
+        <div id="trigger">
+            <img src="images/gear.svg" alt="gear">
+        </div>
     </div>
+
+    <div id="calc-container">
+        <table id="calc">
+            <tr class="roman_display">
+                <td colspan="4" id="expression_roman" class="number_field"></td>
+            </tr>
+            <tr class="word_display">
+                <td colspan="4" id="expression_word" class="number_field"></td>
+            </tr>
+            <tr class="arabic_display">
+                <td colspan="4" id="expression_arabic" class="number_field"></td>
+            </tr>
+            <tr class="roman_display">
+                <td colspan="4" id="output_roman" class="number_field"></td>
+            </tr>
+            <tr class="word_display">
+                <td colspan="4" id="output_word" class="number_field"></td>
+            </tr>
+            <tr class="arabic_display">
+                <td colspan="4" id="output_arabic" class="number_field"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="button" value="c" id="clr"></td>
+                <td><input type="button" value="←" id="bksp"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value=7 id="7"></td>
+                <td><input type="button" value=8 id="8"></td>
+                <td><input type="button" value=9 id="9"></td>
+                <td><input type="button" value=÷ id="÷"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value=4 id="4"></td>
+                <td><input type="button" value=5 id="5"></td>
+                <td><input type="button" value=6 id="6"></td>
+                <td><input type="button" value=× id="×"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value=1 id="1"></td>
+                <td><input type="button" value=2 id="2"></td>
+                <td><input type="button" value=3 id="3"></td>
+                <td><input type="button" value=− id="−"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value=0 id="0"></td>
+                <td><input type="button" value=. id="."></td>
+                <td><input type="button" value="=" id="="></td>
+                <td><input type="button" value="+" id="+"></td>
+            </tr>
+        </table>
+    </div>
+
+
 
     <div id="footer">
         <p>N.B.: Only valid Roman numbers are displayed, i.e. greater or equal to <span
-                class="frac"><sup>1</sup><sub>12</sub></span> or 1 uncia, and less than
+                class="frac"><sup>1</sup><sub>288</sub></span> or 1 scripulum, and less than
             500,000 for Roman numerals and 10,000,000 for word expressions.</p>
 
         <details>
