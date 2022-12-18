@@ -1,7 +1,9 @@
 input[type="button"] {
     width: 100%;
-    border: 3px outset;
-    border-radius: 2px;
+    border: 0px;
+    border-radius: 21px;
+    background: linear-gradient(145deg, #b3892d, #967326);
+    box-shadow: 2px 2px 4px #2f240d;
 }
 
 input[type="button"]:hover {
