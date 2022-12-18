@@ -69,6 +69,7 @@ h1 {
     padding: 20px;
     background-color: #7d6222;
     text-align: center;
+    font-variant: small-caps;
 }
 
 details>summary:hover {
