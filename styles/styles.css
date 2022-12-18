@@ -14,6 +14,19 @@ input[type="button"]:disabled {
     font-weight: inherit;
 }
 
+input[type="radio"],
+input[type="radio"]+label {
+    cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="checkbox"]+label {
+    cursor: pointer;
+}
+
+input[type="checkbox"]:disabled,
+input[type="checkbox"]:disabled+label {
+    cursor: default;
 }
 
 .number_field {
