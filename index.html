@@ -12,72 +12,104 @@
 
 <body>
     <h1>Calculi Fracti: A Roman fractional calculator</h1>
-    
-    <div id="settings">
-        <div id="slider">
-            <fieldset>
-                <legend>Style for large numbers</legend>
 
-                <div>
-                    <input type="radio" id="apostr" name="large_style">
-                    <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
-                </div>
+    <div id="side-menus">
+        <div id="settings">
+            <div class="slider">
+                <fieldset>
+                    <legend>Style for large numbers</legend>
 
-                <div>
-                    <input type="radio" id="apostr_tight" name="large_style">
-                    <label for="apostr_tight">ↀ ↁ ↂ</label>
-                </div>
-
-                <div>
-                    <input type="radio" id="vincul" name="large_style">
-                    <label for="vincul" style="position:relative; top: 2px;"><span
-                            style="border-top:1px solid;">I</span>
-                        <span style="border-top:1px solid;">V</span> <span
-                            style="border-top:1px solid;">X</span></label>
-                </div>
-
-                <div>
-                    <input type="radio" id="vincul_with_m" name="large_style" checked>
-                    <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
-                            style="border-top:1px solid;">V</span> <span style="border-top:1px solid;">X</span></label>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Display of Arabic fractions</legend>
-
-                <div>
-                    <input type="radio" id="simple_frac" name="arabic_style" checked>
-                    <label for="simple_frac">Simple: <span class="frac"><sup>1</sup><sub>3</sub></span></label>
-                </div>
-
-                <div>
-                    <input type="radio" name="arabic_style" id="decimal_frac">
-                    <label for="decimal_frac">Decimal: 0.3333</label>
-                    <div style="margin-left: 10%;">
-                        <label for="arabic_digits">Digits:</label>
-                        <input type="number" name="arabic_digits" id="arabic_digits" min="1" max="6" value="4" disabled>
+                    <div>
+                        <input type="radio" id="apostr" name="large_style">
+                        <label for="apostr">CIↃ IↃↃ CCIↃↃ</label>
                     </div>
-                </div>
-            </fieldset>
 
-            <p>
-                <input type="checkbox" id="show_roman" checked>
-                <label for="show_roman">Show Roman numbers</label>
-            </p>
+                    <div>
+                        <input type="radio" id="apostr_tight" name="large_style">
+                        <label for="apostr_tight">ↀ ↁ ↂ</label>
+                    </div>
 
-            <p>
-                <input type="checkbox" id="show_arabic" checked>
-                <label for="show_arabic">Show Arabic numbers</label>
-            </p>
-            <p>
-                <input type="checkbox" id="show_word" checked>
-                <label for="show_word">Show word descriptions</label>
-            </p>
+                    <div>
+                        <input type="radio" id="vincul" name="large_style">
+                        <label for="vincul" style="position:relative; top: 2px;"><span
+                                style="border-top:1px solid;">I</span>
+                            <span style="border-top:1px solid;">V</span> <span
+                                style="border-top:1px solid;">X</span></label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="vincul_with_m" name="large_style" checked>
+                        <label for="vincul_with_m" style="position:relative; top: 2px;">M <span
+                                style="border-top:1px solid;">V</span> <span
+                                style="border-top:1px solid;">X</span></label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Display of Arabic fractions</legend>
+
+                    <div>
+                        <input type="radio" id="simple_frac" name="arabic_style" checked>
+                        <label for="simple_frac">Simple: <span class="frac"><sup>1</sup><sub>3</sub></span></label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="arabic_style" id="decimal_frac">
+                        <label for="decimal_frac">Decimal: 0.3333</label>
+                        <div style="margin-left: 10%;">
+                            <label for="arabic_digits">Digits:</label>
+                            <input type="number" name="arabic_digits" id="arabic_digits" min="1" max="6" value="4"
+                                disabled>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <p>
+                    <input type="checkbox" id="show_roman" checked>
+                    <label for="show_roman">Show Roman numbers</label>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="show_arabic" checked>
+                    <label for="show_arabic">Show Arabic numbers</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="show_word" checked>
+                    <label for="show_word">Show word descriptions</label>
+                </p>
+            </div>
+
+            <div class="trigger">
+                <img src="images/gear.svg" alt="gear">
+            </div>
         </div>
 
-        <div id="trigger">
-            <img src="images/gear.svg" alt="gear">
+        <div id="legend">
+            <div class="trigger">
+                <img src="images/info-circle.svg" alt="info">
+            </div>
+            <div class="slider">
+                <fieldset>
+                    <legend>Legend for fractions</legend>
+                    <ul>
+                        <li>S = <span class="frac"><sup>6</sup><sub>12</sub></span> or <span
+                                class="frac"><sup>1</sup><sub>2</sub></span></li>
+                        <li>⁙ = <span class="frac"><sup>5</sup><sub>12</sub></span></li>
+                        <li>∷ = <span class="frac"><sup>4</sup><sub>12</sub></span> or <span
+                                class="frac"><sup>1</sup><sub>3</sub></span></li>
+                        <li>∴ = <span class="frac"><sup>3</sup><sub>12</sub></span> or <span
+                                class="frac"><sup>1</sup><sub>4</sub></span></li>
+                        <li>: = <span class="frac"><sup>2</sup><sub>12</sub></span> or <span
+                                class="frac"><sup>1</sup><sub>6</sub></span></li>
+                        <li>· = <span class="frac"><sup>1</sup><sub>12</sub></span></li>
+                        <li>Є = <span class="frac"><sup>1</sup><sub>24</sub></span></li>
+                        <li>Ͻ = <span class="frac"><sup>1</sup><sub>48</sub></span></li>
+                        <li>&#65939; = <span class="frac"><sup>1</sup><sub>72</sub></span></li>
+                        <li>&#65940; = <span class="frac"><sup>1</sup><sub>144</sub></span></li>
+                        <li>Э = <span class="frac"><sup>1</sup><sub>288</sub></span></li>
+                    </ul>
+                </fieldset>
+            </div>
         </div>
     </div>
 
@@ -134,33 +166,10 @@
         </table>
     </div>
 
-
-
     <div id="footer">
         <p>N.B.: Only valid Roman numbers are displayed, i.e. greater or equal to <span
                 class="frac"><sup>1</sup><sub>288</sub></span> or 1 scripulum, and less than
             500,000 for Roman numerals and 10,000,000 for word expressions.</p>
-
-        <details>
-            <summary>Legend for fractions</summary>
-            <ul>
-                <li>S = <span class="frac"><sup>6</sup><sub>12</sub></span> or <span
-                        class="frac"><sup>1</sup><sub>2</sub></span></li>
-                <li>⁙ = <span class="frac"><sup>5</sup><sub>12</sub></span></li>
-                <li>∷ = <span class="frac"><sup>4</sup><sub>12</sub></span> or <span
-                        class="frac"><sup>1</sup><sub>3</sub></span></li>
-                <li>∴ = <span class="frac"><sup>3</sup><sub>12</sub></span> or <span
-                        class="frac"><sup>1</sup><sub>4</sub></span></li>
-                <li>: = <span class="frac"><sup>2</sup><sub>12</sub></span> or <span
-                        class="frac"><sup>1</sup><sub>6</sub></span></li>
-                <li>· = <span class="frac"><sup>1</sup><sub>12</sub></span></li>
-                <li>Є = <span class="frac"><sup>1</sup><sub>24</sub></span></li>
-                <li>Ͻ = <span class="frac"><sup>1</sup><sub>48</sub></span></li>
-                <li>&#65939; = <span class="frac"><sup>1</sup><sub>72</sub></span></li>
-                <li>&#65940; = <span class="frac"><sup>1</sup><sub>144</sub></span></li>
-                <li>Э = <span class="frac"><sup>1</sup><sub>288</sub></span></li>
-            </ul>
-        </details>
 
         <p><a href="https://github.com/Mihiolus/calculi-fracti">Site created and hosted on GitHub</a></p>
     </div>

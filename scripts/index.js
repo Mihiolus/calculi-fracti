@@ -14,9 +14,10 @@ const divideSign = "÷";
 
 const invalidString = "invalid operation";
 
-var settingsVisible = true;
+var settingsVisible = true, legendVisible = true;
 
 toggleSettings();
+toggleLegend();
 
 if (localStorage.getItem("large-style")) {
     document.querySelector("#vincul_with_m").checked = false;
@@ -96,7 +97,8 @@ document.querySelector("#arabic_digits").addEventListener('change', changeDecima
 
 updateButtonStatus();
 
-document.querySelector("#trigger").addEventListener('click', toggleSettings);
+document.querySelector("#settings>.trigger").addEventListener('click', toggleSettings);
+document.querySelector("#legend>.trigger").addEventListener('click', toggleLegend);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -492,6 +494,12 @@ function show_roman() {
 
 function toggleSettings() {
     settingsVisible = !settingsVisible;
-    var sliderWidth = document.querySelector("#slider").offsetWidth;
+    var sliderWidth = document.querySelector("#settings>.slider").offsetWidth;
     document.querySelector("#settings").style.left = settingsVisible ? "0px" : `-${sliderWidth}px`;
+}
+
+function toggleLegend() {
+    legendVisible = !legendVisible;
+    var sliderWidth = document.querySelector("#legend>.slider").offsetWidth;
+    document.querySelector("#legend").style.right = legendVisible ? "0px" : `-${sliderWidth}px`;;
 }
