@@ -51,10 +51,18 @@ input[type="checkbox"]:disabled+label {
 
 body {
     font-family: 'Quivira';
-    margin: auto;
+    margin: 0px;
+    padding: 0px;
     position: relative;
     min-height: 100%;
-    padding-bottom: 12em;
+}
+
+#content {
+    overflow: hidden;
+    position: relative;
+    margin: 0px;
+    min-height: 100vh;
+    padding-bottom: 20px;
 }
 
 .roman_display {
@@ -127,9 +135,9 @@ h1 {
 }
 
 #footer {
-    padding: 0px 20px;
+    padding: 10px 20px;
     background-color: #66635c;
-    position: absolute;
+    position: relative;
     z-index: 2;
     right: 0;
     bottom: 0;
@@ -186,6 +194,10 @@ legend {
     overflow-x: hidden;
     transition: 0.2s;
     bottom: -1000px;
+    display: block;
+    left: 50%;
+    width: 80%;
+    margin: 0% 0 0 -40%;
 }
 
 #limitations>.trigger {
@@ -194,7 +206,7 @@ legend {
     margin: 0px 0 0 -15px;
 }
 
-#limitations>.slider{
+#limitations>.slider {
     font-size: 90%;
     padding: 5px;
 }

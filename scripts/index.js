@@ -509,6 +509,5 @@ function toggleLegend() {
 function toggleLimitations() {
     limitationsVisible = !limitationsVisible;
     var sliderHeight = document.querySelector("#limitations>.slider").offsetHeight;
-    var footerHeight = document.querySelector("#footer").offsetHeight;
-    document.querySelector("#limitations").style.bottom = limitationsVisible ? `${footerHeight}px` : `${footerHeight - sliderHeight}px`;
+    document.querySelector("#limitations").style.bottom = limitationsVisible ? `0px` : `-${sliderHeight}px`;
 }
