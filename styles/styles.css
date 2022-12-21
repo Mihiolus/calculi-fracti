@@ -50,6 +50,9 @@ input[type="checkbox"]:disabled+label {
 body {
     font-family: 'Quivira';
     margin: auto;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 8rem;
 }
 
 .roman_display {
@@ -128,6 +131,10 @@ details>summary:hover {
 #footer {
     padding: 0px 20px;
     background-color: #66635c;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .trigger>img {
@@ -150,4 +157,8 @@ details>summary:hover {
     backdrop-filter: blur(6.2px);
     -webkit-backdrop-filter: blur(6.2px);
     border: 1px solid rgba(239, 119, 35, 0.45);
+}
+
+html{
+    height: 100%;
 }
