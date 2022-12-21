@@ -1,9 +1,11 @@
 input[type="button"] {
     width: 100%;
     border: 0px;
-    border-radius: 21px;
+    border-radius: 15px;
     background: linear-gradient(145deg, #b3892d, #967326);
     box-shadow: 2px 2px 4px #2f240d;
+    padding: 5px 0px;
+    font-size: 90%;
 }
 
 input[type="button"]:hover {
