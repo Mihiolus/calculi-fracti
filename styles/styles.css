@@ -52,7 +52,7 @@ body {
     margin: auto;
     position: relative;
     min-height: 100%;
-    padding-bottom: 8rem;
+    padding-bottom: 12em;
 }
 
 .roman_display {
@@ -156,8 +156,8 @@ details>summary:hover {
     position: relative;
 }
 
-.trigger:hover{
-    background-color: rgb(175, 175, 175);
+.trigger:hover {
+    background-color: rgba(175, 175, 175, 0.45);
 }
 
 .slider {
@@ -171,6 +171,11 @@ details>summary:hover {
     border: 1px solid rgba(239, 119, 35, 0.45);
 }
 
-html{
+html {
     height: 100%;
+    font-size: 110%;
+}
+
+legend {
+    font-variant: small-caps;
 }
