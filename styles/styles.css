@@ -77,10 +77,6 @@ h1 {
     font-variant: small-caps;
 }
 
-details>summary:hover {
-    cursor: pointer;
-}
-
 .frac {
     display: inline-block;
     text-align: center;
@@ -134,6 +130,7 @@ details>summary:hover {
     padding: 0px 20px;
     background-color: #66635c;
     position: absolute;
+    z-index: 2;
     right: 0;
     bottom: 0;
     left: 0;
@@ -181,4 +178,23 @@ html {
 
 legend {
     font-variant: small-caps;
+}
+
+#limitations {
+    position: absolute;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.2s;
+    bottom: -1000px;
+}
+
+#limitations>.trigger {
+    display: block;
+    left: 50%;
+    margin: 0px 0 0 -15px;
+}
+
+#limitations>.slider{
+    font-size: 90%;
+    padding: 5px;
 }

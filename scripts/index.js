@@ -14,10 +14,11 @@ const divideSign = "÷";
 
 const invalidString = "invalid operation";
 
-var settingsVisible = true, legendVisible = true;
+var settingsVisible = true, legendVisible = true, limitationsVisible = true;
 
 toggleSettings();
 toggleLegend();
+toggleLimitations();
 
 if (localStorage.getItem("large-style")) {
     document.querySelector("#vincul_with_m").checked = false;
@@ -99,6 +100,7 @@ updateButtonStatus();
 
 document.querySelector("#settings>.trigger").addEventListener('click', toggleSettings);
 document.querySelector("#legend>.trigger").addEventListener('click', toggleLegend);
+document.querySelector("#limitations>.trigger").addEventListener('click', toggleLimitations);
 
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
@@ -502,4 +504,11 @@ function toggleLegend() {
     legendVisible = !legendVisible;
     var sliderWidth = document.querySelector("#legend>.slider").offsetWidth;
     document.querySelector("#legend").style.right = legendVisible ? "0px" : `-${sliderWidth}px`;;
+}
+
+function toggleLimitations() {
+    limitationsVisible = !limitationsVisible;
+    var sliderHeight = document.querySelector("#limitations>.slider").offsetHeight;
+    var footerHeight = document.querySelector("#footer").offsetHeight;
+    document.querySelector("#limitations").style.bottom = limitationsVisible ? `${footerHeight}px` : `${footerHeight - sliderHeight}px`;
 }
