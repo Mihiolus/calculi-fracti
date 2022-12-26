@@ -13,6 +13,7 @@ const multiplySign = "×";
 const divideSign = "÷";
 
 const invalidString = "invalid operation";
+const maxInputLength = 13;
 
 var settingsVisible = true, legendVisible = true;
 
@@ -130,6 +131,9 @@ function store(value) {
         if (arabicOutput.includes('.')) {
             return;
         }
+    }
+    if (arabicOutput.length > maxInputLength) {
+        return;
     }
     arabicOutput += value;
     setArabicOutput(arabicOutput);
@@ -378,10 +382,20 @@ function updateButtonStatus() {
         b.disabled = toDisable;
     }
     equalsButton.disabled = toDisable || arabicOutput === "" && arabicExpression.length < 3;
-
-    periodButton.disabled = arabicOutput.includes('.');
-
+    
     bkspButton.disabled = arabicExpression.length > 2 || arabicOutput === "";
+    
+    var digitButtons = [];
+    for (let num = 0; num < 10; num++) {
+        let button = document.querySelector(`[id='${num}']`);
+        digitButtons.push(button);
+    }
+    toDisable = arabicExpression.length <= 2 && arabicOutput.length > maxInputLength;
+    for (const btn of digitButtons) {
+        btn.disabled = toDisable;
+    }
+
+    periodButton.disabled = arabicOutput.includes('.') || toDisable;
 }
 function add_operand(value) {
     if (arabicOutput === invalidString) {
