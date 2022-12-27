@@ -52,9 +52,9 @@ input[type="checkbox"]:disabled+label {
 body {
     font-family: 'Quivira';
     margin: auto;
-    position: relative;
     min-height: 100%;
-    padding-bottom: 12em;
+    display: flex;
+    flex-direction: column;
 }
 
 .roman_display {
@@ -130,10 +130,14 @@ details>summary:hover {
     right: -1000px;
 }
 
+#wrapper {
+    padding-bottom: 20px;
+    flex-grow: 1;
+}
+
 #footer {
     padding: 0px 20px;
     background-color: #66635c;
-    position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
