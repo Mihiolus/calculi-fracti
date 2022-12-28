@@ -12,11 +12,19 @@ input[type="button"] {
 input[type="button"]:hover {
     cursor: pointer;
     font-weight: bold;
+    background: linear-gradient(145deg, #f9ecce, #d5a235);
+    box-shadow: inset 2px 2px 8px #b9af9a,
+        inset -2px -2px 8px #69501a,
+        2px 2px 4px #2f240d,
+        inset 0px 0px 4px rgba(0, 0, 0, 0.427);
 }
 
-input[type="button"]:disabled {
+input[type="button"]:disabled, input[type="button"]:hover:disabled {
     cursor: auto;
     font-weight: inherit;
+    background: linear-gradient(145deg, #c5baa3, #70551c);
+    box-shadow: 2px 2px 4px #2f240d,
+        inset 0px 0px 4px rgba(0, 0, 0, 0.427);
 }
 
 input[type="radio"],
