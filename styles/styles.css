@@ -19,7 +19,8 @@ input[type="button"]:hover {
         inset 0px 0px 4px rgba(0, 0, 0, 0.427);
 }
 
-input[type="button"]:disabled, input[type="button"]:hover:disabled {
+input[type="button"]:disabled,
+input[type="button"]:hover:disabled {
     cursor: auto;
     font-weight: inherit;
     background: linear-gradient(145deg, #c5baa3, #70551c);
@@ -146,6 +147,11 @@ details>summary:hover {
     right: -1000px;
 }
 
+#legend>.slider>fieldset {
+    margin: 0px 5px 5px;
+    border-radius: 5px;
+}
+
 #wrapper {
     padding-bottom: 20px;
     flex-grow: 1;
@@ -201,4 +207,9 @@ html {
 
 legend {
     font-variant: small-caps;
+}
+
+#settings>.slider>fieldset {
+    margin: 0px 5px;
+    border-radius: 5px;
 }
