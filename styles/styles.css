@@ -195,7 +195,7 @@ details>summary:hover {
 .slider {
     display: inline-block;
     /* From https://css.glass */
-    background: rgba(228, 175, 78, 0.39);
+    background: rgba(219, 188, 131, 0.783);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6.2px);
