@@ -66,6 +66,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #fff2db;
+    overflow-x: hidden;
 }
 
 .roman_display {
