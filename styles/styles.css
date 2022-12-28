@@ -2,8 +2,9 @@ input[type="button"] {
     width: 100%;
     border: 0px;
     border-radius: 15px;
-    background: linear-gradient(145deg, #b3892d, #967326);
-    box-shadow: 2px 2px 4px #2f240d;
+    background: linear-gradient(145deg, #ecdfc3, #967326);
+    box-shadow: 2px 2px 4px #2f240d,
+        inset 0px 0px 4px rgba(0, 0, 0, 0.427);
     padding: 5px 0px;
     font-size: 90%;
 }
@@ -37,11 +38,12 @@ input[type="checkbox"]:disabled+label {
     width: 100%;
     text-align: right;
     padding: 5px;
-    border: 4px inset #7d6222;
     height: 35px;
     border-radius: 10px;
-    box-shadow: inset 5px 5px 9px #66635c,
-        inset -5px -5px 9px #ffffff;
+    box-shadow: inset 5px 5px 4px #66635c,
+        inset -5px -5px 4px #fdecd8,
+        -2px -2px 4px 2px rgba(0, 0, 0, 0.427),
+        2px 2px 4px 2px rgba(254, 237, 237, 0.607);
 }
 
 @font-face {
@@ -55,6 +57,7 @@ body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #fff2db;
 }
 
 .roman_display {
@@ -72,9 +75,10 @@ body {
 h1 {
     margin: 0px 0px 20px;
     padding: 20px;
-    background-color: #7d6222;
+    background-color: #fce3b7;
     text-align: center;
     font-variant: small-caps;
+    color: #3a2c0d;
 }
 
 details>summary:hover {
@@ -98,15 +102,18 @@ details>summary:hover {
 }
 
 #calc {
-    background-color: #7d6222;
+    background: linear-gradient(145deg, #f0f0f0, #b59867);
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     table-layout: fixed;
     width: 300px;
     margin: 0 auto;
-    border: 8px outset #7d6222;
-    box-shadow: 5px 5px 9px #66635c,
-        -5px -5px 9px #ffffff;
+    /* border: 8px outset #ffe9c0; */
+    box-shadow: 5px 5px 9px #303030ae,
+        inset -2px -2px 5px 2px rgba(0, 0, 0, 0.525),
+        inset 2px 2px 5px 2px rgba(255, 255, 255, 0.5);
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
 #calc-container {
@@ -137,7 +144,7 @@ details>summary:hover {
 
 #footer {
     padding: 0px 20px;
-    background-color: #66635c;
+    background-color: #dacdbd;
     right: 0;
     bottom: 0;
     left: 0;
@@ -170,7 +177,7 @@ details>summary:hover {
 .slider {
     display: inline-block;
     /* From https://css.glass */
-    background: rgba(239, 119, 35, 0.39);
+    background: rgba(228, 175, 78, 0.39);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6.2px);
