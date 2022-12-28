@@ -69,6 +69,7 @@ body {
     background-color: #fff2db;
     overflow-x: hidden;
     min-width: 0px;
+    width: 100%;
 }
 
 .roman_display {
