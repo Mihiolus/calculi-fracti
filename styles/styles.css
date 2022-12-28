@@ -26,6 +26,7 @@ input[type="button"]:hover:disabled {
     background: linear-gradient(145deg, #c5baa3, #70551c);
     box-shadow: 2px 2px 4px #2f240d,
         inset 0px 0px 4px rgba(0, 0, 0, 0.427);
+    color: #3c372c;
 }
 
 input[type="radio"],
