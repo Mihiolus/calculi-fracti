@@ -213,3 +213,8 @@ legend {
     margin: 0px 5px;
     border-radius: 5px;
 }
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: rgb(159, 95, 75);
+}
