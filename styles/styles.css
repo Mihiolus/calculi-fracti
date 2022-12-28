@@ -69,7 +69,6 @@ body {
     background-color: #fff2db;
     overflow-x: hidden;
     min-width: 0px;
-    width: 100%;
 }
 
 .roman_display {
@@ -157,6 +156,7 @@ details>summary:hover {
 #wrapper {
     padding-bottom: 20px;
     flex-grow: 1;
+    overflow-x: hidden;
 }
 
 #footer {
