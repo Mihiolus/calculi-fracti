@@ -381,10 +381,10 @@ function updateButtonStatus() {
         const b = operandButtons[i];
         b.disabled = toDisable;
     }
-    equalsButton.disabled = toDisable || arabicOutput === "" && arabicExpression.length < 3;
-    
+    equalsButton.disabled = toDisable || arabicOutput === "" || arabicExpression.length < 2;
+
     bkspButton.disabled = arabicExpression.length > 2 || arabicOutput === "";
-    
+
     var digitButtons = [];
     for (let num = 0; num < 10; num++) {
         let button = document.querySelector(`[id='${num}']`);
