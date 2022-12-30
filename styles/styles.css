@@ -222,3 +222,20 @@ input[type="checkbox"],
 input[type="radio"] {
     accent-color: rgb(159, 95, 75);
 }
+
+#links{
+    width: fit-content;
+    margin:auto;
+    margin-bottom: 10px;
+}
+
+#links>a{
+    border-radius: 2px;
+    padding: 5px;
+    background-color: #b6a795;
+    color: #2f240d;
+}
+
+#links>a:hover{
+    background-color:  #c3b8a9;
+}
