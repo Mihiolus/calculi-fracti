@@ -381,7 +381,8 @@ function updateButtonStatus() {
         const b = operandButtons[i];
         b.disabled = toDisable;
     }
-    equalsButton.disabled = toDisable || arabicOutput === "" || arabicExpression.length < 2;
+    equalsButton.disabled = toDisable || arabicOutput === "" || arabicExpression.length < 2
+        || arabicExpression.length > 3 && arabicOutput !== "";
 
     bkspButton.disabled = arabicExpression.length > 2 || arabicOutput === "";
 
@@ -405,11 +406,13 @@ function add_operand(value) {
         return;
     }
     if (value === "=") {
-        if (arabicExpression.length > 0 && arabicOutput !== "") {
-            arabicExpression.push(converter.toFraction(arabicOutput));
-            solve();
-            arabicExpression.push(value);
+        if (arabicOutput === "" || arabicExpression.length < 2
+            || arabicExpression.length > 3 && arabicOutput !== "") {
+            return;
         }
+        arabicExpression.push(converter.toFraction(arabicOutput));
+        solve();
+        arabicExpression.push(value);
     } else if (arabicExpression[1]) { //start a new operation immediately after a previous one
         if (arabicOutput === "") {
             arabicExpression.pop();
