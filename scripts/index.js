@@ -101,6 +101,10 @@ updateButtonStatus();
 document.querySelector("#settings>.trigger").addEventListener('click', toggleSettings);
 document.querySelector("#legend>.trigger").addEventListener('click', toggleLegend);
 
+document.querySelector("#mc").addEventListener('click', clearMemory);
+document.querySelector("#mr").addEventListener('click', recallMemory);
+document.querySelector("#ms").addEventListener('click', saveToMemory);
+
 function processKey(event) {
     if (event.key >= '0' && event.key <= '9' || event.key == '.') {
         store(event.key);
@@ -397,6 +401,14 @@ function updateButtonStatus() {
     }
 
     periodButton.disabled = arabicOutput.includes('.') || toDisable;
+
+    var mc = document.querySelector("#mc"),
+        ms = document.querySelector("#ms"),
+        mr = document.querySelector("#mr");
+
+    ms.disabled = arabicOutput.length === 0;
+    mr.disabled = !localStorage.getItem("memory");
+    mc.disabled = mr.disabled;
 }
 function add_operand(value) {
     if (arabicOutput === invalidString) {
@@ -519,4 +531,20 @@ function toggleLegend() {
     legendVisible = !legendVisible;
     var sliderWidth = document.querySelector("#legend>.slider").offsetWidth;
     document.querySelector("#legend").style.right = legendVisible ? "0px" : `-${sliderWidth}px`;;
+}
+
+function clearMemory(){
+    localStorage.removeItem("memory");
+    updateButtonStatus();
+}
+
+function saveToMemory(){
+    localStorage.setItem("memory", converter.toFraction(arabicOutput));
+    updateButtonStatus();
+}
+
+function recallMemory(){
+    arabicOutput = localStorage.getItem("memory");
+    updateArabicDisplays();
+    updateButtonStatus();
 }
