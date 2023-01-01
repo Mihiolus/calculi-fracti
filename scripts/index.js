@@ -76,12 +76,12 @@ for (let num = 0; num < 10; num++) {
 }
 document.querySelector("#clr").addEventListener('click', () => clr());
 document.querySelector("#bksp").addEventListener('click', () => backspace());
-document.querySelector(`[id='${divideSign}']`).addEventListener('click', () => add_operand(divideSign));
-document.querySelector(`[id='${multiplySign}']`).addEventListener('click', () => add_operand(multiplySign));
-document.querySelector(`[id='${minusSign}']`).addEventListener('click', () => add_operand(minusSign));
-document.querySelector(`[id='+']`).addEventListener('click', () => add_operand("+"));
+document.querySelector(`[id='${divideSign}']`).addEventListener('click', () => addOperator(divideSign));
+document.querySelector(`[id='${multiplySign}']`).addEventListener('click', () => addOperator(multiplySign));
+document.querySelector(`[id='${minusSign}']`).addEventListener('click', () => addOperator(minusSign));
+document.querySelector(`[id='+']`).addEventListener('click', () => addOperator("+"));
 document.querySelector(`[id='.']`).addEventListener('click', () => store("."));
-document.querySelector("[id='=']").addEventListener('click', () => add_operand("="));
+document.querySelector("[id='=']").addEventListener('click', () => addOperator("="));
 
 Array.from(document.querySelectorAll("input[name='large_style']")).forEach(
     elem => elem.addEventListener('click', () => setRomanStyle(elem.id))
@@ -111,13 +111,13 @@ function processKey(event) {
     } else if (event.key == '+' || event.key == '-' ||
         event.key == '*' || event.key == '/') {
         var converted_operand = inverse_convert_operands(event.key);
-        add_operand(converted_operand);
+        addOperator(converted_operand);
     } else if (event.key == 'Backspace') {
         backspace();
     } else if (event.key == 'Escape') {
         clr();
     } else if (event.key == 'Enter') {
-        add_operand("=");
+        addOperator("=");
     }
 }
 
@@ -423,7 +423,7 @@ function isButtonDisabled(id) {
     }
 }
 
-function add_operand(value) {
+function addOperator(value) {
     if (arabicOutput === invalidString) {
         return;
     }
