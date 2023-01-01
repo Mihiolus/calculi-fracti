@@ -128,7 +128,7 @@ function preventEnter(event) {
 }
 
 function store(value) {
-    if (arabicExpression.length > 2) {
+    if (arabicExpression.length > 2 || converter.isFraction(arabicOutput)) {
         clr();
     }
     if (value == '.') {
@@ -284,7 +284,7 @@ function clr() {
     updateButtonStatus();
 }
 function backspace() {
-    if (arabicExpression.length > 2) {
+    if (isButtonDisabled('bksp')) {
         return;
     }
     arabicOutput = arabicOutput.slice(0, -1);
@@ -364,52 +364,65 @@ function setWordExpression(value) {
     }
 }
 function updateButtonStatus() {
-    var operandButtons = [];
-    operandButtons.push(document.querySelector("[id='+']"));
-    operandButtons.push(document.querySelector(`[id='${minusSign}']`));
-    operandButtons.push(document.querySelector(`[id='${multiplySign}']`));
-    operandButtons.push(document.querySelector(`[id='${divideSign}']`));
-
-    var equalsButton = document.querySelector("[id='=']");
-
-    var bkspButton = document.querySelector("#bksp");
-
-    var periodButton = document.querySelector("[id='.']");
-
-    let toDisable = false;
-    if (arabicOutput === invalidString ||
-        arabicExpression.length == 0 && arabicOutput === "") {
-        toDisable = true;
-    }
-    for (let i = 0; i < operandButtons.length; i++) {
-        const b = operandButtons[i];
-        b.disabled = toDisable;
-    }
-    equalsButton.disabled = toDisable || arabicOutput === "" || arabicExpression.length < 2
-        || arabicExpression.length > 3 && arabicOutput !== "";
-
-    bkspButton.disabled = arabicExpression.length > 2 || arabicOutput === "";
-
-    var digitButtons = [];
+    const buttons = [];
+    buttons.push(document.querySelector("[id='+']"),
+        document.querySelector(`[id='${minusSign}']`),
+        document.querySelector(`[id='${multiplySign}']`),
+        document.querySelector(`[id='${divideSign}']`),
+        document.querySelector("[id='=']"),
+        document.querySelector("#bksp"),
+        document.querySelector("[id='.']"));
     for (let num = 0; num < 10; num++) {
-        let button = document.querySelector(`[id='${num}']`);
-        digitButtons.push(button);
+        const button = document.querySelector(`[id='${num}']`);
+        buttons.push(button);
     }
-    toDisable = arabicExpression.length <= 2 && arabicOutput.length > maxInputLength;
-    for (const btn of digitButtons) {
-        btn.disabled = toDisable;
+    buttons.push(document.querySelector("#mc"),
+        document.querySelector("#ms"),
+        document.querySelector("#mr"));
+
+    for (const button of buttons) {
+        button.disabled = isButtonDisabled(button.id);
     }
-
-    periodButton.disabled = arabicOutput.includes('.') || toDisable;
-
-    var mc = document.querySelector("#mc"),
-        ms = document.querySelector("#ms"),
-        mr = document.querySelector("#mr");
-
-    ms.disabled = arabicOutput.length === 0;
-    mr.disabled = !localStorage.getItem("memory");
-    mc.disabled = mr.disabled;
 }
+
+function isButtonDisabled(id) {
+    switch (id) {
+        case 'bksp':
+            return arabicExpression.length > 2 || arabicOutput === "" ||
+                converter.isFraction(arabicOutput)
+        case divideSign:
+        case multiplySign:
+        case minusSign:
+        case '+':
+            return arabicOutput === invalidString ||
+                arabicExpression.length == 0 && arabicOutput === "";
+        case 'ms':
+            return arabicOutput.length === 0;
+        case 'mr':
+        case 'mc':
+            return !localStorage.getItem("memory");
+        case '=':
+            return arabicOutput === invalidString || arabicOutput === "" ||
+                arabicExpression.length < 2 || arabicExpression.length > 3 && arabicOutput !== "";
+        case '.':
+            return arabicExpression.length <= 2 && arabicOutput.length > maxInputLength
+                || arabicOutput.includes('.');
+        case '9':
+        case '8':
+        case '7':
+        case '6':
+        case '5':
+        case '4':
+        case '3':
+        case '2':
+        case '1':
+        case '0':
+            return arabicExpression.length <= 2 && arabicOutput.length > maxInputLength;
+        default:
+            return false;
+    }
+}
+
 function add_operand(value) {
     if (arabicOutput === invalidString) {
         return;
@@ -533,18 +546,20 @@ function toggleLegend() {
     document.querySelector("#legend").style.right = legendVisible ? "0px" : `-${sliderWidth}px`;;
 }
 
-function clearMemory(){
+function clearMemory() {
     localStorage.removeItem("memory");
     updateButtonStatus();
 }
 
-function saveToMemory(){
+function saveToMemory() {
     localStorage.setItem("memory", converter.toFraction(arabicOutput));
     updateButtonStatus();
 }
 
-function recallMemory(){
-    arabicOutput = localStorage.getItem("memory");
+function recallMemory() {
+    arabicOutput = "";
+    store(localStorage.getItem("memory"));
     updateArabicDisplays();
-    updateButtonStatus();
+    updateRomanDisplays();
+    updateWordDisplays();
 }
