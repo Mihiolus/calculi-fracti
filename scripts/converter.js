@@ -10,6 +10,9 @@ export function toRoman(arabic) {
     if (arabic === "") {
         return arabic;
     }
+    if (isFraction(arabic)) {
+        arabic = toDecimal(arabic);
+    }
     if (arabic <= 0 || arabic > maxRomanNumeral) {
         return undefined;
     }
@@ -101,6 +104,9 @@ function getMagnitude(num) {
 export function toWords(arabic) {
     if (arabic === "") {
         return [arabic];
+    }
+    if (isFraction(arabic)) {
+        arabic = toDecimal(arabic);
     }
     if (arabic <= 0 || arabic > maxWordNumber) {
         return [undefined];
