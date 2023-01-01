@@ -140,7 +140,12 @@ function store(value) {
         return;
     }
     arabicOutput += value;
-    setArabicOutput(arabicOutput);
+    if (converter.isFraction(arabicOutput) && areFractionsDecimal) {
+        let storedDigits = document.querySelector("#arabic_digits").value;
+        setArabicOutput(converter.toDecimal(arabicOutput, storedDigits));
+    } else {
+        setArabicOutput(arabicOutput);
+    }
     setRomanOutput(converter.toRoman(arabicOutput));
     setWordOutput(converter.toWords(arabicOutput).join(" "));
     updateButtonStatus();
@@ -189,7 +194,8 @@ function updateRomanDisplays() {
 function updateArabicDisplays() {
     var precision = document.querySelector("#arabic_digits").value;
     var processedOutput;
-    if (arabicExpression.length > 2 && areFractionsDecimal) {
+    if ((converter.isFraction(arabicOutput) || arabicExpression.length > 2) &&
+        areFractionsDecimal) {
         processedOutput = converter.toDecimal(arabicOutput, precision);
     } else {
         processedOutput = arabicOutput;
@@ -559,7 +565,4 @@ function saveToMemory() {
 function recallMemory() {
     arabicOutput = "";
     store(localStorage.getItem("memory"));
-    updateArabicDisplays();
-    updateRomanDisplays();
-    updateWordDisplays();
 }
