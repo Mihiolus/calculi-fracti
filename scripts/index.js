@@ -543,13 +543,13 @@ function show_roman() {
 function toggleSettings() {
     settingsVisible = !settingsVisible;
     var sliderWidth = document.querySelector("#settings>.slider").offsetWidth;
-    document.querySelector("#settings").style.left = settingsVisible ? "0px" : `-${sliderWidth}px`;
+    document.querySelector("#settings").style.transform = settingsVisible ? `translate(1000px, 0px)` : `translate(${1000 - sliderWidth}px, 0px)`;
 }
 
 function toggleLegend() {
     legendVisible = !legendVisible;
     var sliderWidth = document.querySelector("#legend>.slider").offsetWidth;
-    document.querySelector("#legend").style.right = legendVisible ? "0px" : `-${sliderWidth}px`;;
+    document.querySelector("#legend").style.transform = legendVisible ? "translate(-1000px, 0px)" : `translate(${sliderWidth-1000}px, 0px)`;
 }
 
 function clearMemory() {
