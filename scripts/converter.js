@@ -1,5 +1,5 @@
-import * as wordLookups from "./word-lookups.js";
-import * as romanLookups from "./roman-lookups.js";
+import * as wordLookups from "./word-lookups-min.js";
+import * as romanLookups from "./roman-lookups-min.js";
 
 const maxRomanNumeral = 500000;
 const undefined = "(<abbr title = 'Non Numerabile'>NN</abbr>)";

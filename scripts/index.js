@@ -1,5 +1,5 @@
-import * as romanLookups from "./roman-lookups.js";
-import * as converter from "./converter.js";
+import * as romanLookups from "./roman-lookups-min.js";
+import * as converter from "./converter-min.js";
 
 var arabicOutput = "";
 var arabicExpression = [];
