@@ -235,8 +235,8 @@ input[type="radio"] {
 
 a{
     border-radius: 2px;
-    padding: 0px;
     color: #2f240d;
+    min-height: 48px;
 }
 
 a:hover{
